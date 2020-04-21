@@ -14,10 +14,226 @@
 <div class="container main">
     <div class="jumbotron">
         <h1 class="display-4">NC Document Online</h1>
-        <p class="lead">Welcome to NC Document Online.</p>
+        <p class="lead">Numerical Control Operators Document</p>
     </div>
 </div>
 
+<div class="container main">
+    <div class="form-group">
+        <label for="programmer"><strong>Programmer: </strong>
+            <input id="programmer" type="text" class="form-control" name="programmer" value="{{ @programmer}}">
+        </label>
+
+        <label for="rtime"><strong>Runtime: </strong>
+            <input id="rtime" type="text" class="form-control" name="rtime" value="{{ @rtime}}">
+        </label>
+
+        <label for="model"><strong>Model: </strong>
+            <input id="model" type="text" class="form-control" name="model" value="{{ @model}}">
+        </label>
+
+        <label for="fwc"><strong>FWC: </strong>
+            <input id="fwc" type="text" class="form-control" name="fwc" value="{{ @fwc}}">
+        </label>
+
+        <label for="media"><strong>Media File: </strong>
+            <input id="media" type="text" class="form-control" name="media" value="{{ @media}}">
+        </label>
+    </div>
+
+    <div class="form-group border">
+        <label class="col-sm-8" for="program"><strong>Program Number: </strong>
+            <input id="program" type="text" class="form-control" name="program" value="{{ @program}}">
+        </label>
+
+        <label class="col-sm-3" for="make"><strong>Used to Make: </strong>
+            <input id="make" type="text" class="form-control" name="make" value="{{ @make}}">
+        </label>
+
+        <label class="col-sm-3" for="date"><strong>Program Date: </strong>
+            <input id="date" type="date" class="form-control" name="date" value="{{ @date}}">
+        </label>
+
+        <label class="col-sm-3" for="ptime"><strong>Program Time: </strong>
+            <input id="ptime" type="time" class="form-control" name="ptime" value="{{ @ptime}}">
+        </label>
+
+        <label class="col-sm-3" for="status"><strong>Status: </strong>
+            <select id="status" class="form-control">
+                <option value="MTO1">MTO 1</option>
+                <option value="MTO2">MTO 2</option>
+                <option value="MTO3">MTO 3</option>
+                <option value="MTO4">MTO 4</option>
+                <option value="MTO5">MTO 5</option>
+                <option value="Marginal">Marginal</option>
+                <option value="No-buy-off">No buy-off</option>
+                <option value="NeedsL/O">Needs L/O re-check</option>
+                <option value="PRO">PRO</option>
+                <option value="none" selected>please select one</option>
+            </select>
+        </label>
+    </div>
+
+    <h3 class="text-lg-center"><strong>Programmer's MTO Instructions</strong></h3>
+
+    <div class="form-group text-center">
+        <label class="col-sm-2" for="reason"><strong>Reason For Revision: </strong>
+            <select id="reason" class="form-control">
+                <option value="Improvement">Improvement File</option>
+                <option value="change">Eng. change</option>
+                <option value="SAT">SAT #</option>
+                <option value="none" selected>please select one</option>
+            </select>
+        </label>
+
+        <label class="col-sm-2" for="graphic"><strong>Graphic Check: </strong>
+            <select id="graphic" class="form-control">
+                <option value="Vericut">Vericut</option>
+                <option value="Deneb">DENEB</option>
+                <option value="NCPSR">NCPSR #</option>
+                <option value="none" selected>please select one</option>
+            </select>
+        </label>
+
+        <label class="col-sm-2" for="mcd"><strong>MCD Compare: </strong>
+            <select id="mcd" class="form-control">
+                <option value="yes">YES</option>
+                <option value="no">NO</option>
+                <option value="none" selected>please select one</option>
+            </select>
+        </label>
+
+        <label class="col-sm-2" for="buy-off"><strong>Previous Buy-off: </strong>
+            <select id="buy-off" class="form-control">
+                <option value="Yes1">YES</option>
+                <option value="No1">NO</option>
+                <option value="marginal1">Marginal (L/O)</option>
+                <option value="marginal2">Marginal (Shop)</option>
+                <option value="na">N/A</option>
+                <option value="none" selected>please select one</option>
+            </select>
+        </label>
+
+        <label class="col-sm-2" for="instructions"><strong>Programmer's MTO Instructions: </strong>
+            <select id="instructions" class="form-control">
+                <option value="none" selected>please select one</option>
+                <option value="with">Programmer presence required</option>
+                <option value="without">Ok to run without programmer</option>
+            </select>
+        </label>
+    </div>
+
+    <textarea rows="10" maxlength="50000" class="form-control"></textarea>
+
+    <h3 class="text-lg-center"><strong>First Part MTO Run</strong></h3>
+
+    <div class="form-group border">
+        <label class="col-sm-auto"><strong>ADD</strong>
+            <button id="plus" class="form-control" name="plus" value="plus">+</button>
+            <button id="minus" class="form-control" name="minus" value="minus">-</button>
+        </label>
+
+        <label class="col-sm-auto" for="operator"><strong>Operator's Name: </strong>
+            <input id="operator" type="text" class="form-control" name="operator" value="{{ @operator}}">
+        </label>
+
+        <label class="col-sm-auto" for="date2"><strong>Date: </strong>
+            <input id="date2" type="date" class="form-control" name="date2" value="{{ @date2}}">
+        </label>
+
+        <label class="col-sm-auto" for="po"><strong>P/O #: </strong>
+            <input id="po" type="text" class="form-control" name="po" value="{{ @po}}">
+        </label>
+
+        <label class="col-sm-auto" for="machine"><strong>Machine #: </strong>
+            <input id="machine" type="text" class="form-control" name="machine" value="{{ @machine}}">
+        </label>
+
+        <label class="col-sm-auto" for="shift"><strong>Shift: </strong>
+            <select id="shift" class="form-control">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </label>
+
+        <label class="col-sm-auto" for="seq"><strong>Seq. from/to: </strong>
+            <input id="seq" type="text" class="form-control" name="seq" value="{{ @seq}}">
+        </label>
+
+        <hr>
+
+        <label class="col-sm-auto" for="process"><strong>Milling Process acceptable? </strong>
+            <select id="process" class="form-control">
+                <option value="yes2">Yes</option>
+                <option value="no2">No</option>
+                <option value="needs">Still needs work</option>
+            </select>
+        </label>
+
+        <textarea class="form-control" rows="7" maxlength="50000"></textarea>
+
+        <hr>
+
+        <h3 class="text-lg-center"><strong>Layout First Part Check Report</strong></h3>
+
+        <label class="col-sm-auto" for="geometry"><strong>Geometry acceptable?</strong>
+            <select id="geometry" class="form-control">
+                <option value="yes3">Yes</option>
+                <option value="no3">No</option>
+                <option value="marginal2">Marginal</option>
+                <option value="LO">L/O in process</option>
+                <option value="re-check">Re-check Required</option>
+                <option value="none" selected>please select one</option>
+            </select>
+        </label>
+
+        <label class="col-sm-auto" for="signature"><strong>Signature: </strong>
+            <input id="signature" type="text" class="form-control" name="signature" value="{{ @signature}}">
+        </label>
+
+        <label class="col-sm-auto" for="sig-date"><strong>Date: </strong>
+            <input id="sig-date" type="date" class="form-control" name="sig-date" value="{{ @sig-date}}">
+        </label>
+
+        <textarea class="form-control" rows="7" maxlength="50000"></textarea>
+
+    </div>
+
+    <h3 class="text-lg-center"><strong>Shop Approval For Production</strong></h3>
+
+    <label class="col-sm-auto" for="sig2"><strong>Signature: </strong>
+        <input id="sig2" type="text" class="form-control" name="sig2" value="{{ @sig2}}">
+    </label>
+
+    <label class="col-sm-auto" for="sig2-date"><strong>Date: </strong>
+        <input id="sig2-date" type="date" class="form-control" name="sig2-date" value="{{ @sig2-date}}">
+    </label>
+
+    <label class="col-sm-auto" for="cmes">
+        <button id="cmes" class="form-control" name="cmes" value="cmes">CMES</button>
+    </label>
+
+    <label class="col-sm-auto" for="qAlert">
+        <button id="qAlert" class="form-control" name="qAlert" value="qAlert">Q Alert</button>
+    </label>
+
+    <label class="col-sm-auto" for="ednc">
+        <button id="ednc" class="form-control" name="ednc" value="ednc">eDNC</button>
+    </label>
+
+    <label class="col-sm-auto" for="mtoreport">
+        <button id="mtoreport" class="form-control" name="mtoreport" value="mtoreport">MTO report</button>
+    </label>
+
+    <label class="col-sm-auto" for="email">
+        <button id="email" class="form-control" name="email" value="email">email</button>
+    </label>
+
+</div>
+
+<br>
+<br>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
