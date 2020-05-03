@@ -69,7 +69,7 @@
                 <option value="No-buy-off">No buy-off</option>
                 <option value="NeedsL/O">Needs L/O re-check</option>
                 <option value="PRO">PRO</option>
-                <option value="none" selected>please select one</option>
+                <option value="" disabled selected hidden>please select one</option>
             </select>
         </label>
     </div>
@@ -82,7 +82,7 @@
                 <option value="Improvement">Improvement File</option>
                 <option value="change">Eng. change</option>
                 <option value="SAT">SAT #</option>
-                <option value="none" selected>please select one</option>
+                <option value="" disabled selected hidden>please select one</option>
             </select>
         </label>
 
@@ -91,7 +91,7 @@
                 <option value="Vericut">Vericut</option>
                 <option value="Deneb">DENEB</option>
                 <option value="NCPSR">NCPSR #</option>
-                <option value="none" selected>please select one</option>
+                <option value="" disabled selected hidden>please select one</option>
             </select>
         </label>
 
@@ -99,31 +99,31 @@
             <select id="mcd" class="form-control">
                 <option value="yes">YES</option>
                 <option value="no">NO</option>
-                <option value="none" selected>please select one</option>
+                <option value="" disabled selected hidden>please select one</option>
             </select>
         </label>
 
-        <label class="col-sm-2" for="buy-off"><strong>Previous Buy-off: </strong>
-            <select id="buy-off" class="form-control">
+        <label class="col-sm-2" for="buyoff"><strong>Previous Buy-off: </strong>
+            <select id="buyoff" class="form-control">
                 <option value="Yes1">YES</option>
                 <option value="No1">NO</option>
                 <option value="marginal1">Marginal (L/O)</option>
                 <option value="marginal2">Marginal (Shop)</option>
                 <option value="na">N/A</option>
-                <option value="none" selected>please select one</option>
+                <option value="" disabled selected hidden>please select one</option>
             </select>
         </label>
 
         <label class="col-sm-2" for="instructions"><strong>Programmer's MTO Instructions: </strong>
             <select id="instructions" class="form-control">
-                <option value="none" selected>please select one</option>
+                <option value="" disabled selected hidden>please select one</option>
                 <option value="with">Programmer presence required</option>
                 <option value="without">Ok to run without programmer</option>
             </select>
         </label>
     </div>
 
-    <textarea rows="10" maxlength="50000" class="form-control"></textarea>
+    <textarea id="Pnotes" name="Pnotes" rows="10" maxlength="50000" class="form-control" placeholder="Programmers Notes..."></textarea>
 
     <h3 class="text-lg-center"><strong>First Part MTO Run</strong></h3>
 
@@ -154,6 +154,7 @@
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
+                <option value="" disabled selected hidden>please select one</option>
             </select>
         </label>
 
@@ -168,10 +169,11 @@
                 <option value="yes2">Yes</option>
                 <option value="no2">No</option>
                 <option value="needs">Still needs work</option>
+                <option value="" disabled selected hidden>please select one</option>
             </select>
         </label>
 
-        <textarea class="form-control" rows="7" maxlength="50000"></textarea>
+        <textarea id="Onotes" name="Onotes" class="form-control" rows="7" maxlength="50000" placeholder="Operators Notes..."></textarea>
 
         <hr>
 
@@ -184,7 +186,7 @@
                 <option value="marginal2">Marginal</option>
                 <option value="LO">L/O in process</option>
                 <option value="re-check">Re-check Required</option>
-                <option value="none" selected>please select one</option>
+                <option value="" disabled selected hidden>please select one</option>
             </select>
         </label>
 
@@ -196,7 +198,7 @@
             <input id="sig-date" type="date" class="form-control" name="sig-date" value="{{ @sig-date}}">
         </label>
 
-        <textarea class="form-control" rows="7" maxlength="50000"></textarea>
+        <textarea id="Lnotes" name="Lnotes" class="form-control" rows="7" maxlength="50000" placeholder="Layout Notes..."></textarea>
 
     </div>
 
