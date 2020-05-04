@@ -9,6 +9,13 @@ class Routes
         $this->_f3 = $f3;
     }
 
+    function loginpage()
+    {
+        $views = new Template();
+        echo $views->render("loginpage.html");
+    }
+
+
     function home()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

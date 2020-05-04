@@ -29,7 +29,11 @@ $f3->set('geometry', array('yes3', 'no3', 'marginal2', 'LO', 're-check'));
 
 
 //define a default route
-$f3->route('GET|POST /', function() {
+$f3->route('GET /', function() {
+    $GLOBALS['routes']->loginpage();
+});
+
+$f3->route('GET|POST /home', function() {
     $_SESSION = array();
     $GLOBALS['routes']->home();
 });
