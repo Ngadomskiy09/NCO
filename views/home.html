@@ -62,7 +62,7 @@
                 <input id="program" type="text" class="form-control" name="program" value="{{ @program}}">
             </label>
 
-            <label class="col-sm-3" for="make"><strong>Used to Make: </strong>
+            <label class="col-sm-2" for="make"><strong>Used to Make: </strong>
                 <input id="make" type="text" class="form-control" name="make" value="{{ @make}}">
             </label>
 
@@ -70,24 +70,29 @@
                 <input id="date" type="date" class="form-control" name="date" value="{{ @date}}">
             </label>
 
-            <label class="col-sm-3" for="ptime"><strong>Program Time: </strong>
+            <label class="col-sm-2" for="ptime"><strong>Program Time: </strong>
                 <input id="ptime" type="time" class="form-control" name="ptime" value="{{ @ptime}}">
+            </label>
+
+            <label class="col-sm-2" for="ptype"><strong>Program Type: </strong>
+                <input id="ptype" type="text" class="form-control" name="ptype" placeholder="Ex. MTO 1" value="{{ @ptype }}">
             </label>
 
             <label class="col-sm-3" for="status"><strong>Status: </strong>
                 <select id="status" class="form-control">
-                    <option value="MTO1">MTO 1</option>
-                    <option value="MTO2">MTO 2</option>
-                    <option value="MTO3">MTO 3</option>
-                    <option value="MTO4">MTO 4</option>
-                    <option value="MTO5">MTO 5</option>
                     <option value="Marginal">Marginal</option>
                     <option value="No-buy-off">No buy-off</option>
                     <option value="NeedsL/O">Needs L/O re-check</option>
+                    <option value="T/L">Waiting for Team Lead signature</option>
                     <option value="PRO">PRO</option>
                     <option value="" disabled selected hidden>please select one</option>
                 </select>
             </label>
+
+            <label class="col-sm-1" for="rev"><strong>Program Rev. </strong>
+                <input id="rev" type="text" class="form-control" name="rev" value="{{ @rev }}">
+            </label>
+
         </div>
 
         <h3 class="text-lg-center"><strong>Programmer's MTO Instructions</strong></h3>
@@ -145,8 +150,8 @@
 
         <div class="form-group border">
             <label class="col-sm-auto"><strong>ADD</strong>
-                <button id="plus" class="form-control" name="plus" value="plus">+</button>
-                <button id="minus" class="form-control" name="minus" value="minus">-</button>
+                <button id="plus" type="button" class="form-control" name="plus" value="plus">+</button>
+                <button id="minus" type="button" class="form-control" name="minus" value="minus">-</button>
             </label>
 
             <label class="col-sm-auto" for="operator"><strong>Operator's Name: </strong>
@@ -229,23 +234,23 @@
         </label>
 
         <label class="col-sm-auto" for="cmes">
-            <button id="cmes" class="form-control" name="cmes" value="cmes">CMES</button>
+            <button id="cmes" type="button" class="form-control btn-secondary" name="cmes" value="cmes">CMES</button>
         </label>
 
         <label class="col-sm-auto" for="qAlert">
-            <button id="qAlert" class="form-control" name="qAlert" value="qAlert">Q Alert</button>
+            <button id="qAlert" type="button" class="form-control btn-secondary" name="qAlert" value="qAlert">Q Alert</button>
         </label>
 
         <label class="col-sm-auto" for="ednc">
-            <button id="ednc" class="form-control" name="ednc" value="ednc">eDNC</button>
+            <button id="ednc" type="button" class="form-control btn-secondary" name="ednc" value="ednc">eDNC</button>
         </label>
 
         <label class="col-sm-auto" for="mtoreport">
-            <button id="mtoreport" class="form-control" name="mtoreport" value="mtoreport">MTO report</button>
+            <button id="mtoreport" type="button" class="form-control btn-secondary" name="mtoreport" value="mtoreport">MTO report</button>
         </label>
 
         <label class="col-sm-auto" for="email">
-            <button id="email" class="form-control" name="email" value="email">email</button>
+            <button id="email" type="button" class="form-control btn-secondary" name="email" value="email">email</button>
         </label>
 
         <div class="btn-bottom">

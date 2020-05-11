@@ -17,7 +17,7 @@ $routes = new Routes($f3);
 //Set debug level
 $f3->set('DEBUG', 3);
 
-$f3->set('status', array('MOT 1', 'MTO 2', 'MTO 3', 'MTO 4', 'MTO 5', 'Marginal', 'No buy-off', 'Needs L/O re-check', 'PRO'));
+$f3->set('status', array('Marginal', 'No buy-off', 'Needs L/O re-check', 'Waiting for Team Lead signature', 'PRO'));
 $f3->set('reason', array('Improvement', 'change', 'SAT'));
 $f3->set('graphic', array('Vericut', 'Deneb', 'NCPSR'));
 $f3->set('mcd', array('yes','no'));
