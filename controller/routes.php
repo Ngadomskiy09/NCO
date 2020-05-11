@@ -29,7 +29,9 @@ class Routes
             $make = $_POST['make'];
             $date = $_POST['date'];
             $ptime = $_POST['ptime'];
+            $ptype = $_POST['ptype'];
             $status = $_POST['status'];
+            $rev = $_POST['rev'];
             $reason = $_POST['reason'];
             $graphic = $_POST['graphic'];
             $mcd = $_POST['mcd'];
@@ -61,7 +63,9 @@ class Routes
             $this->_f3->set('make', $make);
             $this->_f3->set('date', $date);
             $this->_f3->set('ptime', $ptime);
+            $this->_f3->set('ptype', $ptype);
             $this->_f3->set('status', $status);
+            $this->_f3->set('rev', $rev);
             $this->_f3->set('reason', $reason);
             $this->_f3->set('graphic', $graphic);
             $this->_f3->set('mcd', $mcd);
@@ -94,7 +98,9 @@ class Routes
                 $_SESSION['make'] = $make;
                 $_SESSION['date'] = $date;
                 $_SESSION['ptime'] = $ptime;
+                $_SESSION['ptype'] = $ptype;
                 $_SESSION['status'] = $status;
+                $_SESSION['rev'] = $rev;
                 $_SESSION['reason'] = $reason;
                 $_SESSION['graphic'] = $graphic;
                 $_SESSION['mcd'] = $mcd;
