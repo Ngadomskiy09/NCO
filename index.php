@@ -17,15 +17,15 @@ $routes = new Routes($f3);
 //Set debug level
 $f3->set('DEBUG', 3);
 
-$f3->set('status', array('Marginal', 'No buy-off', 'Needs L/O re-check', 'Waiting for Team Lead signature', 'PRO'));
-$f3->set('reason', array('Improvement', 'change', 'SAT'));
-$f3->set('graphic', array('Vericut', 'Deneb', 'NCPSR'));
-$f3->set('mcd', array('yes','no'));
-$f3->set('buyoff', array('Yes1', 'No1', 'marginal1', 'marginal2','na'));
-$f3->set('instructions', array('with', 'without'));
-$f3->set('shift', array('1', '2', '3'));
-$f3->set('process', array('yes2', 'no2', 'needs'));
-$f3->set('geometry', array('yes3', 'no3', 'marginal2', 'LO', 're-check'));
+$f3->set('stat', array('', 'Marginal', 'No buy-off', 'Needs L/O re-check', 'Waiting for Team Lead signature', 'PRO'));
+$f3->set('reasons', array('', 'Improvement', 'change', 'SAT'));
+$f3->set('graphics', array('', 'Vericut', 'Deneb', 'NCPSR'));
+$f3->set('mcds', array('', 'yes','no'));
+$f3->set('buyoffs', array('', 'Yes', 'No', 'Marginal (L/O)', 'Marginal (Shop)','N/A'));
+$f3->set('instructions', array('', 'Programmer presence required', 'Ok to run without programmer'));
+$f3->set('shifts', array('', '1', '2', '3'));
+$f3->set('processes', array('', 'Yes', 'No', 'Still needs work'));
+$f3->set('geometrys', array('', 'Yes', 'No', 'Marginal', 'L/O in process', 'Re-check required'));
 
 
 //define a default route

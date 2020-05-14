@@ -12,13 +12,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-    <style>
-        div {
-            padding-top: 25px;
-            padding-bottom: 25px;
-        }
-    </style>
-
     <title>Home - NC Document Online</title>
 </head>
 <body>
@@ -89,70 +82,88 @@
                 <input id="ptype" type="text" class="form-control" name="ptype" placeholder="Ex. MTO 1" value="{{ @ptype }}">
             </label>
 
-            <label class="col-sm-3" for="status"><strong>Status: </strong>
-                <select id="status" class="form-control">
-                    <option value="Marginal">Marginal</option>
-                    <option value="No-buy-off">No buy-off</option>
-                    <option value="NeedsL/O">Needs L/O re-check</option>
-                    <option value="T/L">Waiting for Team Lead signature</option>
-                    <option value="PRO">PRO</option>
-                    <option value="" disabled selected hidden>please select one</option>
+            <label><strong>Status: </strong>
+                <select name="status" class="form-control">
+                    <repeat group="{{ @stat }}" value="{{ @status }}">
+                                <option value="{{ @status }}"
+                                        <check if="{{ @stats == @status }}">
+                                               selected = "selected"
+                                        </check>
+                                >{{ @status }}
+                        </repeat>
                 </select>
             </label>
 
-            <label class="col-sm-1" for="rev"><strong>Program Rev. </strong>
+            <label class="col-sm-1" for="rev"><strong>Rev. </strong>
                 <input id="rev" type="text" class="form-control" name="rev" value="{{ @rev }}">
             </label>
-
         </div>
 
         <h3 class="text-lg-center"><strong>Programmer's MTO Instructions</strong></h3>
 
         <div class="form-group text-center">
-            <label class="col-sm-2" for="reason"><strong>Reason For Revision: </strong>
-                <select id="reason" class="form-control">
-                    <option value="Improvement">Improvement File</option>
-                    <option value="change">Eng. change</option>
-                    <option value="SAT">SAT #</option>
-                    <option value="" disabled selected hidden>please select one</option>
+
+            <label><strong>Reason For Revision: </strong>
+                <select name="reason" class="form-control col-sm-auto">
+                    <repeat group="{{ @reasons }}" value="{{ @reason }}">
+                        <option value="{{ @reason }}"
+                                <check if="{{ @reason4 == @reason }}">
+                                    selected = "selected"
+                                </check>
+                        >{{ @reason }}
+                    </repeat>
                 </select>
             </label>
 
-            <label class="col-sm-2" for="graphic"><strong>Graphic Check: </strong>
-                <select id="graphic" class="form-control">
-                    <option value="Vericut">Vericut</option>
-                    <option value="Deneb">DENEB</option>
-                    <option value="NCPSR">NCPSR #</option>
-                    <option value="" disabled selected hidden>please select one</option>
+            <label><strong>Graphic Check: </strong>
+                <select name="graphic" class="form-control col-sm-auto">
+                    <repeat group="{{ @graphics }}" value="{{ @graphic }}">
+                        <option value="{{ @graphic }}"
+                                <check if="{{ @graph == @graphic }}">
+                                    selected = "selected"
+                                </check>
+                        >{{ @graphic }}
+                    </repeat>
                 </select>
             </label>
 
-            <label class="col-sm-2" for="mcd"><strong>MCD Compare: </strong>
-                <select id="mcd" class="form-control">
-                    <option value="yes">YES</option>
-                    <option value="no">NO</option>
-                    <option value="" disabled selected hidden>please select one</option>
+            <label><strong>MCD Compare: </strong>
+                <select name="mcd" class="form-control col-sm-auto">
+                    <repeat group="{{ @mcds }}" value="{{ @mcd }}">
+                        <option value="{{ @mcd }}"
+                                <check if="{{ @mc == @mcd }}">
+                                    selected = "selected"
+                                </check>
+                        >{{ @mcd }}
+                    </repeat>
                 </select>
             </label>
 
-            <label class="col-sm-2" for="buyoff"><strong>Previous Buy-off: </strong>
-                <select id="buyoff" class="form-control">
-                    <option value="Yes1">YES</option>
-                    <option value="No1">NO</option>
-                    <option value="marginal1">Marginal (L/O)</option>
-                    <option value="marginal2">Marginal (Shop)</option>
-                    <option value="na">N/A</option>
-                    <option value="" disabled selected hidden>please select one</option>
+            <label><strong>Previous Buy-Off: </strong>
+                <select name="buyoff" class="form-control col-sm-auto">
+                    <repeat group="{{ @buyoffs }}" value="{{ @buyoff }}">
+                        <option value="{{ @buyoff }}"
+                                <check if="{{ @bf == @buyoff }}">
+                                    selected = "selected"
+                                </check>
+                        >{{ @buyoff }}
+                    </repeat>
                 </select>
             </label>
 
-            <label class="col-sm-2" for="instructions"><strong>Programmer's MTO Instructions: </strong>
-                <select id="instructions" class="form-control">
-                    <option value="" disabled selected hidden>please select one</option>
-                    <option value="with">Programmer presence required</option>
-                    <option value="without">Ok to run without programmer</option>
+            <br>
+
+            <labale><strong>Programmer's MTO Instructions: </strong>
+                <select name="instruction" class="form-control col-sm-auto">
+                    <repeat group="{{ @instructions }}" value="{{ @instruction }}">
+                        <option value="{{ @instruction }}"
+                                <check if="{{ @instruct == @instruction }}">
+                                    selected = "selected"
+                                </check>
+                        >{{ @instruction }}
+                    </repeat>
                 </select>
-            </label>
+            </labale>
         </div>
 
         <textarea id="Pnotes" name="Pnotes" rows="10" maxlength="50000" class="form-control" placeholder="Programmers Notes..."></textarea>
@@ -181,12 +192,15 @@
                 <input id="machine" type="text" class="form-control" name="machine" value="{{ @machine}}">
             </label>
 
-            <label class="col-sm-auto" for="shift"><strong>Shift: </strong>
-                <select id="shift" class="form-control">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="" disabled selected hidden>please select one</option>
+            <label><strong>Shift: </strong>
+                <select name="shift" class="form-control">
+                    <repeat group="{{ @shifts }}" value="{{ @shift }}">
+                        <option value="{{ @shift }}"
+                                <check if="{{ @shi == @shift }}">
+                                    selected = "selected"
+                                </check>
+                        >{{ @shift }}
+                    </repeat>
                 </select>
             </label>
 
@@ -196,12 +210,15 @@
 
             <hr>
 
-            <label class="col-sm-auto" for="process"><strong>Milling Process acceptable? </strong>
-                <select id="process" class="form-control">
-                    <option value="yes2">Yes</option>
-                    <option value="no2">No</option>
-                    <option value="needs">Still needs work</option>
-                    <option value="" disabled selected hidden>please select one</option>
+            <label><strong>Milling Process acceptable? </strong>
+                <select name="process" class="form-control">
+                    <repeat group="{{ @processes }}" value="{{ @process }}">
+                        <option value="{{ @process }}"
+                                <check if="{{ @pro == @process }}">
+                                    selected = "selected"
+                                </check>
+                        >{{ @process }}
+                    </repeat>
                 </select>
             </label>
 
@@ -211,14 +228,15 @@
 
             <h3 class="text-lg-center"><strong>Layout First Part Check Report</strong></h3>
 
-            <label class="col-sm-auto" for="geometry"><strong>Geometry acceptable?</strong>
-                <select id="geometry" class="form-control">
-                    <option value="yes3">Yes</option>
-                    <option value="no3">No</option>
-                    <option value="marginal2">Marginal</option>
-                    <option value="LO">L/O in process</option>
-                    <option value="re-check">Re-check Required</option>
-                    <option value="" disabled selected hidden>please select one</option>
+            <label><strong>Geometry acceptable? </strong>
+                <select name="geometry" class="form-control">
+                    <repeat group="{{ @geometrys }}" value="{{ @geometry }}">
+                        <option value="{{ @geometry }}"
+                                <check if="{{ @geo == @geometry }}">
+                                    selected = "selected"
+                                </check>
+                        >{{ @geometry }}
+                    </repeat>
                 </select>
             </label>
 
@@ -231,7 +249,6 @@
             </label>
 
             <textarea id="Lnotes" name="Lnotes" class="form-control" rows="7" maxlength="50000" placeholder="Layout Notes..."></textarea>
-
         </div>
 
         <h3 class="text-lg-center"><strong>Shop Approval For Production</strong></h3>
@@ -272,8 +289,8 @@
         <h5>FWC: </h5>
         <h5>Date Created: </h5>
 
-        <div id="table" class="table-editable">
-            <table class="table table-bordered" id="tbl_posts">
+        <div id="table">
+            <table class="table table-bordered table-editable" id="tbl_posts">
                 <thead>
                 <tr>
                     <th>#</th>
@@ -286,24 +303,24 @@
                 <tbody id="tbl_posts_body">
                 <tr id="rec-1">
                     <td><span class="sn">1</span>.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
                     <td><a class="btn btn-xs delete-record" data-id="1"><i class="glyphicon glyphicon-trash"></i></a></td>
                 </tr>
                 <tr id="rec-2">
                     <td><span class="sn">2</span>.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
                     <td><a class="btn btn-xs delete-record" data-id="2"><i class="glyphicon glyphicon-trash"></i></a></td>
                 </tr>
 
                 <tr id="rec-3">
                     <td><span class="sn">3</span>.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
                     <td><a class="btn btn-xs delete-record" data-id="3"><i class="glyphicon glyphicon-trash"></i></a></td>
                 </tr>
                 </tbody>
@@ -313,9 +330,9 @@
                 <table id="sample_table">
                     <tr id="">
                         <td><span class="sn"></span>.</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
                         <td><a class="btn btn-xs delete-record" data-id="0"><i class="glyphicon glyphicon-trash"></i></a></td>
                     </tr>
                 </table>
