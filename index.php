@@ -17,6 +17,7 @@ $routes = new Routes($f3);
 //Set debug level
 $f3->set('DEBUG', 3);
 
+// array setup
 $f3->set('stat', array('', 'Marginal', 'No buy-off', 'Needs L/O re-check', 'Waiting for Team Lead signature', 'PRO'));
 $f3->set('reasons', array('', 'Improvement', 'change', 'SAT'));
 $f3->set('graphics', array('', 'Vericut', 'Deneb', 'NCPSR'));
@@ -34,6 +35,7 @@ $f3->route('GET /', function() {
     $GLOBALS['routes']->loginpage();
 });
 
+//route to home page
 $f3->route('GET|POST /home', function() {
     $_SESSION = array();
     $GLOBALS['routes']->home();
