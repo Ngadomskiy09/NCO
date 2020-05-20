@@ -19,7 +19,7 @@ class Routes
     function home()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Get DAta from from
+            // Get Data from from
             $programmer = $_POST['programmer'];
             $rtime = $_POST['rtime'];
             $model = $_POST['model'];
