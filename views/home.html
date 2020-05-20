@@ -93,10 +93,6 @@
                         </repeat>
                 </select>
             </label>
-
-            <label class="col-sm-1" for="rev"><strong>Rev. </strong>
-                <input id="rev" type="text" class="form-control" name="rev" value="{{ @rev }}">
-            </label>
         </div>
 
         <h3 class="text-lg-center"><strong>Programmer's MTO Instructions</strong></h3>
@@ -153,7 +149,7 @@
 
             <br>
 
-            <labale><strong>Programmer's MTO Instructions: </strong>
+            <label><strong>Programmer's MTO Instructions: </strong>
                 <select name="instruction" class="form-control col-sm-auto">
                     <repeat group="{{ @instructions }}" value="{{ @instruction }}">
                         <option value="{{ @instruction }}"
@@ -163,14 +159,16 @@
                         >{{ @instruction }}
                     </repeat>
                 </select>
-            </labale>
+            </label>
         </div>
 
-        <textarea id="Pnotes" name="Pnotes" rows="10" maxlength="50000" class="form-control" placeholder="Programmers Notes..."></textarea>
+        <label class="col-sm-12" for="Pnotes" ><strong>Programmers Notes: </strong>
+            <textarea id="Pnotes" name="Pnotes" rows="10" maxlength="50000" class="form-control" placeholder="..."></textarea>
+        </label>
 
         <h3 class="text-lg-center"><strong>First Part MTO Run</strong></h3>
 
-        <div class="form-group border">
+        <div class="form-group">
             <label class="col-sm-auto"><strong>ADD</strong>
                 <button id="plus" type="button" class="form-control" name="plus" value="plus">+</button>
                 <button id="minus" type="button" class="form-control" name="minus" value="minus">-</button>
@@ -226,9 +224,9 @@
                 </select>
             </label>
 
-            <textarea id="Onotes" name="Onotes" class="form-control" rows="7" maxlength="50000" placeholder="Operators Notes..."></textarea>
-
-            <hr>
+            <label class="col-sm-12" for="Onotes" ><strong>Operator Notes: </strong>
+                <textarea id="Onotes" name="Pnotes" rows="10" maxlength="50000" class="form-control" placeholder="..."></textarea>
+            </label>
 
             <h3 class="text-lg-center"><strong>Layout First Part Check Report</strong></h3>
 
@@ -252,7 +250,9 @@
                 <input id="sigdate" type="date" class="form-control" name="sig-date" value="{{ @sig-date}}">
             </label>
 
-            <textarea id="Lnotes" name="Lnotes" class="form-control" rows="7" maxlength="50000" placeholder="Layout Notes..."></textarea>
+            <label class="col-sm-12" for="Lnotes" ><strong>LayOut Notes: </strong>
+                <textarea id="Lnotes" name="Lnotes" rows="10" maxlength="50000" class="form-control" placeholder="..."></textarea>
+            </label>
         </div>
 
         <h3 class="text-lg-center"><strong>Shop Approval For Production</strong></h3>
@@ -287,6 +287,8 @@
 
         <br>
         <br>
+
+        <hr>
 
 
         <h4 class="text-lg-center"><strong>Sequence Table</strong></h4>
@@ -356,6 +358,18 @@
 
 
         <div id="table">
+            <label class="col-sm-auto" for="list"><strong>Cutter List for: </strong>
+                <input id="list" type="text" class="form-control" name="list" value="{{ @list}}">
+            </label>
+            <label class="col-sm-auto" for="list1"><strong>Media-File: </strong>
+                <input id="list1" type="text" class="form-control" name="list1" value="{{ @list1}}">
+            </label>
+            <label class="col-sm-auto" for="list2"><strong>FWC: </strong>
+                <input id="list2" type="text" class="form-control" name="list2" value="{{ @list2}}">
+            </label>
+            <label class="col-sm-auto" for="list3"><strong>Date Created: </strong>
+                <input id="list3" type="text" class="form-control" name="list3" value="{{ @list3}}">
+            </label>
             <table class="table table-bordered table-editable" id="tbl_posts">
                 <thead>
                 <tr>
@@ -468,6 +482,38 @@
         if( parseInt($main.children().last().attr("data-count")) !== 1){
             $main.children().last().remove();
         }
+    });
+
+    $(function () {
+        let $src = $("#program");
+        let $dst = $("#list");
+        $src.on('input', function () {
+            $dst.val($src.val());
+        });
+    });
+
+    $(function () {
+        let $src1 = $("#media");
+        let $dst1 = $("#list1");
+        $src1.on('input', function () {
+            $dst1.val($src1.val());
+        });
+    });
+
+    $(function () {
+        let $src1 = $("#fwc");
+        let $dst1 = $("#list2");
+        $src1.on('input', function () {
+            $dst1.val($src1.val());
+        });
+    });
+
+    $(function () {
+        let $src1 = $("#date");
+        let $dst1 = $("#list3");
+        $src1.on('input', function () {
+            $dst1.val($src1.val());
+        });
     });
 </script>
 

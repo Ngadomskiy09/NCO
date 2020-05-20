@@ -31,7 +31,6 @@ class Routes
             $ptime = $_POST['ptime'];
             $ptype = $_POST['ptype'];
             $status = $_POST['status'];
-            $rev = $_POST['rev'];
             $reason = $_POST['reason'];
             $graphic = $_POST['graphic'];
             $mcd = $_POST['mcd'];
@@ -74,7 +73,6 @@ class Routes
             $this->_f3->set('ptime', $ptime);
             $this->_f3->set('ptype', $ptype);
             $this->_f3->set('stats', $status);
-            $this->_f3->set('rev', $rev);
             $this->_f3->set('reason4', $reason);
             $this->_f3->set('graph', $graphic);
             $this->_f3->set('mc', $mcd);
@@ -118,7 +116,6 @@ class Routes
                 $_SESSION['ptime'] = $ptime;
                 $_SESSION['ptype'] = $ptype;
                 $_SESSION['status'] = $status;
-                $_SESSION['rev'] = $rev;
                 $_SESSION['reason'] = $reason;
                 $_SESSION['graphic'] = $graphic;
                 $_SESSION['mcd'] = $mcd;
