@@ -12,6 +12,8 @@ session_start();
 //create instance of the base class
 $f3 = Base::instance();
 
+$dbh = new Database();
+
 $routes = new Routes($f3);
 
 //Set debug level
@@ -43,7 +45,13 @@ $f3->route('GET|POST /home', function() {
 
 //Define a results summary route
 $f3->route('GET|POST /summary', function() {
+    //$GLOBALS['dbh']->insertData();
     $GLOBALS['routes']->summary();
+});
+
+// route to database
+$f3->route('GET /data', function() {
+    $GLOBALS['routes']->data();
 });
 
 //run fat free
