@@ -231,7 +231,7 @@
                                 <check if="{{ @pro == @process }}">
                                     selected = "selected"
                                 </check>
-                        >{{ @process }}
+                        >{{ @process }}</option>
                     </repeat>
                 </select>
             </label>
@@ -251,7 +251,7 @@
                                 <check if="{{ @geo == @geometry }}">
                                     selected = "selected"
                                 </check>
-                        >{{ @geometry }}
+                        >{{ @geometry }} </option>
                     </repeat>
                 </select>
             </label>
@@ -261,7 +261,7 @@
             </label>
 
             <label class="col-sm-auto" for="sigdate"><strong>Date: </strong>
-                <input id="sigdate" type="date" class="form-control" name="sig-date" value="{{ @sig-date}}">
+                <input id="sigdate" type="date" class="form-control" name="sigdate" value="{{ @sigdate}}">
             </label>
 
             <!--Textarea for user to place notes-->

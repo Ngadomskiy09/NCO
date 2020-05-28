@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
+
+    <title>Home - NC Document Online</title>
+</head>
+
+<body>
+    <div class="container">
+        <h3>Form Data</h3>
+
+        <table id="formData" class="display">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Programmer</th>
+                    <th>Runtime</th>
+                    <th>Model</th>
+                    <th>FWC</th>
+                    <th>Media</th>
+                    <th>Program Number</th>
+                    <th>Used to make</th>
+                    <th>Program Date</th>
+                    <th>Program Time</th>
+                    <th>Program Type</th>
+                    <th>Status</th>
+                    <th>Rev. Reason</th>
+                    <th>Graphic</th>
+                    <th>MCD compare</th>
+                    <th>Previous Buy-off</th>
+                    <th>Programmers instructions</th>
+                    <th>Operator Name</th>
+                    <th>Run-date</th>
+                    <th>PO#</th>
+                    <th>Machine#</th>
+                    <th>Shift</th>
+                    <th>Milling Process</th>
+                    <th>Geometry</th>
+                    <th>Signature</th>
+                    <th>Layout Date</th>
+                    <th>Shop Signature</th>
+                    <th>Shop Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <repeat group="{{ @dataInfo }}" value="{{ @info }}">
+                    <th>{{ @info['formID'] }}</th>
+                    <th>{{ @info['Programmer'] }}</th>
+                    <th>{{ @info['Runtime'] }}</th>
+                    <th>{{ @info['Model'] }}</th>
+                    <th>{{ @info['FWC'] }}</th>
+                    <th>{{ @info['Media'] }}</th>
+                    <th>{{ @info['Program_number'] }}</th>
+                    <th>{{ @info['Used_to_make'] }}</th>
+                    <th>{{ @info['Program_Date'] }}</th>
+                    <th>{{ @info['Program_Time'] }}</th>
+                    <th>{{ @info['Program_type'] }}</th>
+                    <th>{{ @info['Part_Status'] }}</th>
+                    <th>{{ @info['Rev_reason'] }}</th>
+                    <th>{{ @info['Graphic'] }}</th>
+                    <th>{{ @info['MCD_compare'] }}</th>
+                    <th>{{ @info['Prev_buy_off'] }}</th>
+                    <th>{{ @info['Programmers_instructions'] }}</th>
+                    <th>{{ @info['Operator_name'] }}</th>
+                    <th>{{ @info['RDate'] }}</th>
+                    <th>{{ @info['PO_num'] }}</th>
+                    <th>{{ @info['Machine_num'] }}</th>
+                    <th>{{ @info['Shift'] }}</th>
+                    <th>{{ @info['Milling_proc'] }}</th>
+                    <th>{{ @info['Geometry'] }}</th>
+                    <th>{{ @info['Signature'] }}</th>
+                    <th>{{ @info['Layout_Date'] }}</th>
+                    <th>{{ @info['Shop_signature'] }}</th>
+                    <th>{{ @info['Shop_Date'] }}</th>
+                </repeat>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="//code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <!--<script src="//cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>-->
+    <script>
+
+        $('#formData').DataTable( {
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.modal( {
+                        header: function ( row ) {
+                            var data = row.data();
+                            // return 'Details for '+data[0]+' '+data[1];
+                            return 'Details for '+data[0];
+                        }
+                    } ),
+                    renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+                        tableClass: 'table'
+                    } )
+                }
+            },
+            order: [[1]]
+        } );
+
+    </script>
+
+
+</body>

@@ -3,10 +3,12 @@
 class Routes
 {
     private $_f3;
+    private $_dbh;
 
     function __construct($f3)
     {
         $this->_f3 = $f3;
+        $this->_dbh = new Database();
     }
 
     function loginpage()
@@ -145,6 +147,12 @@ class Routes
                 $_SESSION['Lnotes'] = $Lnotes;
                 $_SESSION['sig2'] = $sig2;
                 $_SESSION['sig2date'] = $sig2date;
+                $_SESSION['info'] = new formData ($_POST['programmer'], $_POST['rtime'], $_POST['model'], $_POST['fwc'],
+                    $_POST['media'], $_POST['program'], $_POST['make'], $_POST['date'],
+                    $_POST['ptime'], $_POST['ptype'], $_POST['status'], $_POST['reason'], $_POST['graphic'], $_POST['mcd'],
+                    $_POST['buyoff'], $_POST['instruction'], $_POST['operator'], $_POST['date2'], $_POST['po'],
+                    $_POST['machine'], $_POST['shift'], $_POST['process'], $_POST['geometry'], $_POST['signature'],
+                    $_POST['sigdate'], $_POST['sig2'], $_POST['sig2date']);
 
                 $this->_f3->reroute('/summary');
 
@@ -155,7 +163,16 @@ class Routes
 
     function summary()
     {
+        $this->_dbh->insertData();
         $views = new Template();
         echo $views->render("views/summary.html");
+    }
+
+    function data()
+    {
+        $this->_f3->set('dataInfo', $this->_dbh->getData());
+
+        $views = new Template();
+        echo $views->render("views/data.html");
     }
 }
