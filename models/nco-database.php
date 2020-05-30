@@ -10,7 +10,6 @@ require("/home/teamncog/config-nco.php");
  */
 class Database
 {
-
     // pdo object
     private $_dbh;
 
@@ -27,6 +26,7 @@ class Database
     }
 
     // this function inserts all the data from the form to the database
+    //TODO: Needs rework to work with new db revision.
     function insertData()
     {
         $dataObj = $_SESSION['info'];
@@ -73,6 +73,181 @@ class Database
         $sql = "SELECT * FROM Test";
 
         $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    //GET tooling_sequence
+    function getToolingSequence($id)
+    {
+        $sql = "SELECT * FROM `tooling_sequence`
+                WHERE `formID` = :id";
+
+        $statement = $this->_dbh->prepare($sql);
+
+
+        $statement->bindParam(':id', $id, PDO::PARAM_STR);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    //SET tooling_sequence
+    function setToolingSequence($formID, $toolNum1, $toolDes1, $programmers_notes,
+                                $operators_notes, $mto_comments, $fr_rpm_100,
+                                $tooling_mto_status, $toolNum2=NULL, $toolDes2=NULL,
+                                $file_url=NULL)
+    {
+        $sql = "INSERT INTO `tooling_sequence`
+                VALUES(DEFAULT, :formID, :toolNum1, :toolDes1, :programmers_notes,
+                                :operators_notes, :mto_comments, :fr_rpm_100,
+                                :tooling_mto_status, :toolNum2, :toolDec2, :file_url)";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':formID', $formID, PDO::PARAM_STR);
+        $statement->bindParam(':toolNum1', $toolNum1, PDO::PARAM_STR);
+        $statement->bindParam(':toolDes1', $toolDes1, PDO::PARAM_STR);
+        $statement->bindParam(':toolNum2', $toolNum2, PDO::PARAM_STR);
+        $statement->bindParam(':toolDec2', $toolDes2, PDO::PARAM_STR);
+        $statement->bindParam(':programmers_notes', $programmers_notes, PDO::PARAM_STR);
+        $statement->bindParam(':operators_notes', $operators_notes, PDO::PARAM_STR);
+        $statement->bindParam(':mto_comments', $mto_comments, PDO::PARAM_STR);
+        $statement->bindParam(':fr_rpm_100', $fr_rpm_100, PDO::PARAM_STR);
+        $statement->bindParam(':tooling_mto_status', $tooling_mto_status, PDO::PARAM_STR);
+        $statement->bindParam(':file_url', $file_url, PDO::PARAM_STR);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    //GET cutter_list
+    function getCutterList($id)
+    {
+        $sql = "SELECT * FROM `cutter_list`
+                WHERE `formID` = :id";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':id', $id, PDO::PARAM_STR);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    //SET cutter_list
+    function setCutterList($formID, $cutter_list_number, $tool_id,
+                           $tool_description, $tool_num)
+    {
+        $sql = "INSERT INTO `cutter_list`
+                VALUES(DEFAULT, :formID, :cutter_list_number, :tool_id,
+                       :tool_description, :tool_num)";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':formID', $formID, PDO::PARAM_STR);
+        $statement->bindParam(':cutter_list_number', $cutter_list_number, PDO::PARAM_STR);
+        $statement->bindParam(':tool_id', $tool_id, PDO::PARAM_STR);
+        $statement->bindParam(':tool_description', $tool_description, PDO::PARAM_STR);
+        $statement->bindParam(':tool_num', $tool_num, PDO::PARAM_STR);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    //GET first_part_mto_run
+    function getFirstPartMtoRun($id)
+    {
+        $sql = "SELECT * FROM `first_part_mto_run`
+                WHERE `formID` = :id";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':id', $id, PDO::PARAM_STR);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    //SET first_part_mto_run
+    function setFirstPartMtoRun($formID, $operators_name, $date, $p_o_num,
+                                $machine, $shift, $seq_from_to)
+    {
+        $sql = "INSERT INTO `first_part_mto_run`
+                VALUES(DEFAULT, :formID, :operators_name, :date, :p_o_num,
+                       :machine, :shift, :seq_from_to)";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':formID', $formID, PDO::PARAM_STR);
+        $statement->bindParam(':operators_name', $operators_name, PDO::PARAM_STR);
+        $statement->bindParam(':date', $date, PDO::PARAM_STR);
+        $statement->bindParam(':p_o_num', $p_o_num, PDO::PARAM_STR);
+        $statement->bindParam(':machine', $machine, PDO::PARAM_STR);
+        $statement->bindParam(':shift', $shift, PDO::PARAM_STR);
+        $statement->bindParam(':seq_from_to', $seq_from_to, PDO::PARAM_STR);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    //GET quality_alert
+    function getQualityAlert($id)
+    {
+        $sql = "SELECT * FROM `quality_alert`
+                WHERE `formID` = :id";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':id', $id, PDO::PARAM_STR);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    //SET quality_alert
+    function setQualityAlert($formID, $operators_signature, $work_order, $machine,
+                             $date, $part_number, $error_discrepancy, $cause)
+    {
+        $sql = "INSERT INTO `quality_alert`
+                VALUES(DEFAULT, :formID, :operators_name, :work_order,
+                       :machine, :date, :part_number, :error_discrepancy, :cause)";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':formID', $formID, PDO::PARAM_STR);
+        $statement->bindParam(':operators_name', $operators_signature, PDO::PARAM_STR);
+        $statement->bindParam(':work_order', $work_order, PDO::PARAM_STR);
+        $statement->bindParam(':machine', $machine, PDO::PARAM_STR);
+        $statement->bindParam(':date', $date, PDO::PARAM_STR);
+        $statement->bindParam(':part_number', $part_number, PDO::PARAM_STR);
+        $statement->bindParam(':error_discrepancy', $error_discrepancy, PDO::PARAM_STR);
+        $statement->bindParam(':cause', $cause, PDO::PARAM_STR);
 
         $statement->execute();
 
