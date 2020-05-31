@@ -31,9 +31,9 @@ class Database
     {
         $dataObj = $_SESSION['info'];
 
-        $sql = "INSERT INTO Test VALUES (DEFAULT, :programmer, :program, :status, :date, :rtime, :model, :fwc,
-                :media, :make, :ptime, :ptype, :reason, :graphic, :mcd, :buyoff, :instruction, :operator, :date2,
-                :po, :machine, :shift, :process, :geometry, :signature, :sigdate, :sig2, :sig2date)";
+        $sql = "INSERT INTO Test VALUES (DEFAULT, :programmer, :rtime, :model, :fwc, :media, :program, :make, :date, 
+                :ptime, :ptype, :status, :reason, :graphic, :mcd, :buyoff, :instruction, :Pnotes, /*:operator, :date2,
+                :po, :machine, :shift,*/ :process, :Onotes, :geometry, :signature, :sigdate, :Lnotes, :sig2, :sig2date)";
 
         $statement = $this->_dbh->prepare($sql);
 
@@ -53,17 +53,21 @@ class Database
         $statement->bindParam(":mcd", $dataObj->getMcd());
         $statement->bindParam(":buyoff", $dataObj->getBuyoff());
         $statement->bindParam(":instruction", $dataObj->getInstruction());
-        $statement->bindParam(":operator", $dataObj->getOperator());
+        /*$statement->bindParam(":operator", $dataObj->getOperator());
         $statement->bindParam(":date2", $dataObj->getDate2());
         $statement->bindParam(":po", $dataObj->getPo());
         $statement->bindParam(":machine", $dataObj->getMachine());
-        $statement->bindParam(":shift", $dataObj->getShift());
+        $statement->bindParam(":shift", $dataObj->getShift());*/
         $statement->bindParam(":process", $dataObj->getProcess());
         $statement->bindParam(":geometry", $dataObj->getGeometry());
         $statement->bindParam(":signature", $dataObj->getSignature());
         $statement->bindParam(":sigdate", $dataObj->getSigdate());
         $statement->bindParam(":sig2", $dataObj->getSig2());
         $statement->bindParam(":sig2date", $dataObj->getSig2date());
+        $statement->bindParam(":Pnotes", $dataObj->getPnotes());
+        $statement->bindParam(":Lnotes", $dataObj->getLnotes());
+        $statement->bindParam(":Onotes", $dataObj->getOnotes());
+
 
         $statement->execute();
     }
@@ -73,6 +77,21 @@ class Database
         $sql = "SELECT * FROM Test";
 
         $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    function getUpdate($formID)
+    {
+        $sql = "SELECT * FROM Test WHERE formID = :formID";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(":formID", $formID);
 
         $statement->execute();
 
@@ -254,5 +273,9 @@ class Database
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
+    }
+
+    function idExist($formId){
+
     }
 }
