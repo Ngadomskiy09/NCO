@@ -55,34 +55,36 @@
             </thead>
             <tbody>
                 <repeat group="{{ @dataInfo }}" value="{{ @info }}">
-                    <th>{{ @info['formID'] }}</th>
-                    <th>{{ @info['Programmer'] }}</th>
-                    <th>{{ @info['Runtime'] }}</th>
-                    <th>{{ @info['Model'] }}</th>
-                    <th>{{ @info['FWC'] }}</th>
-                    <th>{{ @info['Media'] }}</th>
-                    <th>{{ @info['Program_number'] }}</th>
-                    <th>{{ @info['Used_to_make'] }}</th>
-                    <th>{{ @info['Program_Date'] }}</th>
-                    <th>{{ @info['Program_Time'] }}</th>
-                    <th>{{ @info['Program_type'] }}</th>
-                    <th>{{ @info['Part_Status'] }}</th>
-                    <th>{{ @info['Rev_reason'] }}</th>
-                    <th>{{ @info['Graphic'] }}</th>
-                    <th>{{ @info['MCD_compare'] }}</th>
-                    <th>{{ @info['Prev_buy_off'] }}</th>
-                    <th>{{ @info['Programmers_instructions'] }}</th>
-                    <th>{{ @info['Operator_name'] }}</th>
-                    <th>{{ @info['RDate'] }}</th>
-                    <th>{{ @info['PO_num'] }}</th>
-                    <th>{{ @info['Machine_num'] }}</th>
-                    <th>{{ @info['Shift'] }}</th>
-                    <th>{{ @info['Milling_proc'] }}</th>
-                    <th>{{ @info['Geometry'] }}</th>
-                    <th>{{ @info['Signature'] }}</th>
-                    <th>{{ @info['Layout_Date'] }}</th>
-                    <th>{{ @info['Shop_signature'] }}</th>
-                    <th>{{ @info['Shop_Date'] }}</th>
+                    <tr>
+                        <th><a href="home/{{ @info['formID'] }}">{{ @info['formID'] }}</a></th>
+                        <th>{{ @info['Programmer'] }}</th>
+                        <th>{{ @info['Runtime'] }}</th>
+                        <th>{{ @info['Model'] }}</th>
+                        <th>{{ @info['FWC'] }}</th>
+                        <th>{{ @info['Media'] }}</th>
+                        <th>{{ @info['Program_number'] }}</th>
+                        <th>{{ @info['Used_to_make'] }}</th>
+                        <th>{{ @info['Program_Date'] }}</th>
+                        <th>{{ @info['Program_Time'] }}</th>
+                        <th>{{ @info['Program_type'] }}</th>
+                        <th>{{ @info['Part_Status'] }}</th>
+                        <th>{{ @info['Rev_reason'] }}</th>
+                        <th>{{ @info['Graphic'] }}</th>
+                        <th>{{ @info['MCD_compare'] }}</th>
+                        <th>{{ @info['Prev_buy_off'] }}</th>
+                        <th>{{ @info['Programmers_instructions'] }}</th>
+                        <th>{{ @info['Operator_name'] }}</th>
+                        <th>{{ @info['RDate'] }}</th>
+                        <th>{{ @info['PO_num'] }}</th>
+                        <th>{{ @info['Machine_num'] }}</th>
+                        <th>{{ @info['Shift'] }}</th>
+                        <th>{{ @info['Milling_proc'] }}</th>
+                        <th>{{ @info['Geometry'] }}</th>
+                        <th>{{ @info['Signature'] }}</th>
+                        <th>{{ @info['Layout_Date'] }}</th>
+                        <th>{{ @info['Shop_signature'] }}</th>
+                        <th>{{ @info['Shop_Date'] }}</th>
+                    </tr>
                 </repeat>
             </tbody>
         </table>

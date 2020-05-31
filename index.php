@@ -38,9 +38,10 @@ $f3->route('GET /', function() {
 });
 
 //route to home page
-$f3->route('GET|POST /home', function() {
+$f3->route('GET|POST /home/@id', function($f3,$params) {
     $_SESSION = array();
-    $GLOBALS['routes']->home();
+    $id = $params["id"];
+    $GLOBALS['routes']->home($id);
 });
 
 //Define a results summary route

@@ -18,10 +18,57 @@ class Routes
     }
 
 
-    function home()
+    function home($id)
     {
+        $grab = $this->_dbh->getUpdate($id);
+        $grab = $grab[0];
+
+        // Add Data to hive
+        $this->_f3->set('programmer', $grab['Programmer']);
+        $this->_f3->set('rtime', $grab['Runtime']);
+        $this->_f3->set('model', $grab['Model']);
+        $this->_f3->set('fwc', $grab['FWC']);
+        $this->_f3->set('media', $grab['Media']);
+        $this->_f3->set('program', $grab['Program_number']);
+        $this->_f3->set('make', $grab['Used_to_make']);
+        $this->_f3->set('date', $grab['Program_Date']);
+        $this->_f3->set('ptime', $grab['Program_Time']);
+        $this->_f3->set('ptype', $grab['Program_type']);
+        $this->_f3->set('stats', $grab['Part_Status']);
+        $this->_f3->set('reason4', $grab['Rev_reason']);
+        $this->_f3->set('graph', $grab['Graphic']);
+        $this->_f3->set('mc', $grab['MCD_compare']);
+        $this->_f3->set('bf', $grab['Prev_buy_off']);
+        $this->_f3->set('instruct', $grab['Programmers_instructions']);
+        $this->_f3->set('Pnotes', $grab['programmers_notes']);
+        $this->_f3->set('operator', $grab['operator']);
+        $this->_f3->set('date2', $grab['date2']);
+        $this->_f3->set('po', $grab['po']);
+        $this->_f3->set('machine', $grab['machine']);
+        $this->_f3->set('shi', $grab['shi']);
+        $this->_f3->set('seq', $grab['seq']);
+        $this->_f3->set('pro', $grab['pro']);
+        $this->_f3->set('Onotes', $grab['operators_notes']);
+        $this->_f3->set('geo', $grab['Geometry']);
+        $this->_f3->set('signature', $grab['Signature']);
+        $this->_f3->set('sigdate', $grab['Layout_Date']);
+        $this->_f3->set('tool', $grab['tool']);
+        $this->_f3->set('desc', $grab['desc']);
+        $this->_f3->set('tool1', $grab['tool1']);
+        $this->_f3->set('desc1', $grab['desc1']);
+        $this->_f3->set('pronotes', $grab['pronotes']);
+        $this->_f3->set('opernotes', $grab['opernotes']);
+        $this->_f3->set('mtostatus', $grab['mtostatus']);
+        $this->_f3->set('rpmran', $grab['rpmran']);
+        $this->_f3->set('mtocomments', $grab['mtocomments']);
+        $this->_f3->set('Lnotes', $grab['layout_notes']);
+        $this->_f3->set('sig2', $grab['Shop_signature']);
+        $this->_f3->set('sig2date', $grab['Shop_Date']);
+        $this->_f3->set('process', $grab['Milling_proc']);
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Get Data from from
+            //$grab = $grab[0];
             $programmer = $_POST['programmer'];
             $rtime = $_POST['rtime'];
             $model = $_POST['model'];
@@ -152,7 +199,7 @@ class Routes
                     $_POST['ptime'], $_POST['ptype'], $_POST['status'], $_POST['reason'], $_POST['graphic'], $_POST['mcd'],
                     $_POST['buyoff'], $_POST['instruction'], $_POST['operator'], $_POST['date2'], $_POST['po'],
                     $_POST['machine'], $_POST['shift'], $_POST['process'], $_POST['geometry'], $_POST['signature'],
-                    $_POST['sigdate'], $_POST['sig2'], $_POST['sig2date']);
+                    $_POST['sigdate'], $_POST['sig2'], $_POST['sig2date'], $_POST['Pnotes'], $_POST['Onotes'], $_POST['Lnotes']);
 
                 $this->_f3->reroute('/summary');
 
