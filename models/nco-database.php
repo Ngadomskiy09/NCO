@@ -15,13 +15,13 @@ class Database
 
     function __construct()
     {
-        /*try {
+        try {
             // create database connection
             $this->_dbh = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
             echo "connected!";
         } catch (PDOException $e) {
             echo $e->getMessage();
-        }*/
+        }
         $this->_dbh = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
     }
 
