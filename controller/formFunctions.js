@@ -83,6 +83,22 @@ $(function () {
     });
 });
 
+function CheckReason(val){
+    var element=document.getElementById('reason');
+    if(val=='pick a reason'||val=='SAT')
+        element.style.display='block';
+    else
+        element.style.display='none';
+}
+
+function CheckNCPSR(val){
+    var element=document.getElementById('graphic');
+    if(val=='pick a graphic'||val=='NCPSR')
+        element.style.display='block';
+    else
+        element.style.display='none';
+}
+
 // hides the sequence block field
 $(document).ready(function() {
     $("#sequence-block").hide();
@@ -93,13 +109,16 @@ $("#addsequence").on("click", function() {
     $("#sequence-block").show();
 
     $("#addsequence").on("click", function() {
-        let $block = $("#sequence-block");
+
+        var $Title = "sequence-block";
+        let $block = $("#sequence-block").append($Title).append();
         let $duplicate = $block.children().last().clone();
         let count = parseInt($duplicate.attr("data-counts")) + 1;
         $duplicate.attr("data-counts", count);
         $block.last().append($duplicate);
     });
-});
+
+ });
 
 // removes a sequence block field when the remove button is pushed
 $("#removesequence").on("click", function () {
