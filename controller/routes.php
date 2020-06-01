@@ -13,6 +13,59 @@ class Routes
 
     function loginpage()
     {
+        // check if user is already logged in
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+            $this->_f3->reroute("views/data.html");
+            exit;
+        }
+
+        // process data when form is submitted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // Define variables and initialize with empty values
+            $username = $password = "";
+            $username_err = $password_err = "";
+
+            // Check if username is empty
+            if (empty(trim($_POST['username']))) {
+                $username_err = "Please enter a username.";
+                $this->_f3->set('username_err', $username_err);
+            } else {
+                $username = trim($_POST['username']);
+                $this->_f3->set('username', $username);
+            }
+
+            // check if password is empty
+            if (empty(trim($_POST['password']))) {
+                $password_err = "Please enter a password.";
+                $this->_f3->set('password_err', $password_err);
+            } else {
+                $password = trim($_POST['password']);
+            }
+
+            // validate credentials
+            if (empty($username_err) && empty($password_err)) {
+                echo "into validate";
+                $result = $this->_dbh->login($username, $password);
+                if (!empty($result)) {
+                    // password is correct, start a new session
+                    session_start();
+
+                    // store data in session variables
+                    $_SESSION['loggedin'] = true;
+                    $_SESSION['id'] = $result['id'];
+                    $_SESSION['username'] = $result['username'];
+
+                    // redirect user to data page
+                    $this->_f3->reroute("views/data.html");
+                } else {
+                    $error = "The username or password was incorrect.";
+                    $this->_f3->set('error', $error);
+                }
+            }
+        }
+
+
         $views = new Template();
         echo $views->render("loginpage.html");
     }
@@ -153,55 +206,55 @@ class Routes
             $this->_f3->set('sig2date', $sig2date);
 
 
-                // Write Data to session
-                $_SESSION['programmer'] = $programmer;
-                $_SESSION['rtime'] = $rtime;
-                $_SESSION['model'] = $model;
-                $_SESSION['fwc'] = $fwc;
-                $_SESSION['media'] = $media;
-                $_SESSION['program'] = $program;
-                $_SESSION['make'] = $make;
-                $_SESSION['date'] = $date;
-                $_SESSION['ptime'] = $ptime;
-                $_SESSION['ptype'] = $ptype;
-                $_SESSION['status'] = $status;
-                $_SESSION['reason'] = $reason;
-                $_SESSION['graphic'] = $graphic;
-                $_SESSION['mcd'] = $mcd;
-                $_SESSION['buyoff'] = $buyoff;
-                $_SESSION['instruction'] = $instruction;
-                $_SESSION['Pnotes'] = $Pnotes;
-                $_SESSION['operator'] = $operator;
-                $_SESSION['date2'] = $date2;
-                $_SESSION['po'] = $po;
-                $_SESSION['machine'] = $machine;
-                $_SESSION['shift'] = $shift;
-                $_SESSION['seq'] = $seq;
-                $_SESSION['process'] = $process;
-                $_SESSION['Onotes'] = $Onotes;
-                $_SESSION['geometry'] = $geometry;
-                $_SESSION['signature'] = $signature;
-                $_SESSION['sigdate'] = $sigdate;
-                $_SESSION['tool'] = $tool;
-                $_SESSION['desc'] = $desc;
-                $_SESSION['tool1'] = $tool1;
-                $_SESSION['desc1'] = $desc1;
-                $_SESSION['pronotes'] = $pronotes;
-                $_SESSION['opernotes'] = $opernotes;
-                $_SESSION['mtostatus'] = $mtostatus;
-                $_SESSION['rpmran'] = $rpmran;
-                $_SESSION['mtocomments'] = $mtocomments;
-                $_SESSION['Lnotes'] = $Lnotes;
-                $_SESSION['sig2'] = $sig2;
-                $_SESSION['sig2date'] = $sig2date;
-                $_SESSION['info'] = new formData ($_POST['programmer'], $_POST['rtime'], $_POST['model'], $_POST['fwc'],
-                    $_POST['media'], $_POST['program'], $_POST['make'], $_POST['date'],
-                    $_POST['ptime'], $_POST['ptype'], $_POST['status'], $_POST['reason'], $_POST['graphic'], $_POST['mcd'],
-                    $_POST['buyoff'], $_POST['instruction'], $_POST['operator'], $_POST['date2'], $_POST['po'],
-                    $_POST['machine'], $_POST['shift'], $_POST['process'], $_POST['geometry'], $_POST['signature'],
-                    $_POST['sigdate'], $_POST['sig2'], $_POST['sig2date'], $_POST['Pnotes'], $_POST['Onotes'], $_POST['Lnotes']);
+            // Write Data to session
+            $_SESSION['programmer'] = $programmer;
+            $_SESSION['rtime'] = $rtime;
+            $_SESSION['model'] = $model;
+            $_SESSION['fwc'] = $fwc;
+            $_SESSION['media'] = $media;
+            $_SESSION['program'] = $program;
+            $_SESSION['make'] = $make;
+            $_SESSION['date'] = $date;
+            $_SESSION['ptime'] = $ptime;
+            $_SESSION['ptype'] = $ptype;
+            $_SESSION['status'] = $status;
+            $_SESSION['reason'] = $reason;
+            $_SESSION['graphic'] = $graphic;
+            $_SESSION['mcd'] = $mcd;
+            $_SESSION['buyoff'] = $buyoff;
+            $_SESSION['instruction'] = $instruction;
+            $_SESSION['Pnotes'] = $Pnotes;
+            $_SESSION['operator'] = $operator;
+            $_SESSION['date2'] = $date2;
+            $_SESSION['po'] = $po;
+            $_SESSION['machine'] = $machine;
+            $_SESSION['shift'] = $shift;
+            $_SESSION['seq'] = $seq;
+            $_SESSION['process'] = $process;
+            $_SESSION['Onotes'] = $Onotes;
+            $_SESSION['geometry'] = $geometry;
+            $_SESSION['signature'] = $signature;
+            $_SESSION['sigdate'] = $sigdate;
+            $_SESSION['tool'] = $tool;
+            $_SESSION['desc'] = $desc;
+            $_SESSION['tool1'] = $tool1;
+            $_SESSION['desc1'] = $desc1;
+            $_SESSION['pronotes'] = $pronotes;
+            $_SESSION['opernotes'] = $opernotes;
+            $_SESSION['mtostatus'] = $mtostatus;
+            $_SESSION['rpmran'] = $rpmran;
+            $_SESSION['mtocomments'] = $mtocomments;
+            $_SESSION['Lnotes'] = $Lnotes;
+            $_SESSION['sig2'] = $sig2;
+            $_SESSION['sig2date'] = $sig2date;
+            $_SESSION['info'] = new formData ($_POST['programmer'], $_POST['rtime'], $_POST['model'], $_POST['fwc'],
+                $_POST['media'], $_POST['program'], $_POST['make'], $_POST['date'],
+                $_POST['ptime'], $_POST['ptype'], $_POST['status'], $_POST['reason'], $_POST['graphic'], $_POST['mcd'],
+                $_POST['buyoff'], $_POST['instruction'], $_POST['operator'], $_POST['date2'], $_POST['po'],
+                $_POST['machine'], $_POST['shift'], $_POST['process'], $_POST['geometry'], $_POST['signature'],
+                $_POST['sigdate'], $_POST['sig2'], $_POST['sig2date'], $_POST['Pnotes'], $_POST['Onotes'], $_POST['Lnotes']);
 
-                $this->_f3->reroute('/summary');
+            $this->_f3->reroute('/summary');
 
         }
         $views = new Template();

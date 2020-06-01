@@ -2,6 +2,7 @@
 
 // require
 require("/home/teamncog/config-nco.php");
+//require('/home/klowgree/config-nco.php');
 
 /**
  * Class NcoDatabase
@@ -72,6 +73,7 @@ class Database
         $statement->execute();
     }
 
+    // this function retrieves all data from the Test table
     function getData()
     {
         $sql = "SELECT * FROM Test";
@@ -85,6 +87,7 @@ class Database
         return $result;
     }
 
+    // this function gets all data from test where the form ID matches the given ID
     function getUpdate($formID)
     {
         $sql = "SELECT * FROM Test WHERE formID = :formID";
@@ -100,7 +103,7 @@ class Database
         return $result;
     }
 
-    //GET tooling_sequence
+    // this function gets all data from the tooling_sequence table where the ID matches the given ID
     function getToolingSequence($id)
     {
         $sql = "SELECT * FROM `tooling_sequence`
@@ -118,11 +121,11 @@ class Database
         return $result;
     }
 
-    //SET tooling_sequence
+    //This function sets the given information in the tooling sequence table
     function setToolingSequence($formID, $toolNum1, $toolDes1, $programmers_notes,
                                 $operators_notes, $mto_comments, $fr_rpm_100,
-                                $tooling_mto_status, $toolNum2=NULL, $toolDes2=NULL,
-                                $file_url=NULL)
+                                $tooling_mto_status, $toolNum2 = NULL, $toolDes2 = NULL,
+                                $file_url = NULL)
     {
         $sql = "INSERT INTO `tooling_sequence`
                 VALUES(DEFAULT, :formID, :toolNum1, :toolDes1, :programmers_notes,
@@ -150,7 +153,7 @@ class Database
         return $result;
     }
 
-    //GET cutter_list
+    // this function retrieves all the information from the cutter list for the given form id
     function getCutterList($id)
     {
         $sql = "SELECT * FROM `cutter_list`
@@ -167,7 +170,7 @@ class Database
         return $result;
     }
 
-    //SET cutter_list
+    // this function sets the given information into the cutter_list table
     function setCutterList($formID, $cutter_list_number, $tool_id,
                            $tool_description, $tool_num)
     {
@@ -190,7 +193,7 @@ class Database
         return $result;
     }
 
-    //GET first_part_mto_run
+    // this function retrieves all information from the first_part_mto_run table for the given id
     function getFirstPartMtoRun($id)
     {
         $sql = "SELECT * FROM `first_part_mto_run`
@@ -207,7 +210,7 @@ class Database
         return $result;
     }
 
-    //SET first_part_mto_run
+    // this function sets the given information into the first_part_mto_run table
     function setFirstPartMtoRun($formID, $operators_name, $date, $p_o_num,
                                 $machine, $shift, $seq_from_to)
     {
@@ -232,7 +235,7 @@ class Database
         return $result;
     }
 
-    //GET quality_alert
+    // this function retrieves all information from quality_alert for the given id
     function getQualityAlert($id)
     {
         $sql = "SELECT * FROM `quality_alert`
@@ -249,7 +252,7 @@ class Database
         return $result;
     }
 
-    //SET quality_alert
+    // this function sets the given information into the quality_alert table
     function setQualityAlert($formID, $operators_signature, $work_order, $machine,
                              $date, $part_number, $error_discrepancy, $cause)
     {
@@ -275,7 +278,42 @@ class Database
         return $result;
     }
 
-    function idExist($formId){
+    function idExist($formId)
+    {
 
+    }
+
+    function login($username, $password)
+    {
+        // prepare sql statement
+        $sql = "SELECT id, username, password FROM user WHERE username = :username";
+
+        // prepare statement
+        $statement = $this->_dbh->prepare($sql);
+
+        // bind params
+        $statement->bindParam(':username', $username);
+
+        // attempt to execute statement
+        if ($statement->execute()) {
+            // check if username exists
+            $row = array();
+            if ($statement->rowCount() === 1) {
+                $array = array(
+                    "id" => $row['id'],
+                    "username" => $row['username'],
+                    "hashed_password" => $row['password']
+                );
+
+                if (password_verify($password, $array['hashed_password'])) {
+
+                    return $array;
+
+                }
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
+        return false;
     }
 }
