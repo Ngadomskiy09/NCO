@@ -73,6 +73,13 @@ class Routes
 
     function home($id)
     {
+        /*if($id != 0) {
+            $this->_f3->reroute('/home/0');
+        } else {
+            $this->_f3->reroute('/home/@id');
+            $dataUp = $this->_dbh->getUpdate($id);
+            $this->_dbh->DataUpdate( );
+        }*/
         $grab = $this->_dbh->getUpdate($id);
         $grab = $grab[0];
 
@@ -205,56 +212,66 @@ class Routes
             $this->_f3->set('sig2', $sig2);
             $this->_f3->set('sig2date', $sig2date);
 
+                // Write Data to session
+                $_SESSION['programmer'] = $programmer;
+                $_SESSION['rtime'] = $rtime;
+                $_SESSION['model'] = $model;
+                $_SESSION['fwc'] = $fwc;
+                $_SESSION['media'] = $media;
+                $_SESSION['program'] = $program;
+                $_SESSION['make'] = $make;
+                $_SESSION['date'] = $date;
+                $_SESSION['ptime'] = $ptime;
+                $_SESSION['ptype'] = $ptype;
+                $_SESSION['status'] = $status;
+                $_SESSION['reason'] = $reason;
+                $_SESSION['graphic'] = $graphic;
+                $_SESSION['mcd'] = $mcd;
+                $_SESSION['buyoff'] = $buyoff;
+                $_SESSION['instruction'] = $instruction;
+                $_SESSION['Pnotes'] = $Pnotes;
+                $_SESSION['operator'] = $operator;
+                $_SESSION['date2'] = $date2;
+                $_SESSION['po'] = $po;
+                $_SESSION['machine'] = $machine;
+                $_SESSION['shift'] = $shift;
+                $_SESSION['seq'] = $seq;
+                $_SESSION['process'] = $process;
+                $_SESSION['Onotes'] = $Onotes;
+                $_SESSION['geometry'] = $geometry;
+                $_SESSION['signature'] = $signature;
+                $_SESSION['sigdate'] = $sigdate;
+                $_SESSION['tool'] = $tool;
+                $_SESSION['desc'] = $desc;
+                $_SESSION['tool1'] = $tool1;
+                $_SESSION['desc1'] = $desc1;
+                $_SESSION['pronotes'] = $pronotes;
+                $_SESSION['opernotes'] = $opernotes;
+                $_SESSION['mtostatus'] = $mtostatus;
+                $_SESSION['rpmran'] = $rpmran;
+                $_SESSION['mtocomments'] = $mtocomments;
+                $_SESSION['Lnotes'] = $Lnotes;
+                $_SESSION['sig2'] = $sig2;
+                $_SESSION['sig2date'] = $sig2date;
+                $_SESSION['info'] = new formData ($_POST['programmer'], $_POST['rtime'], $_POST['model'], $_POST['fwc'],
+                    $_POST['media'], $_POST['program'], $_POST['make'], $_POST['date'],
+                    $_POST['ptime'], $_POST['ptype'], $_POST['status'], $_POST['reason'], $_POST['graphic'], $_POST['mcd'],
+                    $_POST['buyoff'], $_POST['instruction'], $_POST['operator'], $_POST['date2'], $_POST['po'],
+                    $_POST['machine'], $_POST['shift'], $_POST['process'], $_POST['geometry'], $_POST['signature'],
+                    $_POST['sigdate'], $_POST['sig2'], $_POST['sig2date'], $_POST['Pnotes'], $_POST['Onotes'], $_POST['Lnotes']);
 
-            // Write Data to session
-            $_SESSION['programmer'] = $programmer;
-            $_SESSION['rtime'] = $rtime;
-            $_SESSION['model'] = $model;
-            $_SESSION['fwc'] = $fwc;
-            $_SESSION['media'] = $media;
-            $_SESSION['program'] = $program;
-            $_SESSION['make'] = $make;
-            $_SESSION['date'] = $date;
-            $_SESSION['ptime'] = $ptime;
-            $_SESSION['ptype'] = $ptype;
-            $_SESSION['status'] = $status;
-            $_SESSION['reason'] = $reason;
-            $_SESSION['graphic'] = $graphic;
-            $_SESSION['mcd'] = $mcd;
-            $_SESSION['buyoff'] = $buyoff;
-            $_SESSION['instruction'] = $instruction;
-            $_SESSION['Pnotes'] = $Pnotes;
-            $_SESSION['operator'] = $operator;
-            $_SESSION['date2'] = $date2;
-            $_SESSION['po'] = $po;
-            $_SESSION['machine'] = $machine;
-            $_SESSION['shift'] = $shift;
-            $_SESSION['seq'] = $seq;
-            $_SESSION['process'] = $process;
-            $_SESSION['Onotes'] = $Onotes;
-            $_SESSION['geometry'] = $geometry;
-            $_SESSION['signature'] = $signature;
-            $_SESSION['sigdate'] = $sigdate;
-            $_SESSION['tool'] = $tool;
-            $_SESSION['desc'] = $desc;
-            $_SESSION['tool1'] = $tool1;
-            $_SESSION['desc1'] = $desc1;
-            $_SESSION['pronotes'] = $pronotes;
-            $_SESSION['opernotes'] = $opernotes;
-            $_SESSION['mtostatus'] = $mtostatus;
-            $_SESSION['rpmran'] = $rpmran;
-            $_SESSION['mtocomments'] = $mtocomments;
-            $_SESSION['Lnotes'] = $Lnotes;
-            $_SESSION['sig2'] = $sig2;
-            $_SESSION['sig2date'] = $sig2date;
-            $_SESSION['info'] = new formData ($_POST['programmer'], $_POST['rtime'], $_POST['model'], $_POST['fwc'],
-                $_POST['media'], $_POST['program'], $_POST['make'], $_POST['date'],
-                $_POST['ptime'], $_POST['ptype'], $_POST['status'], $_POST['reason'], $_POST['graphic'], $_POST['mcd'],
-                $_POST['buyoff'], $_POST['instruction'], $_POST['operator'], $_POST['date2'], $_POST['po'],
-                $_POST['machine'], $_POST['shift'], $_POST['process'], $_POST['geometry'], $_POST['signature'],
-                $_POST['sigdate'], $_POST['sig2'], $_POST['sig2date'], $_POST['Pnotes'], $_POST['Onotes'], $_POST['Lnotes']);
-
-            $this->_f3->reroute('/summary');
+            //$this->_dbh->insertData();
+            //$getID = $this->_dbh->getFirstPartMtoRun($id);
+            //$this->_dbh->setFirstPartMtoRun($getID, $operator, $date2, $po, $machine, $shift, $seq);
+                if ($id == 0) {
+                    $this->_dbh->insertData();
+                    $getID = $this->_dbh->getFirstPartMtoRun($id);
+                    $this->_dbh->setFirstPartMtoRun($getID, $operator, $date2, $po, $machine, $shift, $seq);
+                } else {
+                    $dataUp = $this->_dbh->getUpdate($id);
+                    $this->_dbh->DataUpdate($dataUp);
+                }
+                $this->_f3->reroute('/summary');
 
         }
         $views = new Template();
@@ -263,7 +280,7 @@ class Routes
 
     function summary()
     {
-        $this->_dbh->insertData();
+        //$this->_dbh->insertData();
         $views = new Template();
         echo $views->render("views/summary.html");
     }

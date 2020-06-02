@@ -76,7 +76,7 @@
             </label>
 
             <label class="col-sm-2" for="ptime"><strong>Program Time: </strong>
-                <input id="ptime" type="time" class="form-control" name="ptime" value="{{ @ptime}}">
+                <input id="ptime" type="text" class="form-control" maxlength="8" name="ptime" value="{{ @ptime}}">
             </label>
 
             <label class="col-sm-2" for="ptype"><strong>Program Type: </strong>
@@ -103,7 +103,7 @@
 
             <!--Dropdown values pulled from array of options-->
             <label><strong>Reason For Revision: </strong>
-                <select name="reason" class="form-control col-sm-auto">
+                <select name="reason" class="form-control col-sm-auto" onchange='CheckReason(this.value);'>
                     <repeat group="{{ @reasons }}" value="{{ @reason }}">
                         <option value="{{ @reason }}"
                                 <check if="{{ @reason4 == @reason }}">
@@ -114,9 +114,11 @@
                 </select>
             </label>
 
+            <input type="text" name="reason" class="form-control" id="reason" placeholder="SAT#"style='display:none;' maxlength="20" />
+
             <!--Dropdown values pulled from array of options-->
             <label><strong>Graphic Check: </strong>
-                <select name="graphic" class="form-control col-sm-auto">
+                <select name="graphic" class="form-control col-sm-auto" onchange='CheckNCPSR(this.value);'>
                     <repeat group="{{ @graphics }}" value="{{ @graphic }}">
                         <option value="{{ @graphic }}"
                                 <check if="{{ @graph == @graphic }}">
@@ -126,6 +128,7 @@
                     </repeat>
                 </select>
             </label>
+            <input type="text" name="graphic" class="form-control" id="graphic"  placeholder="NCPSR#"style='display:none;' maxlength="20" />
 
             <!--Dropdown values pulled from array of options-->
             <label><strong>MCD Compare: </strong>
@@ -178,12 +181,11 @@
 
         <div class="form-group">
             <!--buttons to add more operators if needed-->
-            <label class="col-sm-auto"><strong>ADD</strong>
-                <button id="plus" type="button" class="form-control" name="plus" value="plus">+</button>
-                <button id="minus" type="button" class="form-control" name="minus" value="minus">-</button>
-            </label>
-
             <div id="ops">
+                <label class="col-sm-auto"><strong>ADD</strong>
+                    <button id="plus" type="button" class="form-control" name="plus" value="plus">+</button>
+                    <button id="minus" type="button" class="form-control" name="minus" value="minus">-</button>
+                </label>
                 <div data-count="1">
                     <label class="col-sm-auto" for="operator"><strong>Operator's Name: </strong>
                         <input id="operator" type="text" class="form-control" name="operator" value="{{ @operator}}">
@@ -310,21 +312,23 @@
 
         <!--Hidden sequence block that appears only when programmer wants to add more sequences-->
         <div class="form-group border">
-            <div id="sequence-block">
+            <div id="sequence-block"> New Sequence Block
                 <div data-counts = "1">
-                    <label class="form-group col-md-6" for="tool">Tool#1
-                        <input type="tool" class="form-control" id="tool" name="tool" value="{{ @tool}}">
+
+                    <label class="col-sm-3" for="tool">Tool#1
+                        <input type="tool" class="form-control"  maxlength="5" id="tool" name="tool" value="{{ @tool}}">
                     </label>
 
-                    <label class="form-group col-md-6" for="desc">Description
+                    <label class="col-sm-8" for="desc">Description
                         <input type="desc" class="form-control" id="desc" name="desc" value="{{ @desc}}">
                     </label>
 
-                    <label class="form-group col-md-6" for="tool">Tool#1
-                        <input type="tool1" class="form-control" id="tool1" name="tool1" value="{{ @tool1}}">
+
+                    <label class="col-sm-3" for="tool">Tool#2
+                        <input type="tool1" class="form-control" maxlength="5"  id="tool1" name="tool1" value="{{ @tool1}}">
                     </label>
 
-                    <label class="form-group col-md-6" for="desc">Description
+                    <label class="col-sm-8" for="desc">Description
                         <input type="desc1" class="form-control" id="desc1" name="desc1" value="{{ @desc1}}">
                     </label>
 
@@ -448,6 +452,7 @@
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="../controller/formFunctions.js"></script>

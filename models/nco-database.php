@@ -103,7 +103,56 @@ class Database
         return $result;
     }
 
-    // this function gets all data from the tooling_sequence table where the ID matches the given ID
+    function DataUpdate($formID)
+    {
+        $dataObj = $_SESSION['info'];
+
+        $sql =  "UPDATE Test SET Programmer = :programmer, Runtime = :rtime, Model = :model, FWC = :fwc, Media = :media, 
+                Program_number = :program, Used_to_make = :make, Program_Date = :date, Program_Time = :ptime, 
+                Program_type = :ptype, Part_Status = :status, Rev_reason = :reason, Graphic = :graphic, MCD_compare = :mcd, 
+                Prev_buy_off = :buyoff, Programmers_instructions = :instruction, programmers_notes = :Pnotes,
+                Milling_proc = :process, operators_notes = :Onotes, Geometry = :geometry, Signature = :signatures, 
+                Layout_Date = :sigdate, Layout_notes = :Lnotes, 
+                Shop_signature = :sig2, Shop_Date = :sig2date WHERE formID = :formID";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(":formID", $formID);
+        $statement->bindParam(":programmer", $dataObj->getProgrammer());
+        $statement->bindParam(":program", $dataObj->getProgram());
+        $statement->bindParam(":status", $dataObj->getStatus());
+        $statement->bindParam(":date", $dataObj->getDate());
+        $statement->bindParam(":rtime", $dataObj->getRtime());
+        $statement->bindParam(":model", $dataObj->getModel());
+        $statement->bindParam(":fwc", $dataObj->getFwc());
+        $statement->bindParam(":media", $dataObj->getMedia());
+        $statement->bindParam(":make", $dataObj->getMake());
+        $statement->bindParam(":ptime", $dataObj->getPtime());
+        $statement->bindParam(":ptype", $dataObj->getPtype());
+        $statement->bindParam(":reason", $dataObj->getReason());
+        $statement->bindParam(":graphic", $dataObj->getGraphic());
+        $statement->bindParam(":mcd", $dataObj->getMcd());
+        $statement->bindParam(":buyoff", $dataObj->getBuyoff());
+        $statement->bindParam(":instruction", $dataObj->getInstruction());
+        /*$statement->bindParam(":operator", $dataObj->getOperator());
+        $statement->bindParam(":date2", $dataObj->getDate2());
+        $statement->bindParam(":po", $dataObj->getPo());
+        $statement->bindParam(":machine", $dataObj->getMachine());
+        $statement->bindParam(":shift", $dataObj->getShift());*/
+        $statement->bindParam(":process", $dataObj->getProcess());
+        $statement->bindParam(":geometry", $dataObj->getGeometry());
+        $statement->bindParam(":signature", $dataObj->getSignature());
+        $statement->bindParam(":sigdate", $dataObj->getSigdate());
+        $statement->bindParam(":sig2", $dataObj->getSig2());
+        $statement->bindParam(":sig2date", $dataObj->getSig2date());
+        $statement->bindParam(":Pnotes", $dataObj->getPnotes());
+        $statement->bindParam(":Lnotes", $dataObj->getLnotes());
+        $statement->bindParam(":Onotes", $dataObj->getOnotes());
+
+        $statement->execute();
+    }
+
+    //GET tooling_sequence
     function getToolingSequence($id)
     {
         $sql = "SELECT * FROM `tooling_sequence`
