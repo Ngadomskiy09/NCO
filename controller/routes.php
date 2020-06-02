@@ -20,6 +20,13 @@ class Routes
 
     function home($id)
     {
+        /*if($id != 0) {
+            $this->_f3->reroute('/home/0');
+        } else {
+            $this->_f3->reroute('/home/@id');
+            $dataUp = $this->_dbh->getUpdate($id);
+            $this->_dbh->DataUpdate( );
+        }*/
         $grab = $this->_dbh->getUpdate($id);
         $grab = $grab[0];
 
@@ -201,7 +208,19 @@ class Routes
                     $_POST['machine'], $_POST['shift'], $_POST['process'], $_POST['geometry'], $_POST['signature'],
                     $_POST['sigdate'], $_POST['sig2'], $_POST['sig2date'], $_POST['Pnotes'], $_POST['Onotes'], $_POST['Lnotes']);
 
+            //$this->_dbh->insertData();
+            //$getID = $this->_dbh->getFirstPartMtoRun($id);
+            //$this->_dbh->setFirstPartMtoRun($getID, $operator, $date2, $po, $machine, $shift, $seq);
+                if ($id == 0) {
+                    $this->_dbh->insertData();
+                    $getID = $this->_dbh->getFirstPartMtoRun($id);
+                    $this->_dbh->setFirstPartMtoRun($getID, $operator, $date2, $po, $machine, $shift, $seq);
+                } else {
+                    $dataUp = $this->_dbh->getUpdate($id);
+                    $this->_dbh->DataUpdate($dataUp);
+                }
                 $this->_f3->reroute('/summary');
+
 
         }
         $views = new Template();
@@ -210,7 +229,7 @@ class Routes
 
     function summary()
     {
-        $this->_dbh->insertData();
+        //$this->_dbh->insertData();
         $views = new Template();
         echo $views->render("views/summary.html");
     }
