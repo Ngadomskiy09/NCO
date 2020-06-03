@@ -1,22 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <title>Home - NC Document Online</title>
-</head>
-<body>
-    <div class="container main">
-        <div class="jumbotron">
-            <h1 class="display-4">NC Document Online</h1>
-            <p class="lead">Numerical Control Operators Document</p>
-        </div>
-    </div>
+<include href="views/header.html">
 
     <div class="container" id="summary">
         <span class="border-dark rounded">
@@ -77,49 +59,39 @@
             <hr>
             <p>Date signed: {{ @SESSION.sigdate }}</p>
             <hr>
-		<p>Layout Notes: {{ @SESSION.Lnotes }}</p>
-
-
+		    <p>Layout Notes: {{ @SESSION.Lnotes }}</p>
             <hr>
-		<p>Tool1: {{ @SESSION.tool }}</p>
+		    <p>Tool1: {{ @SESSION.tool }}</p>
             <hr>
-             <hr>
             <p>Description: {{ @SESSION.desc }}</p>
             <hr>
-             <hr>
             <p>Tool2: {{ @SESSION.tool1 }}</p>
             <hr>
-             <hr>
             <p>Description: {{ @SESSION.desc1 }}</p>
             <hr>
-             <hr>
             <p>Programmer Notes: {{ @SESSION.pronotes }}</p>
             <hr>
-             <hr>
             <p>Operator Notes : {{ @SESSION.opernotes }}</p>
-            <hr>
             <hr>
             <p>Image: {{ @SESSION.mtocomments }}</p>
             <hr>
-            <hr>
             <p>F/R: {{ @SESSION.rpmran }}</p>
-            <hr>
             <hr>
             <p>MTO Status: {{ @SESSION.mtostatus }}</p>
             <hr>
-            <hr>
             <p>Image: {{ @SESSION.image }}</p>
             <hr>
-
-
             <p>Signature Complete: {{ @SESSION.sig2 }}</p>
             <hr>
             <p>Date signed: {{ @SESSION.sig2date }}</p>
             <hr>
+
+            <a href="../NC-Document-Online/data"><button type="button" class="btn btn-primary">Form Database</button></a>
+
         </span>
+
     </div>
 
-    <a href="../NC-Document-Online/data">Form Database</a>
 
 </body>
 </html>

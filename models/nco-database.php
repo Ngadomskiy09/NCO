@@ -108,7 +108,7 @@ class Database
                 Program_number = :program, Used_to_make = :make, Program_Date = :date, Program_Time = :ptime, 
                 Program_type = :ptype, Part_Status = :status, Rev_reason = :reason, Graphic = :graphic, MCD_compare = :mcd, 
                 Prev_buy_off = :buyoff, Programmers_instructions = :instruction, programmers_notes = :Pnotes,
-                Milling_proc = :process, operators_notes = :Onotes, Geometry = :geometry, Signature = :signatures, 
+                Milling_proc = :process, operators_notes = :Onotes, Geometry = :geometry, Signature = :signature, 
                 Layout_Date = :sigdate, Layout_notes = :Lnotes, 
                 Shop_signature = :sig2, Shop_Date = :sig2date WHERE formID = :formID";
 
