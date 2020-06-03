@@ -28,17 +28,29 @@
     </div>
 </div>
 
-<form method="post" action="#">
+<form id="login" action="#" method="post" enctype="multipart/form-data">
     <div class="form-group" align="center">
         <p class="center">Log in to get going</p>
         <label>
-            <input class="form-control" id="username" type="text" name="username"  placeholder="Username">
+            <input class="form-control" id="username" type="text" name="username"  placeholder="Username" value="{{ @username }}">
+            <check if="{{ isset(@username_err) }}">
+                <label class="text-danger">{{ @username_err }}</label>
+            </check>
         </label><br>
         <label>
-            <input class="form-control" id="password" type="password" name="password"  placeholder="Password"><br>
+            <input class="form-control" id="password" type="password" name="password"  placeholder="Password" ">
+            <check if="{{ isset(@password_err) }}">
+                <label class="text-danger">{{ @password_err }}</label>
+            </check>
         </label>
         <br>
-        <a class="btn btn-primary mb-4"  type="submit" name="submit" href="home/0" value="Log in">Login</a>
+
+        <check if="{{ isset(@error) }}">
+            <span class="text-danger">{{ @error }}</span>
+        </check>
+        <br>
+        <button class="btn btn-primary mb-4"  type="submit" name="submit" value="Log in">Login</button>
+
         <hr class="m-5">
     </div><!-- end of div container-->
 </form>

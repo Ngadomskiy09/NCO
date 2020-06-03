@@ -13,6 +13,59 @@ class Routes
 
     function loginpage()
     {
+        // check if user is already logged in
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+            $this->_f3->reroute("views/data.html");
+            exit;
+        }
+
+        // process data when form is submitted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // Define variables and initialize with empty values
+            $username = $password = "";
+            $username_err = $password_err = "";
+
+            // Check if username is empty
+            if (empty(trim($_POST['username']))) {
+                $username_err = "Please enter a username.";
+                $this->_f3->set('username_err', $username_err);
+            } else {
+                $username = trim($_POST['username']);
+                $this->_f3->set('username', $username);
+            }
+
+            // check if password is empty
+            if (empty(trim($_POST['password']))) {
+                $password_err = "Please enter a password.";
+                $this->_f3->set('password_err', $password_err);
+            } else {
+                $password = trim($_POST['password']);
+            }
+
+            // validate credentials
+            if (empty($username_err) && empty($password_err)) {
+                echo "into validate";
+                $result = $this->_dbh->login($username, $password);
+                if (!empty($result)) {
+                    // password is correct, start a new session
+                    session_start();
+
+                    // store data in session variables
+                    $_SESSION['loggedin'] = true;
+                    $_SESSION['id'] = $result['id'];
+                    $_SESSION['username'] = $result['username'];
+
+                    // redirect user to data page
+                    $this->_f3->reroute("views/data.html");
+                } else {
+                    $error = "The username or password was incorrect.";
+                    $this->_f3->set('error', $error);
+                }
+            }
+        }
+
+
         $views = new Template();
         echo $views->render("loginpage.html");
     }
@@ -159,7 +212,6 @@ class Routes
             $this->_f3->set('sig2', $sig2);
             $this->_f3->set('sig2date', $sig2date);
 
-
                 // Write Data to session
                 $_SESSION['programmer'] = $programmer;
                 $_SESSION['rtime'] = $rtime;
@@ -216,7 +268,6 @@ class Routes
                     $this->_dbh->DataUpdate($id);
                 }
                 $this->_f3->reroute('/summary');
-
 
         }
         $views = new Template();
