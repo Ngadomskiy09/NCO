@@ -23,8 +23,8 @@ $f3->set('DEBUG', 3);
 $f3->set('stat', array('', 'Marginal', 'No buy-off', 'Needs L/O re-check', 'Waiting for Team Lead signature', 'PRO'));
 $f3->set('reasons', array('', 'Improvement', 'change', 'SAT'));
 $f3->set('graphics', array('', 'Vericut', 'Deneb', 'NCPSR'));
-$f3->set('mcds', array('', 'yes','no'));
-$f3->set('buyoffs', array('', 'Yes', 'No', 'Marginal (L/O)', 'Marginal (Shop)','N/A'));
+$f3->set('mcds', array('', 'yes', 'no'));
+$f3->set('buyoffs', array('', 'Yes', 'No', 'Marginal (L/O)', 'Marginal (Shop)', 'N/A'));
 $f3->set('instructions', array('', 'Programmer presence required', 'Ok to run without programmer'));
 $f3->set('shifts', array('', '1', '2', '3'));
 $f3->set('processes', array('', 'Yes', 'No', 'Still needs work'));
@@ -34,30 +34,30 @@ $f3->set('permission', array('', 'Operator', 'Programmer', 'Layout', 'Team Lead'
 
 
 //define a default route
-$f3->route('GET|POST /', function() {
+$f3->route('GET|POST /', function () {
     $GLOBALS['routes']->loginpage();
 });
 
 // route to registration page
-$f3->route('GET|POST /register', function() {
-   $GLOBALS['routes']->register();
+$f3->route('GET|POST /register', function () {
+    $GLOBALS['routes']->register();
 });
 
 //route to home page
-$f3->route('GET|POST /home/@id', function($f3,$params) {
+$f3->route('GET|POST /home/@id', function ($f3, $params) {
     $_SESSION = array();
     $id = $params["id"];
     $GLOBALS['routes']->home($id);
 });
 
 //Define a results summary route
-$f3->route('GET|POST /summary', function() {
+$f3->route('GET|POST /summary', function () {
     //$GLOBALS['dbh']->insertData();
     $GLOBALS['routes']->summary();
 });
 
 // route to database
-$f3->route('GET /data', function() {
+$f3->route('GET /data', function () {
     $GLOBALS['routes']->data();
 });
 

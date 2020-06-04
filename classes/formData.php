@@ -34,8 +34,8 @@ class formData
     private $_Pnotes;
 
     function __construct($programmer, $rtime, $model, $fwc, $media, $program, $make, $date, $ptime, $ptype, $status,
-                        $reason, $graphic, $mcd, $buyoff, $instruction, $operator, $date2, $po, $machine, $shift,
-                        $process, $geometry, $signature, $sigdate, $sig2, $sig2date, $Pnotes, $Onotes, $Lnotes)
+                         $reason, $graphic, $mcd, $buyoff, $instruction, $operator, $date2, $po, $machine, $shift,
+                         $process, $geometry, $signature, $sigdate, $sig2, $sig2date, $Pnotes, $Onotes, $Lnotes)
     {
 
         $this->_programmer = $programmer;
@@ -360,10 +360,12 @@ class formData
     {
         $this->_Onotes = $Onotes;
     }
+
     function setPnotes($Pnotes)
     {
         $this->_Pnotes = $Pnotes;
     }
+
     function setLnotes($Lnotes)
     {
         $this->_Lnotes = $Lnotes;
