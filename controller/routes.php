@@ -383,13 +383,13 @@ class Routes
                 $_POST['machine'], $_POST['shift'], $_POST['process'], $_POST['geometry'], $_POST['signature'],
                 $_POST['sigdate'], $_POST['sig2'], $_POST['sig2date'], $_POST['Pnotes'], $_POST['Onotes'], $_POST['Lnotes']);
 
-          if ($id == 0) {
-                    $this->_dbh->insertData();
-                    $this->_dbh->setFirstPartMtoRun($id, $operator, $date2, $po, $machine, $shift, $seq);
-                } else {
-                    $this->_dbh->DataUpdate($id);
-                }
-                $this->_f3->reroute('/summary');
+            if ($id == 0) {
+                $this->_dbh->insertData();
+                $this->_dbh->setFirstPartMtoRun($id, $operator, $date2, $po, $machine, $shift, $seq);
+            } else {
+                $this->_dbh->DataUpdate($id);
+            }
+            $this->_f3->reroute('/summary');
 
         }
         $views = new Template();

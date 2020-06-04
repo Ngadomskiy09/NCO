@@ -1,18 +1,17 @@
-
 //function that adds a new row to the table when the plus button is pushed
-jQuery(document).delegate('a.add-record', 'click', function(e) {
+jQuery(document).delegate('a.add-record', 'click', function (e) {
     e.preventDefault();
     let content = jQuery('#sample_table tr'),
         size = jQuery('#tbl_posts >tbody >tr').length + 1,
         element = content.clone();
-    element.attr('id', 'rec-'+size);
+    element.attr('id', 'rec-' + size);
     element.find('.delete-record').attr('data-id', size);
     element.appendTo('#tbl_posts_body');
     element.find('.sn').html(size);
 });
 
 //function that deletes a row from the table when the trash can button is pushed
-jQuery(document).delegate('a.delete-record', 'click', function(e) {
+jQuery(document).delegate('a.delete-record', 'click', function (e) {
     e.preventDefault();
     var didConfirm = confirm("Are you sure You want to delete");
     if (didConfirm === true) {
@@ -21,9 +20,9 @@ jQuery(document).delegate('a.delete-record', 'click', function(e) {
         jQuery('#rec-' + id).remove();
 
         //regnerate index number on table
-        $('#tbl_posts_body tr').each(function(index) {
+        $('#tbl_posts_body tr').each(function (index) {
             //alert(index);
-            $(this).find('span.sn').html(index+1);
+            $(this).find('span.sn').html(index + 1);
         });
         return true;
     } else {
@@ -32,9 +31,9 @@ jQuery(document).delegate('a.delete-record', 'click', function(e) {
 });
 
 //adds an additional operator field when the plus button is pushed
-$("#plus").on("click", function() {
+$("#plus").on("click", function () {
     let $main = $("#ops");
-    if( parseInt($main.children().last().attr("data-count")) < 5) {
+    if (parseInt($main.children().last().attr("data-count")) < 5) {
         let $dupes = $main.children().last().clone();
         let count = parseInt($dupes.attr("data-count")) + 1;
         $dupes.attr("data-count", count);
@@ -43,9 +42,9 @@ $("#plus").on("click", function() {
 });
 
 // removes an operator field the minus button is pushed
-$("#minus").on("click", function() {
+$("#minus").on("click", function () {
     let $main = $("#ops");
-    if( parseInt($main.children().last().attr("data-count")) !== 1){
+    if (parseInt($main.children().last().attr("data-count")) !== 1) {
         $main.children().last().remove();
     }
 });
@@ -83,32 +82,32 @@ $(function () {
     });
 });
 
-function CheckReason(val){
-    var element=document.getElementById('reason');
-    if(val=='pick a reason'||val=='SAT')
-        element.style.display='block';
+function CheckReason(val) {
+    var element = document.getElementById('reason');
+    if (val == 'pick a reason' || val == 'SAT')
+        element.style.display = 'block';
     else
-        element.style.display='none';
+        element.style.display = 'none';
 }
 
-function CheckNCPSR(val){
-    var element=document.getElementById('graphic');
-    if(val=='pick a graphic'||val=='NCPSR')
-        element.style.display='block';
+function CheckNCPSR(val) {
+    var element = document.getElementById('graphic');
+    if (val == 'pick a graphic' || val == 'NCPSR')
+        element.style.display = 'block';
     else
-        element.style.display='none';
+        element.style.display = 'none';
 }
 
 // hides the sequence block field
-$(document).ready(function() {
+$(document).ready(function () {
     $("#sequence-block").hide();
 });
 
 // shows the sequence block field and adds additional block fields when add button is clicked
-$("#addsequence").on("click", function() {
+$("#addsequence").on("click", function () {
     $("#sequence-block").show();
 
-    $("#addsequence").on("click", function() {
+    $("#addsequence").on("click", function () {
 
         var $Title = "sequence-block";
         let $block = $("#sequence-block").append($Title).append();
@@ -118,13 +117,12 @@ $("#addsequence").on("click", function() {
         $block.last().append($duplicate);
     });
 
- });
+});
 
 // removes a sequence block field when the remove button is pushed
 $("#removesequence").on("click", function () {
     let $block = $("#sequence-block");
-    if(parseInt($block.children().last().attr("data-counts")) !== 1)
-    {
+    if (parseInt($block.children().last().attr("data-counts")) !== 1) {
         $block.children().last().remove();
     }
 });
