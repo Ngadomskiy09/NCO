@@ -59,10 +59,10 @@ class Routes
 
                         // assign session variables
                         $_SESSION['loggedin'] = true;
-                        $_SESSION['id'] = $result['id'];
-                        $_SESSION['username'] = $result['username'];
-                        $_SESSION['permission'] = $result['permission'];
-                        $_SESSION['name'] = $result['name'];
+                        $_SESSION['id'] = $result['0']['id'];
+                        $_SESSION['username'] = $result['0']['username'];
+                        $_SESSION['permission'] = $result['0']['permission'];
+                        $_SESSION['name'] = $result['0']['name'];
 
                     } else {
                         // password is not valid
@@ -399,10 +399,10 @@ class Routes
     function summary()
     {
         // check if user is not logged in
-        if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] !== true) {
-            // reroute user to login page
-            $this->_f3->reroute("/");
-        }
+//        if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] !== true) {
+//            // reroute user to login page
+//            $this->_f3->reroute("/");
+//        }
 
         //$this->_dbh->insertData();
         $views = new Template();
@@ -412,10 +412,10 @@ class Routes
     function data()
     {
         // check if user is not logged in
-        if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] !== true) {
-            // reroute user to login page
-            $this->_f3->reroute("/");
-        }
+//        if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] !== true) {
+//            // reroute user to login page
+//            $this->_f3->reroute("/");
+//        }
 
         $this->_f3->set('dataInfo', $this->_dbh->getData());
 
