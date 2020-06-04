@@ -1,7 +1,8 @@
 <?php
 
 // require
-require("/home/teamncog/config-nco.php");
+//require("/home/teamncog/config-nco.php");
+require("/home/dh_28w967/config-nco.php");
 //require('/home/klowgree/config-nco.php');
 
 /**
@@ -329,7 +330,7 @@ class Database
 
     function idExist($formId)
     {
-
+        //TODO Add functionality to see if form exists already in db.
     }
 
     // this function will take a username and password and attempt to log a user into the website
