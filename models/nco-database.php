@@ -107,7 +107,7 @@ class Database
     {
         $dataObj = $_SESSION['info'];
 
-        $sql =  "UPDATE Test SET Programmer = :programmer, Runtime = :rtime, Model = :model, FWC = :fwc, Media = :media, 
+        $sql = "UPDATE Test SET Programmer = :programmer, Runtime = :rtime, Model = :model, FWC = :fwc, Media = :media, 
                 Program_number = :program, Used_to_make = :make, Program_Date = :date, Program_Time = :ptime, 
                 Program_type = :ptype, Part_Status = :status, Rev_reason = :reason, Graphic = :graphic, MCD_compare = :mcd, 
                 Prev_buy_off = :buyoff, Programmers_instructions = :instruction, programmers_notes = :Pnotes,
@@ -332,10 +332,13 @@ class Database
 
     }
 
-    function login($username, $password)
+    // this function will take a username and password and attempt to log a user into the website
+    function login($username)
     {
-        // prepare sql statement
-        $sql = "SELECT id, username, password FROM user WHERE username = :username";
+        $array = array();
+
+        // define sql query
+        $sql = "SELECT id, username, password, permission, name FROM user WHERE username = :username";
 
         // prepare statement
         $statement = $this->_dbh->prepare($sql);
@@ -343,26 +346,52 @@ class Database
         // bind params
         $statement->bindParam(':username', $username);
 
-        // attempt to execute statement
-        if ($statement->execute()) {
-            // check if username exists
-            $row = array();
-            if ($statement->rowCount() === 1) {
-                $array = array(
-                    "id" => $row['id'],
-                    "username" => $row['username'],
-                    "hashed_password" => $row['password']
-                );
+        // execute statement
+        $statement->execute();
 
-                if (password_verify($password, $array['hashed_password'])) {
+        // return array of values
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-                    return $array;
+    // this function will take a username and check to see if they are already in the database.
+    function checkForUser($username)
+    {
+        // define sql query
+        $sql = "SELECT id FROM user WHERE username = :username";
 
-                }
-            } else {
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-        }
-        return false;
+        // prepare statement
+        $statement = $this->_dbh->prepare($sql);
+
+        // bind parameters
+        $statement->bindParam(':username', $username);
+
+        // execute statement
+        $statement->execute();
+
+        // return return array of results
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // this function will take a username and password and attempt to create a user in the database
+    function register($username, $password, $permission, $name)
+    {
+        // prepare sql statement
+        $sql = "INSERT INTO user (username, password, permission, name)
+                VALUES (:username, :password, :permission, :name)";
+
+        // prepare statement
+        $statement = $this->_dbh->prepare($sql);
+
+        // bind params
+        $statement->bindParam(':username', $username);
+        // create password hash with salt so users can have the same passwords
+        $statement->bindParam(':password', password_hash($password, PASSWORD_DEFAULT));
+        $statement->bindParam(':permission', $permission);
+        $statement->bindParam(':name', $name);
+
+        // execute statement
+        $statement->execute();
+
+        // nothing to return
     }
 }

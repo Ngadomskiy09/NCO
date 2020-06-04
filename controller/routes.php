@@ -11,11 +11,12 @@ class Routes
         $this->_dbh = new Database();
     }
 
+    // handles user login
     function loginpage()
     {
         // check if user is already logged in
         if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-            $this->_f3->reroute("views/data.html");
+            $this->_f3->reroute("/data");
             exit;
         }
 
@@ -45,31 +46,153 @@ class Routes
 
             // validate credentials
             if (empty($username_err) && empty($password_err)) {
-                echo "into validate";
-                $result = $this->_dbh->login($username, $password);
+
+                // if user exists, if yes then verify password
+                $result = $this->_dbh->checkForUser($username);
                 if (!empty($result)) {
-                    // password is correct, start a new session
-                    session_start();
+                    $result = $this->_dbh->login($username);
 
-                    // store data in session variables
-                    $_SESSION['loggedin'] = true;
-                    $_SESSION['id'] = $result['id'];
-                    $_SESSION['username'] = $result['username'];
+                    // Check if password matches returned password hash
+                    if (password_verify($password, $result['0']['password'])) {
+                        // password is correct, start a new session
+                        session_start();
 
-                    // redirect user to data page
-                    $this->_f3->reroute("views/data.html");
+                        // assign session variables
+                        $_SESSION['loggedin'] = true;
+                        $_SESSION['id'] = $result['id'];
+                        $_SESSION['username'] = $result['username'];
+                        $_SESSION['permission'] = $result['permission'];
+                        $_SESSION['name'] = $result['name'];
+
+                    } else {
+                        // password is not valid
+                        $password_err = "Password was incorrect.";
+
+                        // set error into the Hive
+                        $this->_f3->set('password_err', $password_err);
+                    }
                 } else {
-                    $error = "The username or password was incorrect.";
-                    $this->_f3->set('error', $error);
+                    // password is not valid
+                    $username_err = "Username does not exist.";
+
+                    // set error into the Hive
+                    $this->_f3->set('username_err', $username_err);
                 }
             }
         }
-
 
         $views = new Template();
         echo $views->render("loginpage.html");
     }
 
+    // handles adding users to the database
+    function register()
+    {
+        // Define variables and initialize with empty values
+        $username_err = $password_err = $confirm_password_err = $permission_err = $name_err = "";
+        $username = $password = $confirm_password = $permission = $name = "";
+
+        // process data after form is submitted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // validate username
+            if (empty(trim($_POST['username']))) {
+                $username_err = "Please enter a username.";
+
+                // set username_err into Hive
+                $this->_f3->set('username_err', $username_err);
+            } else {
+                $username = $_POST['username'];
+
+                // set username into Hive
+                $this->_f3->set('username', $username);
+
+                // if true, username was in the database. If false, the username was not found
+                $usernameResult = $this->_dbh->checkForUser($username);
+
+                if (!empty($usernameResult)) {
+                    $username_err = "This username is already taken.";
+
+                    // set username_err into Hive
+                    $this->_f3->set('username_err', $username_err);
+                } else {
+                    $username = trim($_POST['username']);
+
+                    // set username into Hive
+                    $this->_f3->set('username', $username);
+                }
+            }
+
+            // validate password
+            if (empty(trim($_POST['password']))) {
+                $password_err = "Please enter a password.";
+
+                // set password_err into hive
+                $this->_f3->set('password_err', $password_err);
+            } else if (strlen(trim($_POST['password'])) < 6) {
+                $password_err = "The password must have at least 6 characters.";
+
+                // set password_err into Hive
+                $this->_f3->set('password_err', $password_err);
+            } else {
+                $password = trim($_POST['password']);
+            }
+
+            // validate confirm password
+            if (empty(trim($_POST['password']))) {
+                $confirm_password_err = "Please confirm password.";
+
+                // set confirm_password_err into Hive
+                $this->_f3->set('confirm_password_err', $confirm_password_err);
+            } else {
+                $confirm_password = trim($_POST['confirm_password']);
+                if (empty($password_err) && ($password != $confirm_password)) {
+                    $confirm_password_err = "Passwords did not match.";
+
+                    // set confirm_password_err into Hive
+                    $this->_f3->set('confirm_password_err', $confirm_password_err);
+                }
+            }
+
+            // validate permission
+            if (empty(trim($_POST['permission']))) {
+                $permission_err = "Please select a permission level.";
+
+                // set permission_err into Hive
+                $this->_f3->set('permission_err', $permission_err);
+            } else {
+                $permission = $_POST['permission'];
+
+                // set permission into hive
+                $this->_f3->set('permissionLevel', $permission);
+            }
+
+            // validate name
+            if (empty(trim($_POST['name']))) {
+                $name_err = "Please enter your name.";
+
+                // Set name_err into Hive
+                $this->_f3->set('name_err', $name_err);
+            } else {
+                $name = $_POST['name'];
+
+                // set name into Hive
+                $this->_f3->set('name', $name);
+            }
+
+            // check input errors before inserting into database
+            if (empty($username_err) && empty($password_err) && empty($confirm_password_err)
+                && empty($permission_err) && empty($name_err)) {
+                $this->_dbh->register($username, $password, $permission, $name);
+
+                // reroute user to login page
+                $this->_f3->reroute('/');
+            }
+        }
+
+        $views = new Template();
+        echo $views->render("views/register.html");
+    }
 
     function home($id)
     {
@@ -212,56 +335,55 @@ class Routes
             $this->_f3->set('sig2', $sig2);
             $this->_f3->set('sig2date', $sig2date);
 
-                // Write Data to session
-                $_SESSION['programmer'] = $programmer;
-                $_SESSION['rtime'] = $rtime;
-                $_SESSION['model'] = $model;
-                $_SESSION['fwc'] = $fwc;
-                $_SESSION['media'] = $media;
-                $_SESSION['program'] = $program;
-                $_SESSION['make'] = $make;
-                $_SESSION['date'] = $date;
-                $_SESSION['ptime'] = $ptime;
-                $_SESSION['ptype'] = $ptype;
-                $_SESSION['status'] = $status;
-                $_SESSION['reason'] = $reason;
-                $_SESSION['graphic'] = $graphic;
-                $_SESSION['mcd'] = $mcd;
-                $_SESSION['buyoff'] = $buyoff;
-                $_SESSION['instruction'] = $instruction;
-                $_SESSION['Pnotes'] = $Pnotes;
-                $_SESSION['operator'] = $operator;
-                $_SESSION['date2'] = $date2;
-                $_SESSION['po'] = $po;
-                $_SESSION['machine'] = $machine;
-                $_SESSION['shift'] = $shift;
-                $_SESSION['seq'] = $seq;
-                $_SESSION['process'] = $process;
-                $_SESSION['Onotes'] = $Onotes;
-                $_SESSION['geometry'] = $geometry;
-                $_SESSION['signature'] = $signature;
-                $_SESSION['sigdate'] = $sigdate;
-                $_SESSION['tool'] = $tool;
-                $_SESSION['desc'] = $desc;
-                $_SESSION['tool1'] = $tool1;
-                $_SESSION['desc1'] = $desc1;
-                $_SESSION['pronotes'] = $pronotes;
-                $_SESSION['opernotes'] = $opernotes;
-                $_SESSION['mtostatus'] = $mtostatus;
-                $_SESSION['rpmran'] = $rpmran;
-                $_SESSION['mtocomments'] = $mtocomments;
-                $_SESSION['Lnotes'] = $Lnotes;
-                $_SESSION['sig2'] = $sig2;
-                $_SESSION['sig2date'] = $sig2date;
-                $_SESSION['info'] = new formData ($_POST['programmer'], $_POST['rtime'], $_POST['model'], $_POST['fwc'],
-                    $_POST['media'], $_POST['program'], $_POST['make'], $_POST['date'],
-                    $_POST['ptime'], $_POST['ptype'], $_POST['status'], $_POST['reason'], $_POST['graphic'], $_POST['mcd'],
-                    $_POST['buyoff'], $_POST['instruction'], $_POST['operator'], $_POST['date2'], $_POST['po'],
-                    $_POST['machine'], $_POST['shift'], $_POST['process'], $_POST['geometry'], $_POST['signature'],
-                    $_POST['sigdate'], $_POST['sig2'], $_POST['sig2date'], $_POST['Pnotes'], $_POST['Onotes'], $_POST['Lnotes']);
+            // Write Data to session
+            $_SESSION['programmer'] = $programmer;
+            $_SESSION['rtime'] = $rtime;
+            $_SESSION['model'] = $model;
+            $_SESSION['fwc'] = $fwc;
+            $_SESSION['media'] = $media;
+            $_SESSION['program'] = $program;
+            $_SESSION['make'] = $make;
+            $_SESSION['date'] = $date;
+            $_SESSION['ptime'] = $ptime;
+            $_SESSION['ptype'] = $ptype;
+            $_SESSION['status'] = $status;
+            $_SESSION['reason'] = $reason;
+            $_SESSION['graphic'] = $graphic;
+            $_SESSION['mcd'] = $mcd;
+            $_SESSION['buyoff'] = $buyoff;
+            $_SESSION['instruction'] = $instruction;
+            $_SESSION['Pnotes'] = $Pnotes;
+            $_SESSION['operator'] = $operator;
+            $_SESSION['date2'] = $date2;
+            $_SESSION['po'] = $po;
+            $_SESSION['machine'] = $machine;
+            $_SESSION['shift'] = $shift;
+            $_SESSION['seq'] = $seq;
+            $_SESSION['process'] = $process;
+            $_SESSION['Onotes'] = $Onotes;
+            $_SESSION['geometry'] = $geometry;
+            $_SESSION['signature'] = $signature;
+            $_SESSION['sigdate'] = $sigdate;
+            $_SESSION['tool'] = $tool;
+            $_SESSION['desc'] = $desc;
+            $_SESSION['tool1'] = $tool1;
+            $_SESSION['desc1'] = $desc1;
+            $_SESSION['pronotes'] = $pronotes;
+            $_SESSION['opernotes'] = $opernotes;
+            $_SESSION['mtostatus'] = $mtostatus;
+            $_SESSION['rpmran'] = $rpmran;
+            $_SESSION['mtocomments'] = $mtocomments;
+            $_SESSION['Lnotes'] = $Lnotes;
+            $_SESSION['sig2'] = $sig2;
+            $_SESSION['sig2date'] = $sig2date;
+            $_SESSION['info'] = new formData ($_POST['programmer'], $_POST['rtime'], $_POST['model'], $_POST['fwc'],
+                $_POST['media'], $_POST['program'], $_POST['make'], $_POST['date'],
+                $_POST['ptime'], $_POST['ptype'], $_POST['status'], $_POST['reason'], $_POST['graphic'], $_POST['mcd'],
+                $_POST['buyoff'], $_POST['instruction'], $_POST['operator'], $_POST['date2'], $_POST['po'],
+                $_POST['machine'], $_POST['shift'], $_POST['process'], $_POST['geometry'], $_POST['signature'],
+                $_POST['sigdate'], $_POST['sig2'], $_POST['sig2date'], $_POST['Pnotes'], $_POST['Onotes'], $_POST['Lnotes']);
 
-
-                if ($id == 0) {
+          if ($id == 0) {
                     $this->_dbh->insertData();
                     $this->_dbh->setFirstPartMtoRun($id, $operator, $date2, $po, $machine, $shift, $seq);
                 } else {
@@ -276,6 +398,12 @@ class Routes
 
     function summary()
     {
+        // check if user is not logged in
+        if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] !== true) {
+            // reroute user to login page
+            $this->_f3->reroute("/");
+        }
+
         //$this->_dbh->insertData();
         $views = new Template();
         echo $views->render("views/summary.html");
@@ -283,6 +411,12 @@ class Routes
 
     function data()
     {
+        // check if user is not logged in
+        if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] !== true) {
+            // reroute user to login page
+            $this->_f3->reroute("/");
+        }
+
         $this->_f3->set('dataInfo', $this->_dbh->getData());
 
         $views = new Template();
