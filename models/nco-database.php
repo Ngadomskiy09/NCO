@@ -333,10 +333,8 @@ class Database
     }
 
     // this function will take a username and password and attempt to log a user into the website
-    function login($username)
+    function login($username, $password)
     {
-        $array = array();
-
         // define sql query
         $sql = "SELECT id, username, password, permission, name FROM user WHERE username = :username";
 
@@ -349,8 +347,21 @@ class Database
         // execute statement
         $statement->execute();
 
-        // return array of values
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        // get array of values
+        $array = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        // TRUE if string $password matches string $array['0']['password'] (hash)
+        if(password_verify($password, $array['0']['password'])) {
+            return array (
+                'id' => $array['0']['id'],
+                'username' => $array['0']['username'],
+                'permission' => $array['0']['permission'],
+                'name' => $array['0']['name']
+            );
+        } else {
+            // return an empty array
+            return array();
+        }
     }
 
     // this function will take a username and check to see if they are already in the database.

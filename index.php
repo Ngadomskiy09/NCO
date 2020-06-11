@@ -45,7 +45,7 @@ $f3->route('GET|POST /register', function () {
 
 //route to home page
 $f3->route('GET|POST /home/@id', function ($f3, $params) {
-    $_SESSION = array();
+//    $_SESSION = array();
     $id = $params["id"];
     $GLOBALS['routes']->home($id);
 });
