@@ -50,10 +50,11 @@ class Routes
                 // if user exists, if yes then verify password
                 $result = $this->_dbh->checkForUser($username);
                 if (!empty($result)) {
-                    $result = $this->_dbh->login($username);
+                    $result = $this->_dbh->login($username, $password);
 
-                    // Check if password matches returned password hash
-                    if (password_verify($password, $result['0']['password'])) {
+
+                    // if the array is not empty
+                    if (!empty($result)) {
                         // password is correct, start a new session
                         session_start();
 
@@ -63,6 +64,9 @@ class Routes
                         $_SESSION['username'] = $result['username'];
                         $_SESSION['permission'] = $result['permission'];
                         $_SESSION['name'] = $result['name'];
+
+                        // reroute to /data
+                        $this->_f3->reroute('/data');
 
                     } else {
                         // password is not valid
@@ -196,6 +200,12 @@ class Routes
 
     function home($id)
     {
+        if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] !== true) {
+            // reroute user to login page
+            $this->_f3->reroute("/");
+            exit;
+        }
+
         /*if($id != 0) {
             $this->_f3->reroute('/home/0');
         } else {
@@ -400,8 +410,10 @@ class Routes
     {
         // check if user is not logged in
         if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] !== true) {
+
             // reroute user to login page
             $this->_f3->reroute("/");
+            exit;
         }
 
         //$this->_dbh->insertData();
@@ -415,6 +427,7 @@ class Routes
         if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] !== true) {
             // reroute user to login page
             $this->_f3->reroute("/");
+            exit;
         }
 
         $this->_f3->set('dataInfo', $this->_dbh->getData());
