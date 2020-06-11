@@ -1,8 +1,8 @@
 <?php
 
 // require
-//require("/home/teamncog/config-nco.php");
-require("/home/dh_28w967/config-nco.php");
+require("/home/teamncog/config-nco.php");
+//require("/home/dh_28w967/config-nco.php");
 //require('/home/klowgree/config-nco.php');
 
 /**
@@ -55,21 +55,20 @@ class Database
         $statement->bindParam(":mcd", $dataObj->getMcd());
         $statement->bindParam(":buyoff", $dataObj->getBuyoff());
         $statement->bindParam(":instruction", $dataObj->getInstruction());
+        $statement->bindParam(":Pnotes", $dataObj->getPnotes());
         /*$statement->bindParam(":operator", $dataObj->getOperator());
         $statement->bindParam(":date2", $dataObj->getDate2());
         $statement->bindParam(":po", $dataObj->getPo());
         $statement->bindParam(":machine", $dataObj->getMachine());
         $statement->bindParam(":shift", $dataObj->getShift());*/
         $statement->bindParam(":process", $dataObj->getProcess());
+        $statement->bindParam(":Onotes", $dataObj->getOnotes());
         $statement->bindParam(":geometry", $dataObj->getGeometry());
         $statement->bindParam(":signature", $dataObj->getSignature());
         $statement->bindParam(":sigdate", $dataObj->getSigdate());
+        $statement->bindParam(":Lnotes", $dataObj->getLnotes());
         $statement->bindParam(":sig2", $dataObj->getSig2());
         $statement->bindParam(":sig2date", $dataObj->getSig2date());
-        $statement->bindParam(":Pnotes", $dataObj->getPnotes());
-        $statement->bindParam(":Lnotes", $dataObj->getLnotes());
-        $statement->bindParam(":Onotes", $dataObj->getOnotes());
-
 
         $statement->execute();
     }
@@ -135,20 +134,20 @@ class Database
         $statement->bindParam(":mcd", $dataObj->getMcd());
         $statement->bindParam(":buyoff", $dataObj->getBuyoff());
         $statement->bindParam(":instruction", $dataObj->getInstruction());
+        $statement->bindParam(":Pnotes", $dataObj->getPnotes());
         /*$statement->bindParam(":operator", $dataObj->getOperator());
         $statement->bindParam(":date2", $dataObj->getDate2());
         $statement->bindParam(":po", $dataObj->getPo());
         $statement->bindParam(":machine", $dataObj->getMachine());
         $statement->bindParam(":shift", $dataObj->getShift());*/
         $statement->bindParam(":process", $dataObj->getProcess());
+        $statement->bindParam(":Onotes", $dataObj->getOnotes());
         $statement->bindParam(":geometry", $dataObj->getGeometry());
         $statement->bindParam(":signature", $dataObj->getSignature());
         $statement->bindParam(":sigdate", $dataObj->getSigdate());
+        $statement->bindParam(":Lnotes", $dataObj->getLnotes());
         $statement->bindParam(":sig2", $dataObj->getSig2());
         $statement->bindParam(":sig2date", $dataObj->getSig2date());
-        $statement->bindParam(":Pnotes", $dataObj->getPnotes());
-        $statement->bindParam(":Lnotes", $dataObj->getLnotes());
-        $statement->bindParam(":Onotes", $dataObj->getOnotes());
 
         $statement->execute();
     }

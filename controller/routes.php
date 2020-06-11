@@ -379,9 +379,9 @@ class Routes
             $_SESSION['info'] = new formData ($_POST['programmer'], $_POST['rtime'], $_POST['model'], $_POST['fwc'],
                 $_POST['media'], $_POST['program'], $_POST['make'], $_POST['date'],
                 $_POST['ptime'], $_POST['ptype'], $_POST['status'], $_POST['reason'], $_POST['graphic'], $_POST['mcd'],
-                $_POST['buyoff'], $_POST['instruction'], $_POST['operator'], $_POST['date2'], $_POST['po'],
-                $_POST['machine'], $_POST['shift'], $_POST['process'], $_POST['geometry'], $_POST['signature'],
-                $_POST['sigdate'], $_POST['sig2'], $_POST['sig2date'], $_POST['Pnotes'], $_POST['Onotes'], $_POST['Lnotes']);
+                $_POST['buyoff'], $_POST['instruction'], $_POST['Pnotes'], $_POST['operator'], $_POST['date2'], $_POST['po'],
+                $_POST['machine'], $_POST['shift'], $_POST['process'], $_POST['Onotes'], $_POST['geometry'], $_POST['signature'],
+                $_POST['sigdate'], $_POST['Lnotes'], $_POST['sig2'], $_POST['sig2date']);
 
             if ($id == 0) {
                 $this->_dbh->insertData();
@@ -399,10 +399,10 @@ class Routes
     function summary()
     {
         // check if user is not logged in
-        if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] !== true) {
+        /*if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] !== true) {
             // reroute user to login page
             $this->_f3->reroute("/");
-        }
+        }*/
 
         //$this->_dbh->insertData();
         $views = new Template();
