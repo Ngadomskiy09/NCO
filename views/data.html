@@ -24,73 +24,79 @@
     <h3>Form Data</h3>
 
     <table id="formData" class="display">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Programmer</th>
-            <th>Runtime</th>
-            <th>Model</th>
-            <th>FWC</th>
-            <th>Media</th>
-            <th>Program Number</th>
-            <th>Used to make</th>
-            <th>Program Date</th>
-            <th>Program Time</th>
-            <th>Program Type</th>
-            <th>Status</th>
-            <th>Rev. Reason</th>
-            <th>Graphic</th>
-            <th>MCD compare</th>
-            <th>Previous Buy-off</th>
-            <th>Programmers instructions</th>
-            <th>Operator Name</th>
-            <th>Run-date</th>
-            <th>PO#</th>
-            <th>Machine#</th>
-            <th>Shift</th>
-            <th>Milling Process</th>
-            <th>Geometry</th>
-            <th>Signature</th>
-            <th>Layout Date</th>
-            <th>Shop Signature</th>
-            <th>Shop Date</th>
-        </tr>
-        </thead>
-        <tbody>
-        <repeat group="{{ @dataInfo }}" value="{{ @info }}">
-            <tr>
-                <th><a href="home/{{ @info['formID'] }}">{{ @info['formID'] }}</a></th>
-                <th>{{ @info['Programmer'] }}</th>
-                <th>{{ @info['Runtime'] }}</th>
-                <th>{{ @info['Model'] }}</th>
-                <th>{{ @info['FWC'] }}</th>
-                <th>{{ @info['Media'] }}</th>
-                <th>{{ @info['Program_number'] }}</th>
-                <th>{{ @info['Used_to_make'] }}</th>
-                <th>{{ @info['Program_Date'] }}</th>
-                <th>{{ @info['Program_Time'] }}</th>
-                <th>{{ @info['Program_type'] }}</th>
-                <th>{{ @info['Part_Status'] }}</th>
-                <th>{{ @info['Rev_reason'] }}</th>
-                <th>{{ @info['Graphic'] }}</th>
-                <th>{{ @info['MCD_compare'] }}</th>
-                <th>{{ @info['Prev_buy_off'] }}</th>
-                <th>{{ @info['Programmers_instructions'] }}</th>
-                <th>{{ @info['Operator_name'] }}</th>
-                <th>{{ @info['RDate'] }}</th>
-                <th>{{ @info['PO_num'] }}</th>
-                <th>{{ @info['Machine_num'] }}</th>
-                <th>{{ @info['Shift'] }}</th>
-                <th>{{ @info['Milling_proc'] }}</th>
-                <th>{{ @info['Geometry'] }}</th>
-                <th>{{ @info['Signature'] }}</th>
-                <th>{{ @info['Layout_Date'] }}</th>
-                <th>{{ @info['Shop_signature'] }}</th>
-                <th>{{ @info['Shop_Date'] }}</th>
-            </tr>
-        </repeat>
-        </tbody>
-    </table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Programmer</th>
+                    <th>Runtime</th>
+                    <th>Model</th>
+                    <th>FWC</th>
+                    <th>Media</th>
+                    <th>Program Number</th>
+                    <th>Used to make</th>
+                    <th>Program Date</th>
+                    <th>Program Time</th>
+                    <th>Program Type</th>
+                    <th>Status</th>
+                    <th>Rev. Reason</th>
+                    <th>Graphic</th>
+                    <th>MCD compare</th>
+                    <th>Previous Buy-off</th>
+                    <th>Programmers instructions</th>
+                    <th>Programmers Notes</th>
+                    <th>Operator Name</th>
+                    <th>Run-date</th>
+                    <th>PO#</th>
+                    <th>Machine#</th>
+                    <th>Shift</th>
+                    <th>Milling Process</th>
+                    <th>Operators Notes</th>
+                    <th>Geometry</th>
+                    <th>Signature</th>
+                    <th>Layout Date</th>
+                    <th>Layout Notes</th>
+                    <th>Shop Signature</th>
+                    <th>Shop Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <repeat group="{{ @dataInfo }}" value="{{ @info }}">
+                    <tr>
+                        <th><a href="home/{{ @info['formID'] }}">{{ @info['formID'] }}</a></th>
+                        <th>{{ @info['Programmer'] }}</th>
+                        <th>{{ @info['Runtime'] }}</th>
+                        <th>{{ @info['Model'] }}</th>
+                        <th>{{ @info['FWC'] }}</th>
+                        <th>{{ @info['Media'] }}</th>
+                        <th>{{ @info['Program_number'] }}</th>
+                        <th>{{ @info['Used_to_make'] }}</th>
+                        <th>{{ @info['Program_Date'] }}</th>
+                        <th>{{ @info['Program_Time'] }}</th>
+                        <th>{{ @info['Program_type'] }}</th>
+                        <th>{{ @info['Part_Status'] }}</th>
+                        <th>{{ @info['Rev_reason'] }}</th>
+                        <th>{{ @info['Graphic'] }}</th>
+                        <th>{{ @info['MCD_compare'] }}</th>
+                        <th>{{ @info['Prev_buy_off'] }}</th>
+                        <th>{{ @info['Programmers_instructions'] }}</th>
+                        <th>{{ @info['Programmers_notes'] }}</th>
+                        <th>{{ @info['Operator_name'] }}</th>
+                        <th>{{ @info['RDate'] }}</th>
+                        <th>{{ @info['PO_num'] }}</th>
+                        <th>{{ @info['Machine_num'] }}</th>
+                        <th>{{ @info['Shift'] }}</th>
+                        <th>{{ @info['Milling_proc'] }}</th>
+                        <th>{{ @info['operators_notes'] }}</th>
+                        <th>{{ @info['Geometry'] }}</th>
+                        <th>{{ @info['Signature'] }}</th>
+                        <th>{{ @info['Layout_Date'] }}</th>
+                        <th>{{ @info['layout_notes'] }}</th>
+                        <th>{{ @info['Shop_signature'] }}</th>
+                        <th>{{ @info['Shop_Date'] }}</th>
+                    </tr>
+                </repeat>
+            </tbody>
+        </table>
     <br>
     <br>
     <a class="btn btn-danger mb-4 align-content-end" type="button" value="Log Out" href="models/logout.php">Log
@@ -104,7 +110,6 @@
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <!--<script src="//cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>-->
 <script>
-
     $('#formData').DataTable({
         responsive: {
             details: {
@@ -122,7 +127,6 @@
         },
         order: [[1]]
     });
-
 </script>
 
 
