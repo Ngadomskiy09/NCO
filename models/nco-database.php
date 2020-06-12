@@ -35,7 +35,7 @@ class Database
 
         $sql = "INSERT INTO Test VALUES (DEFAULT, :programmer, :rtime, :model, :fwc, :media, :program, :make, :date, 
                 :ptime, :ptype, :status, :reason, :graphic, :mcd, :buyoff, :instruction, :Pnotes, /*:operator, :date2,
-                :po, :machine, :shift,*/ :process, :Onotes, :geometry, :signature, :sigdate, :Lnotes, :sig2, :sig2date)";
+                :po, :machine, :shift, :seq*/ :process, :Onotes, :geometry, :signature, :sigdate, :Lnotes, :sig2, :sig2date)";
 
         $statement = $this->_dbh->prepare($sql);
 
@@ -71,6 +71,8 @@ class Database
         $statement->bindParam(":sig2date", $dataObj->getSig2date());
 
         $statement->execute();
+
+        $this->setFirstPartMtoRun($this->_dbh->lastInsertId());
     }
 
     // this function retrieves all data from the Test table
@@ -260,7 +262,7 @@ class Database
     }
 
     // this function sets the given information into the first_part_mto_run table
-    function setFirstPartMtoRun($formID, $operators_name, $date, $p_o_num,
+    /*function setFirstPartMtoRun($formID, $operators_name, $date, $p_o_num,
                                 $machine, $shift, $seq_from_to)
     {
         $sql = "INSERT INTO `first_part_mto_run`
@@ -282,6 +284,25 @@ class Database
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
+    }*/
+
+    function setFirstPartMtoRun ($formID)
+    {
+        $dataObj = $_SESSION['info'];
+        $sql = "INSERT INTO first_part_mto_run VALUES (DEFAULT, :formID, :operator, :date2, :po,
+                       :machine, :shift, :seq)";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(":formID", $formID);
+        $statement->bindParam(":operator", $dataObj->getOperator());
+        $statement->bindParam(":date2", $dataObj->getDate2());
+        $statement->bindParam(":po", $dataObj->getPo());
+        $statement->bindParam(":machine", $dataObj->getMachine());
+        $statement->bindParam(":shift", $dataObj->getShift());
+        $statement->bindParam(":seq", $dataObj->getSeq());
+
+        $statement->execute();
     }
 
     // this function retrieves all information from quality_alert for the given id

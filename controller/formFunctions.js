@@ -37,6 +37,12 @@ $("#plus").on("click", function () {
         let $dupes = $main.children().last().clone();
         let count = parseInt($dupes.attr("data-count")) + 1;
         $dupes.attr("data-count", count);
+        $dupes.find("#operator").attr("name", "operator"+ count);
+        $dupes.find("#date2").attr("name", "date2"+ count);
+        $dupes.find("#po").attr("name", "po"+ count);
+        $dupes.find("#machine").attr("name", "machine"+ count);
+        $dupes.find("#shift").attr("name", "shift"+ count);
+        $dupes.find("#seq").attr("name", "seq"+ count);
         $main.last().append($dupes);
     }
 });

@@ -390,12 +390,11 @@ class Routes
                 $_POST['media'], $_POST['program'], $_POST['make'], $_POST['date'],
                 $_POST['ptime'], $_POST['ptype'], $_POST['status'], $_POST['reason'], $_POST['graphic'], $_POST['mcd'],
                 $_POST['buyoff'], $_POST['instruction'], $_POST['Pnotes'], $_POST['operator'], $_POST['date2'], $_POST['po'],
-                $_POST['machine'], $_POST['shift'], $_POST['process'], $_POST['Onotes'], $_POST['geometry'], $_POST['signature'],
+                $_POST['machine'], $_POST['shift'], $_POST['seq'],$_POST['process'], $_POST['Onotes'], $_POST['geometry'], $_POST['signature'],
                 $_POST['sigdate'], $_POST['Lnotes'], $_POST['sig2'], $_POST['sig2date']);
 
             if ($id == 0) {
                 $this->_dbh->insertData();
-                $this->_dbh->setFirstPartMtoRun($id, $operator, $date2, $po, $machine, $shift, $seq);
             } else {
                 $this->_dbh->DataUpdate($id);
             }
