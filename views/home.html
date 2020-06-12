@@ -200,7 +200,7 @@
 
                     <!--Dropdown values pulled from array of options-->
                     <label><strong>Shift: </strong>
-                        <select name="shift" class="form-control">
+                        <select id="shift" name="shift" class="form-control">
                             <repeat group="{{ @shifts }}" value="{{ @shift }}">
                                 <option value="{{ @shift }}"
                                         <check if="{{ @shi == @shift }}">

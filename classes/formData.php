@@ -23,6 +23,7 @@ class formData
     private $_po;
     private $_machine;
     private $_shift;
+    private $_seq;
     private $_process;
     private $_geometry;
     private $_signature;
@@ -35,7 +36,7 @@ class formData
 
     function __construct($programmer, $rtime, $model, $fwc, $media, $program, $make, $date, $ptime, $ptype, $status,
                          $reason, $graphic, $mcd, $buyoff, $instruction, $Pnotes, $operator, $date2, $po, $machine, $shift,
-                         $process, $Onotes, $geometry, $signature, $sigdate, $Lnotes, $sig2, $sig2date)
+                         $seq, $process, $Onotes, $geometry, $signature, $sigdate, $Lnotes, $sig2, $sig2date)
     {
 
         $this->_programmer = $programmer;
@@ -59,6 +60,7 @@ class formData
         $this->_po = $po;
         $this->_machine = $machine;
         $this->_shift = $shift;
+        $this->_seq = $seq;
         $this->_process = $process;
         $this->_geometry = $geometry;
         $this->_signature = $signature;
@@ -219,6 +221,16 @@ class formData
     function getLnotes()
     {
         return $this->_Lnotes;
+    }
+
+    function getSeq()
+    {
+        return $this->_seq;
+    }
+
+    function setSeq($seq)
+    {
+        $this->_seq = $seq;
     }
 
     function setProgrammer($programmer)
