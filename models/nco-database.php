@@ -1,8 +1,8 @@
 <?php
 
 // require
-//require("/home/teamncog/config-nco.php");
-require("/home/dh_28w967/config-nco.php");
+require("/home/teamncog/config-nco.php");
+//require("/home/dh_28w967/config-nco.php");
 //require('/home/klowgree/config-nco.php');
 
 /**
@@ -93,7 +93,6 @@ class Database
     // this function retrieves all data from the Test table joined with the top operators
     function getData()
     {
-//        $sql = "SELECT * FROM Test";
         $sql = "SELECT * FROM Test INNER JOIN first_part_mto_run
                 ON Test.formID = first_part_mto_run.formID
                 GROUP BY first_part_mto_run.formID";
