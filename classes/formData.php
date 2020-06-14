@@ -35,8 +35,8 @@ class formData
     private $_Pnotes;
 
     function __construct($programmer, $rtime, $model, $fwc, $media, $program, $make, $date, $ptime, $ptype, $status,
-                         $reason, $graphic, $mcd, $buyoff, $instruction, $Pnotes, $operator, $date2, $po, $machine, $shift,
-                         $seq, $process, $Onotes, $geometry, $signature, $sigdate, $Lnotes, $sig2, $sig2date)
+                         $reason, $graphic, $mcd, $buyoff, $instruction, $pnotes, $operator, $date2, $po, $machine, $shift,
+                         $seq, $process, $onotes, $geometry, $signature, $sigdate, $lnotes, $sig2, $sig2date)
     {
 
         $this->_programmer = $programmer;
@@ -67,9 +67,9 @@ class formData
         $this->_sigdate = $sigdate;
         $this->_sig2 = $sig2;
         $this->_sig2date = $sig2date;
-        $this->_Pnotes = $Pnotes;
-        $this->_Lnotes = $Lnotes;
-        $this->_Onotes = $Onotes;
+        $this->_Pnotes = $pnotes;
+        $this->_Lnotes = $lnotes;
+        $this->_Onotes = $onotes;
     }
 
 
@@ -368,18 +368,18 @@ class formData
         $this->_sig2date = $sig2date;
     }
 
-    function setOnotes($Onotes)
+    function setOnotes($onotes)
     {
-        $this->_Onotes = $Onotes;
+        $this->_Onotes = $onotes;
     }
 
-    function setPnotes($Pnotes)
+    function setPnotes($pnotes)
     {
-        $this->_Pnotes = $Pnotes;
+        $this->_Pnotes = $pnotes;
     }
 
-    function setLnotes($Lnotes)
+    function setLnotes($lnotes)
     {
-        $this->_Lnotes = $Lnotes;
+        $this->_Lnotes = $lnotes;
     }
 }

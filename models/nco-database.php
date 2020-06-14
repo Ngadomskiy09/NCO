@@ -75,6 +75,21 @@ class Database
         $this->setFirstPartMtoRun($this->_dbh->lastInsertId());
     }
 
+    function getOperators($formID)
+    {
+        $sql = "SELECT * FROM Test INNER JOIN first_part_mto_run ON Test.formID = first_part_mto_run.formID";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':formID', $formID);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
     // this function retrieves all data from the Test table
     function getData()
     {
@@ -245,14 +260,14 @@ class Database
     }
 
     // this function retrieves all information from the first_part_mto_run table for the given id
-    function getFirstPartMtoRun($id)
+    function getFirstPartMtoRun($formID)
     {
-        $sql = "SELECT * FROM `first_part_mto_run`
-                WHERE `formID` = :id";
+        $sql = "SELECT * FROM first_part_mto_run
+                WHERE formID = :formID";
 
         $statement = $this->_dbh->prepare($sql);
 
-        $statement->bindParam(':id', $id, PDO::PARAM_STR);
+        $statement->bindParam(':formID', $formID);
 
         $statement->execute();
 
