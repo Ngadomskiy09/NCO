@@ -234,13 +234,13 @@ class Routes
         $this->_f3->set('bf', $grab['Prev_buy_off']);
         $this->_f3->set('instruct', $grab['Programmers_instructions']);
         $this->_f3->set('Pnotes', $grab['programmers_notes']);
-        $this->_f3->set('operator', $grab['operator']);
-        $this->_f3->set('date2', $grab['date2']);
-        $this->_f3->set('po', $grab['po']);
-        $this->_f3->set('machine', $grab['machine']);
-        $this->_f3->set('shi', $grab['shi']);
-        $this->_f3->set('seq', $grab['seq']);
-        $this->_f3->set('pro', $grab['pro']);
+        $this->_f3->set('operator', $grabs['operator']);
+        $this->_f3->set('date2', $grabs['date2']);
+        $this->_f3->set('po', $grabs['po']);
+        $this->_f3->set('machine', $grabs['machine']);
+        $this->_f3->set('shi', $grabs['shi']);
+        $this->_f3->set('seq', $grabs['seq']);
+        $this->_f3->set('pro', $grab['Milling_proc']);
         $this->_f3->set('Onotes', $grab['operators_notes']);
         $this->_f3->set('geo', $grab['Geometry']);
         $this->_f3->set('signature', $grab['Signature']);
@@ -278,7 +278,7 @@ class Routes
             $mcd = $_POST['mcd'];
             $buyoff = $_POST['buyoff'];
             $instruction = $_POST['instruction'];
-            $Pnotes = $_POST['Pnotes'];
+            $pnotes = $_POST['Pnotes'];
             $operator = $_POST['operator'];
             $date2 = $_POST['date2'];
             $po = $_POST['po'];
@@ -286,7 +286,7 @@ class Routes
             $shift = $_POST['shift'];
             $seq = $_POST['seq'];
             $process = $_POST['process'];
-            $Onotes = $_POST['Onotes'];
+            $onotes = $_POST['Onotes'];
             $geometry = $_POST['geometry'];
             $signature = $_POST['signature'];
             $sigdate = $_POST['sigdate'];
@@ -299,7 +299,7 @@ class Routes
             $mtostatus = $_POST['mtostatus'];
             $rpmran = $_POST['rpmran'];
             $mtocomments = $_POST['mtocomments'];
-            $Lnotes = $_POST['Lnotes'];
+            $lnotes = $_POST['Lnotes'];
             $sig2 = $_POST['sig2'];
             $sig2date = $_POST['sig2date'];
 
@@ -320,7 +320,7 @@ class Routes
             $this->_f3->set('mc', $mcd);
             $this->_f3->set('bf', $buyoff);
             $this->_f3->set('instruct', $instruction);
-            $this->_f3->set('Pnotes', $Pnotes);
+            $this->_f3->set('Pnotes', $pnotes);
             $this->_f3->set('operator', $operator);
             $this->_f3->set('date2', $date2);
             $this->_f3->set('po', $po);
@@ -328,7 +328,7 @@ class Routes
             $this->_f3->set('shi', $shift);
             $this->_f3->set('seq', $seq);
             $this->_f3->set('pro', $process);
-            $this->_f3->set('Onotes', $Onotes);
+            $this->_f3->set('Onotes', $onotes);
             $this->_f3->set('geo', $geometry);
             $this->_f3->set('signature', $signature);
             $this->_f3->set('sigdate', $sigdate);
@@ -341,7 +341,7 @@ class Routes
             $this->_f3->set('mtostatus', $mtostatus);
             $this->_f3->set('rpmran', $rpmran);
             $this->_f3->set('mtocomments', $mtocomments);
-            $this->_f3->set('Lnotes', $Lnotes);
+            $this->_f3->set('Lnotes', $lnotes);
             $this->_f3->set('sig2', $sig2);
             $this->_f3->set('sig2date', $sig2date);
 
@@ -362,7 +362,7 @@ class Routes
             $_SESSION['mcd'] = $mcd;
             $_SESSION['buyoff'] = $buyoff;
             $_SESSION['instruction'] = $instruction;
-            $_SESSION['Pnotes'] = $Pnotes;
+            $_SESSION['Pnotes'] = $pnotes;
             $_SESSION['operator'] = $operator;
             $_SESSION['date2'] = $date2;
             $_SESSION['po'] = $po;
@@ -370,7 +370,7 @@ class Routes
             $_SESSION['shift'] = $shift;
             $_SESSION['seq'] = $seq;
             $_SESSION['process'] = $process;
-            $_SESSION['Onotes'] = $Onotes;
+            $_SESSION['Onotes'] = $onotes;
             $_SESSION['geometry'] = $geometry;
             $_SESSION['signature'] = $signature;
             $_SESSION['sigdate'] = $sigdate;
@@ -383,7 +383,7 @@ class Routes
             $_SESSION['mtostatus'] = $mtostatus;
             $_SESSION['rpmran'] = $rpmran;
             $_SESSION['mtocomments'] = $mtocomments;
-            $_SESSION['Lnotes'] = $Lnotes;
+            $_SESSION['Lnotes'] = $lnotes;
             $_SESSION['sig2'] = $sig2;
             $_SESSION['sig2date'] = $sig2date;
             $_SESSION['info'] = new formData ($_POST['programmer'], $_POST['rtime'], $_POST['model'], $_POST['fwc'],
@@ -397,8 +397,10 @@ class Routes
                 $this->_dbh->insertData();
             } else {
                 $this->_dbh->DataUpdate($id);
+                $this->_dbh->setFirstPartMtoRun($id);
             }
             $this->_f3->reroute('/summary');
+
 
         }
         $views = new Template();
