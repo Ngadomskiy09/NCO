@@ -55,7 +55,7 @@ CREATE TABLE quality_alert (
     REFERENCES Test (formID)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-)
+);
 
 CREATE TABLE first_part_mto_run (
   first_part_mto_run_id INT NOT NULL AUTO_INCREMENT,
@@ -73,7 +73,7 @@ CREATE TABLE first_part_mto_run (
     REFERENCES Test (formID)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-)
+);
 
 CREATE TABLE cutter_list (
   cutter_list_id INT NOT NULL AUTO_INCREMENT,
@@ -89,7 +89,7 @@ CREATE TABLE cutter_list (
     REFERENCES Test (formID)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-)
+);
 
 CREATE TABLE tooling_sequence (
   tooling_sequence_id INT NOT NULL AUTO_INCREMENT,
@@ -111,5 +111,5 @@ CREATE TABLE tooling_sequence (
     REFERENCES Test (formID)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-)
+);
 
