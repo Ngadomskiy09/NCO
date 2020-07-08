@@ -65,7 +65,7 @@
             <label>
                 <select name="permission" id="permission" class="form-control">
                     <repeat group="{{ @permission }}" value="{{ @permissions }}">
-                        <option value="{{ @permissions }}"
+                        <option value="{{ substr(@permissions,0,3) }}"
                         <check if="{{ @permissionLevel == @permissions }}">
                             selected = "selected"
                         </check>

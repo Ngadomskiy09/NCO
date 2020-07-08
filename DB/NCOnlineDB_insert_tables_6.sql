@@ -29,10 +29,10 @@ CREATE TABLE Test
   PRIMARY KEY (formID)
 );
 
-CREATE TABLE user (
+CREATE TABLE nco.User (
   id INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(20) NOT NULL,
-  password VARCHAR(64) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   permission VARCHAR(3) NULL,
   name VARCHAR(128) NULL,
   PRIMARY KEY (id)

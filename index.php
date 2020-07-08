@@ -30,7 +30,7 @@ $f3->set('shifts', array('', '1', '2', '3'));
 $f3->set('processes', array('', 'Yes', 'No', 'Still needs work'));
 $f3->set('geometrys', array('', 'Yes', 'No', 'Marginal', 'L/O in process', 'Re-check required'));
 $f3->set('mtostat', array('', 'Ran Good!', 'Marginal', 'Not Acceptable', 'Other(Add Comments)'));
-$f3->set('permission', array('', 'Operator', 'Programmer', 'Layout', 'Team Lead'));
+$f3->set('permission', array('Select One', 'Operator', 'Programmer', 'Layout', 'Team Lead'));
 
 
 //define a default route

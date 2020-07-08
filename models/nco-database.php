@@ -1,9 +1,6 @@
 <?php
 
-// require
-require("/home/teamncog/config-nco.php");
-//require("/home/dh_28w967/config-nco.php");
-//require('/home/klowgree/config-nco.php');
+require('DB/config.php');
 
 /**
  * Class NcoDatabase
@@ -39,11 +36,11 @@ class Database
 
         $statement = $this->_dbh->prepare($sql);
 
-        $statement->bindParam(":programmer", $dataObj->getProgrammer());
+
         $statement->bindParam(":program", $dataObj->getProgram());
         $statement->bindParam(":status", $dataObj->getStatus());
         $statement->bindParam(":date", $dataObj->getDate());
-        $statement->bindParam(":rtime", $dataObj->getRtime());
+
         $statement->bindParam(":model", $dataObj->getModel());
         $statement->bindParam(":fwc", $dataObj->getFwc());
         $statement->bindParam(":media", $dataObj->getMedia());
@@ -70,7 +67,7 @@ class Database
         $statement->bindParam(":sig2", $dataObj->getSig2());
         $statement->bindParam(":sig2date", $dataObj->getSig2date());
 
-        $statement->execute();
+        $statement->execute([$dataObj->getProgrammer(), $dataObj->getRtime() ]);
 
         $this->setFirstPartMtoRun($this->_dbh->lastInsertId());
     }
@@ -174,7 +171,7 @@ class Database
     //GET tooling_sequence
     function getToolingSequence($id)
     {
-        $sql = "SELECT * FROM `tooling_sequence`
+        $sql = "SELECT * FROM `Tooling_sequence`
                 WHERE `formID` = :id";
 
         $statement = $this->_dbh->prepare($sql);
@@ -195,7 +192,7 @@ class Database
                                 $tooling_mto_status, $toolNum2 = NULL, $toolDes2 = NULL,
                                 $file_url = NULL)
     {
-        $sql = "INSERT INTO `tooling_sequence`
+        $sql = "INSERT INTO `Tooling_sequence`
                 VALUES(DEFAULT, :formID, :toolNum1, :toolDes1, :programmers_notes,
                                 :operators_notes, :mto_comments, :fr_rpm_100,
                                 :tooling_mto_status, :toolNum2, :toolDec2, :file_url)";
@@ -224,7 +221,7 @@ class Database
     // this function retrieves all the information from the cutter list for the given form id
     function getCutterList($id)
     {
-        $sql = "SELECT * FROM `cutter_list`
+        $sql = "SELECT * FROM `Cutter_list`
                 WHERE `formID` = :id";
 
         $statement = $this->_dbh->prepare($sql);
@@ -242,7 +239,7 @@ class Database
     function setCutterList($formID, $cutter_list_number, $tool_id,
                            $tool_description, $tool_num)
     {
-        $sql = "INSERT INTO `cutter_list`
+        $sql = "INSERT INTO `Cutter_list`
                 VALUES(DEFAULT, :formID, :cutter_list_number, :tool_id,
                        :tool_description, :tool_num)";
 
@@ -264,7 +261,7 @@ class Database
     // this function retrieves all information from the first_part_mto_run table for the given id
     function getFirstPartMtoRun($formID)
     {
-        $sql = "SELECT * FROM first_part_mto_run
+        $sql = "SELECT * FROM First_part_mto_run
                 WHERE formID = :formID";
 
         $statement = $this->_dbh->prepare($sql);
@@ -306,7 +303,7 @@ class Database
     function setFirstPartMtoRun ($formID)
     {
         $dataObj = $_SESSION['info'];
-        $sql = "INSERT INTO first_part_mto_run VALUES (DEFAULT, :formID, :operator, :date2, :po,
+        $sql = "INSERT INTO First_part_mto_run VALUES (DEFAULT, :formID, :operator, :date2, :po,
                        :machine, :shift, :seq)";
 
         $statement = $this->_dbh->prepare($sql);
@@ -325,7 +322,7 @@ class Database
     // this function retrieves all information from quality_alert for the given id
     function getQualityAlert($id)
     {
-        $sql = "SELECT * FROM `quality_alert`
+        $sql = "SELECT * FROM `Quality_alert`
                 WHERE `formID` = :id";
 
         $statement = $this->_dbh->prepare($sql);
@@ -343,7 +340,7 @@ class Database
     function setQualityAlert($formID, $operators_signature, $work_order, $machine,
                              $date, $part_number, $error_discrepancy, $cause)
     {
-        $sql = "INSERT INTO `quality_alert`
+        $sql = "INSERT INTO `Quality_alert`
                 VALUES(DEFAULT, :formID, :operators_name, :work_order,
                        :machine, :date, :part_number, :error_discrepancy, :cause)";
 
@@ -374,7 +371,7 @@ class Database
     function login($username, $password)
     {
         // define sql query
-        $sql = "SELECT id, username, password, permission, name FROM user WHERE username = :username";
+        $sql = "SELECT id, username, password, permission, name FROM User WHERE username = :username";
 
         // prepare statement
         $statement = $this->_dbh->prepare($sql);
@@ -406,7 +403,7 @@ class Database
     function checkForUser($username)
     {
         // define sql query
-        $sql = "SELECT id FROM user WHERE username = :username";
+        $sql = "SELECT id FROM User WHERE username = :username";
 
         // prepare statement
         $statement = $this->_dbh->prepare($sql);
@@ -425,21 +422,13 @@ class Database
     function register($username, $password, $permission, $name)
     {
         // prepare sql statement
-        $sql = "INSERT INTO user (username, password, permission, name)
-                VALUES (:username, :password, :permission, :name)";
+        $sql = "INSERT INTO User VALUES (DEFAULT, ?, ?, ?, ?)";
 
         // prepare statement
         $statement = $this->_dbh->prepare($sql);
 
-        // bind params
-        $statement->bindParam(':username', $username);
-        // create password hash with salt so users can have the same passwords
-        $statement->bindParam(':password', password_hash($password, PASSWORD_DEFAULT));
-        $statement->bindParam(':permission', $permission);
-        $statement->bindParam(':name', $name);
-
         // execute statement
-        $statement->execute();
+        $statement->execute([$username, password_hash($password, PASSWORD_DEFAULT), $permission, $name]);
 
         // nothing to return
     }

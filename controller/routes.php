@@ -92,9 +92,7 @@ class Routes
     // handles adding users to the database
     function register()
     {
-        // Define variables and initialize with empty values
-        $username_err = $password_err = $confirm_password_err = $permission_err = $name_err = "";
-        $username = $password = $confirm_password = $permission = $name = "";
+
 
         // process data after form is submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -234,12 +232,12 @@ class Routes
         $this->_f3->set('bf', $grab['Prev_buy_off']);
         $this->_f3->set('instruct', $grab['Programmers_instructions']);
         $this->_f3->set('Pnotes', $grab['programmers_notes']);
-        $this->_f3->set('operator', $grabs['operator']);
-        $this->_f3->set('date2', $grabs['date2']);
-        $this->_f3->set('po', $grabs['po']);
-        $this->_f3->set('machine', $grabs['machine']);
-        $this->_f3->set('shi', $grabs['shi']);
-        $this->_f3->set('seq', $grabs['seq']);
+        $this->_f3->set('operator', $grab['operator']);
+        $this->_f3->set('date2', $grab['date2']);
+        $this->_f3->set('po', $grab['po']);
+        $this->_f3->set('machine', $grab['machine']);
+        $this->_f3->set('shi', $grab['shi']);
+        $this->_f3->set('seq', $grab['seq']);
         $this->_f3->set('pro', $grab['Milling_proc']);
         $this->_f3->set('Onotes', $grab['operators_notes']);
         $this->_f3->set('geo', $grab['Geometry']);
