@@ -30,8 +30,23 @@ jQuery(document).delegate('a.delete-record', 'click', function (e) {
     }
 });
 
+
+$('.opData').on('click',function(){
+    $("#opInfo").html('');
+    id = $(this).data('id');
+
+    $.post('/getops',{
+        id: id
+    }).done(function(data){
+        console.log(data);
+        $('#opInfo').append(data);
+        $('#opData').DataTable();
+        $('#opData').removeClass("hidden");
+    });
+});
+
 //adds an additional operator field when the plus button is pushed
-$("#plus").on("click", function () {
+/*$("#plus").on("click", function () {
     let $main = $("#ops");
     if (parseInt($main.children().last().attr("data-count")) < 5) {
         let $dupes = $main.children().last().clone();
@@ -53,7 +68,7 @@ $("#minus").on("click", function () {
     if (parseInt($main.children().last().attr("data-count")) !== 1) {
         $main.children().last().remove();
     }
-});
+});*/
 
 // the next four function copy inputs to other fields
 $(function () {
