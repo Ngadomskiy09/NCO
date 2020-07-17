@@ -27,6 +27,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Operators</th>
                     <th>Programmer</th>
                     <th>Runtime</th>
                     <th>Model</th>
@@ -44,12 +45,6 @@
                     <th>Previous Buy-off</th>
                     <th>Programmers instructions</th>
                     <th>Programmers Notes</th>
-                    <th>Operator Name</th>
-                    <th>Run-date</th>
-                    <th>PO#</th>
-                    <th>Machine#</th>
-                    <th>Shift</th>
-                    <th>Sequence From-To</th>
                     <th>Milling Process</th>
                     <th>Operators Notes</th>
                     <th>Geometry</th>
@@ -63,53 +58,69 @@
             <tbody>
                 <repeat group="{{ @dataInfo }}" value="{{ @info }}">
                     <tr>
-                        <th><a href="home/{{ @info['formID'] }}">{{ @info['formID'] }}</a></th>
-                        <th>{{ @info['Programmer'] }}</th>
-                        <th>{{ @info['Runtime'] }}</th>
-                        <th>{{ @info['Model'] }}</th>
-                        <th>{{ @info['FWC'] }}</th>
-                        <th>{{ @info['Media'] }}</th>
-                        <th>{{ @info['Program_number'] }}</th>
-                        <th>{{ @info['Used_to_make'] }}</th>
-                        <th>{{ @info['Program_Date'] }}</th>
-                        <th>{{ @info['Program_Time'] }}</th>
-                        <th>{{ @info['Program_type'] }}</th>
-                        <th>{{ @info['Part_Status'] }}</th>
-                        <th>{{ @info['Rev_reason'] }}</th>
-                        <th>{{ @info['Graphic'] }}</th>
-                        <th>{{ @info['MCD_compare'] }}</th>
-                        <th>{{ @info['Prev_buy_off'] }}</th>
-                        <th>{{ @info['Programmers_instructions'] }}</th>
-                        <th>{{ @info['programmers_notes'] }}</th>
-                        <th>{{ @info['operators_name'] }}</th> 
-                        <th>{{ @info['date'] }}</th>
-                        <th>{{ @info['p_o_num'] }}</th>
-                        <th>{{ @info['machine'] }}</th>
-                        <th>{{ @info['shift'] }}</th>
-                        <th>{{ @info['seq_from_to']}}</th>
-                        <th>{{ @info['Milling_proc'] }}</th>
-                        <th>{{ @info['operators_notes'] }}</th>
-                        <th>{{ @info['Geometry'] }}</th>
-                        <th>{{ @info['Signature'] }}</th>
-                        <th>{{ @info['Layout_Date'] }}</th>
-                        <th>{{ @info['layout_notes'] }}</th>
-                        <th>{{ @info['Shop_signature'] }}</th>
-                        <th>{{ @info['Shop_Date'] }}</th>
+
+                        <td><a href="home/{{ @info['formID'] }}">{{ @info['formID'] }}</a></td>
+                        <td> <button data-id="{{@info['formID']}}" class="btn btn-secondary btn-sm opData">show info</button></td>
+                        <td>{{ @info['Programmer'] }}</td>
+                        <td>{{ @info['Runtime'] }}</td>
+                        <td>{{ @info['Model'] }}</td>
+                        <td>{{ @info['FWC'] }}</td>
+                        <td>{{ @info['Media'] }}</td>
+                        <td>{{ @info['Program_number'] }}</td>
+                        <td>{{ @info['Used_to_make'] }}</td>
+                        <td>{{ @info['Program_Date'] }}</td>
+                        <td>{{ @info['Program_Time'] }}</td>
+                        <td>{{ @info['Program_type'] }}</td>
+                        <td>{{ @info['Part_Status'] }}</td>
+                        <td>{{ @info['Rev_reason'] }}</td>
+                        <td>{{ @info['Graphic'] }}</td>
+                        <td>{{ @info['MCD_compare'] }}</td>
+                        <td>{{ @info['Prev_buy_off'] }}</td>
+                        <td>{{ @info['Programmers_instructions'] }}</td>
+                        <td>{{ @info['programmers_notes'] }}</td>
+                        <td>{{ @info['Milling_proc'] }}</td>
+                        <td>{{ @info['operators_notes'] }}</td>
+                        <td>{{ @info['Geometry'] }}</td>
+                        <td>{{ @info['Signature'] }}</td>
+                        <td>{{ @info['Layout_Date'] }}</td>
+                        <td>{{ @info['layout_notes'] }}</td>
+                        <td>{{ @info['Shop_signature'] }}</td>
+                        <td>{{ @info['Shop_Date'] }}</td>
                     </tr>
                 </repeat>
             </tbody>
         </table>
     <br>
     <br>
-    <a class="btn btn-danger mb-4 align-content-end" type="button" value="Log Out" href="models/logout.php">Log
-        Out</a>
+    <hr>
+
+    <div>
+        <table id="opData" class="table hidden">
+            <thead>
+                <tr>
+                    <th>Operator Name</th>
+                    <th>Date</th>
+                    <th>PO Number</th>
+                    <th>Machine</th>
+                    <th>Shift</th>
+                    <th>Seq From - To</th>
+                </tr>
+            </thead>
+            <tbody id="opInfo">
+
+            </tbody>
+        </table>
+    </div>
+
+    <a class="btn btn-danger mb-4 align-content-end" type="button" value="Log Out" href="models/logout.php">LogOut</a>
 </div>
 
-<script src="//code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="../controller/formFunctions.js"></script>
 <!--<script src="//cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>-->
 <script>
     $('#formData').DataTable({
@@ -129,6 +140,7 @@
         },
         order: [[1]]
     });
+
 </script>
 
 

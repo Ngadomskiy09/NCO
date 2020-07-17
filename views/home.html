@@ -169,19 +169,18 @@
 
         <!--Textarea for user to place notes-->
         <label class="col-sm-12" for="Pnotes" ><strong>Programmers Notes: </strong>
-            <textarea id="Pnotes" name="Pnotes" rows="10" maxlength="50000" class="form-control" placeholder="...">value</textarea>
+            <textarea id="Pnotes" name="Pnotes" rows="10" maxlength="50000" class="form-control" placeholder="...">{{@pronotes}}</textarea>
         </label>
-
         <h3 class="text-lg-center"><strong>First Part MTO Run</strong></h3>
 
         <div class="form-group">
             <!--buttons to add more operators if needed-->
             <div id="ops">
-                <label class="col-sm-auto"><strong>ADD</strong>
-                    <button id="plus" type="button" class="form-control" name="plus" value="plus">+</button>
-                    <button id="minus" type="button" class="form-control" name="minus" value="minus">-</button>
-                </label>
-                <div data-count="1">
+<!--                <label class="col-sm-auto"><strong>ADD</strong>-->
+<!--                    <button id="plus" type="button" class="form-control" name="plus" value="plus">+</button>-->
+<!--                    <button id="minus" type="button" class="form-control" name="minus" value="minus">-</button>-->
+<!--                </label>-->
+                <div><!--  data-count="1"-->
                     <label class="col-sm-auto" for="operator"><strong>Operator's Name: </strong>
                         <input id="operator" type="text" class="form-control" name="operator" value="{{ @operator}}">
                     </label>
@@ -235,7 +234,7 @@
 
             <!--Textarea for user to place notes-->
             <label class="col-sm-12" for="Onotes" ><strong>Operator Notes: </strong>
-                <textarea id="Onotes" name="Onotes" rows="10" maxlength="50000" class="form-control" placeholder="..."></textarea>
+                <textarea id="Onotes" name="Onotes" rows="10" maxlength="50000" class="form-control" placeholder="...">{{@opernotes}}</textarea>
             </label>
 
             <h3 class="text-lg-center"><strong>Layout First Part Check Report</strong></h3>
@@ -263,7 +262,7 @@
 
             <!--Textarea for user to place notes-->
             <label class="col-sm-12" for="Lnotes" ><strong>LayOut Notes: </strong>
-                <textarea id="Lnotes" name="Lnotes" rows="10" maxlength="50000" class="form-control" placeholder="..."></textarea>
+                <textarea id="Lnotes" name="Lnotes" rows="10" maxlength="50000" class="form-control" placeholder="...">{{@Lnotes}}</textarea>
             </label>
         </div>
 

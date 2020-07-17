@@ -247,8 +247,8 @@ class Routes
         $this->_f3->set('desc', $grab['desc']);
         $this->_f3->set('tool1', $grab['tool1']);
         $this->_f3->set('desc1', $grab['desc1']);
-        $this->_f3->set('pronotes', $grab['pronotes']);
-        $this->_f3->set('opernotes', $grab['opernotes']);
+        $this->_f3->set('pronotes', $grab['programmers_notes']);
+        $this->_f3->set('opernotes', $grab['operators_notes']);
         $this->_f3->set('mtostatus', $grab['mtostatus']);
         $this->_f3->set('rpmran', $grab['rpmran']);
         $this->_f3->set('mtocomments', $grab['mtocomments']);
@@ -434,5 +434,20 @@ class Routes
 
         $views = new Template();
         echo $views->render("views/data.html");
+    }
+
+    function getInfoOperators(){
+        $operators = $this->_dbh->getFirstPartMtoRun($_POST['id']);
+
+        foreach($operators as $operator){
+            echo "<tr>
+                    <td>".$operator['operators_name']."</td>
+                    <td>".$operator['date']."</td>
+                    <td>".$operator['p_o_num']."</td>
+                    <td>".$operator['machine']."</td>
+                    <td> ".$operator['shift']."</td>
+                    <td>".$operator['seq_from_to']."</td>
+            </tr>";
+        }
     }
 }

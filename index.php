@@ -61,5 +61,10 @@ $f3->route('GET /data', function () {
     $GLOBALS['routes']->data();
 });
 
+// route to database
+$f3->route('POST /getops', function () {
+    $GLOBALS['routes']->getInfoOperators();
+});
+
 //run fat free
 $f3->run();
