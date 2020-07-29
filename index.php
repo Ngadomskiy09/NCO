@@ -47,6 +47,7 @@ $f3->route('GET|POST /register', function () {
 $f3->route('GET|POST /home/@id', function ($f3, $params) {
 //    $_SESSION = array();
     $id = $params["id"];
+    $_SESSION["formID"] = $id;
     $GLOBALS['routes']->home($id);
 });
 
@@ -64,6 +65,10 @@ $f3->route('GET /data', function () {
 // route to database
 $f3->route('POST /getops', function () {
     $GLOBALS['routes']->getInfoOperators();
+});
+
+$f3->route('POST /seqblock', function () {
+    $GLOBALS['routes']->SequenceBlock();
 });
 
 //run fat free

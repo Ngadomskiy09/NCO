@@ -116,23 +116,26 @@ class Database
     }
 
     //This function sets the given information in the tooling sequence table
-    function setToolingSequence($formID, $toolNum1, $toolDes1, $programmers_notes,
-                                $operators_notes, $mto_comments, $fr_rpm_100,
-                                $tooling_mto_status, $toolNum2 = NULL, $toolDes2 = NULL,
-                                $file_url = NULL)
+    function setToolingSequence($formID, $toolingSeqId)
     {
-        $sql = "INSERT INTO `Tooling_sequence`
-                VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = 'INSERT INTO nco.Tooling_sequence
+                VALUES(?, ?, default, default, default, default, default, default, default, default, default, default)';
 
         $statement = $this->_dbh->prepare($sql);
 
-        $statement->execute([$formID, $toolNum1, $toolDes1, $programmers_notes,
-            $operators_notes, $mto_comments, $fr_rpm_100,
-            $tooling_mto_status, $toolNum2 = NULL, $toolDes2 = NULL,
-            $file_url = NULL]);
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        $statement->execute([$toolingSeqId, $formID]);
     }
+
+    //This function sets the given information in the tooling sequence table
+    function removeToolingSequence($formID, $toolingSeqId)
+    {
+        $sql = 'DELETE FROM nco.Tooling_sequence WHERE formID = ? AND tooling_sequence_id = ?';
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute([$formID, $toolingSeqId]);
+    }
+
 
     // this function retrieves all the information from the cutter list for the given form id
     function getCutterList($id)
