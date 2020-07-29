@@ -121,29 +121,41 @@ function CheckNCPSR(val) {
 
 // hides the sequence block field
 $(document).ready(function () {
-    $("#sequence-block").hide();
+
 });
 
 // shows the sequence block field and adds additional block fields when add button is clicked
 $("#addsequence").on("click", function () {
-    $("#sequence-block").show();
+    let Fid = $(".all-sequences").data("formid");
+    console.log(Fid);
 
-    $("#addsequence").on("click", function () {
-
-        var $Title = "sequence-block";
-        let $block = $("#sequence-block").append($Title).append();
-        let $duplicate = $block.children().last().clone();
-        let count = parseInt($duplicate.attr("data-counts")) + 1;
-        $duplicate.attr("data-counts", count);
-        $block.last().append($duplicate);
-    });
+    if ($(".all-sequences div").last().length === 0)
+    {
+        $.post("../seqblock", {
+           value: 1,
+            formID: Fid
+        }).done(function(data){
+            $(".all-sequences").append(data);
+        })
+    }
+    else{
+        let id = $(".all-sequences .block").last().data('id')+1;
+        $.post("../seqblock", {
+            value: id,
+             formID: Fid
+        }).done(function(data){
+            $(".all-sequences").append(data);
+        })
+    }
 
 });
 
 // removes a sequence block field when the remove button is pushed
 $("#removesequence").on("click", function () {
-    let $block = $("#sequence-block");
-    if (parseInt($block.children().last().attr("data-counts")) !== 1) {
-        $block.children().last().remove();
-    }
+    $.post('../deleteSeq',{
+        value: "",
+        formID: ""
+    });
+    let lastSeq = $(".all-sequences .block").last();
+    lastSeq.remove();
 });

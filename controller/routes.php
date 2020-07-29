@@ -450,4 +450,60 @@ class Routes
             </tr>";
         }
     }
+
+    function SequenceBlock() {
+        $value = $_POST['value'];
+        $this->_dbh->setToolingSequence($_POST['formID'],$value);
+        echo "<div class=\"block\" data-id = \"$value\">
+                <div>
+                <h2>Sequence #$value</h2>
+
+                    <label class=\"col-sm-3\" for=\"tool\">Tool#1
+                        <input type=\"tool\" class=\"form-control\"  maxlength=\"5\" id=\"tool\" name=\"tool\">
+                    </label>
+
+                    <label class=\"col-sm-8\" for=\"desc\">Description
+                        <input type=\"desc\" class=\"form-control\" id=\"desc\" name=\"desc\">
+                    </label>
+
+
+                    <label class=\"col-sm-3\" for=\"tool\">Tool#2
+                        <input type=\"tool1\" class=\"form-control\" maxlength=\"5\"  id=\"tool1\" name=\"tool1\">
+                    </label>
+
+                    <label class=\"col-sm-8\" for=\"desc\">Description
+                        <input type=\"desc1\" class=\"form-control\" id=\"desc1\" name=\"desc1\">
+                    </label>
+
+                    <label class=\"col-sm-12\" for=\"pronotes\"><strong>Programmers Notes: </strong>
+                        <textarea id=\"pronotes\" name=\"pronotes\" rows=\"5\" maxlength=\"3000\" class=\"form-control\" placeholder=\"...\"></textarea>
+                    </label>
+                    <br>
+
+                    <label class=\"col-sm-12 for=opernotes\"><strong>Operator Notes: </strong>
+                        <textarea id=\"opernotes\" name=\"opernotes\" rows=\"5\" maxlength=\"3000\" class=\"form-control\" placeholder=\"...\"></textarea>
+                    </label>
+
+                    <label class=\"col-sm-12\" for=\"mtocomments\"><strong>MTO Comments: </strong>
+                        <textarea id=\"mtocomments\" name=\"mtocomments\" rows=\"3\" maxlength=\"2000\" class=\"form-control\" placeholder=\"...\"></textarea>
+                    </label>
+
+                    <label for=\"rpmran\">F/R and RPM ran @100%
+                        <input type=\"checkbox\" id=\"rpmran\" name=\"rpmran\" value=\"rpmran\">
+                    </label>
+
+                    <label><strong>MTO Status: </strong>
+                        <select name=\"mtostatus\" class=\"form-control\">";
+
+                            foreach( $this->_f3->get("mtostat") as $stat)
+                               echo "<option value=\"$stat\">$stat</option>";
+
+                        echo "</select>
+                    </label>
+
+                    <input type=\"file\" id=\"image\" name=\"image\">
+                    <hr> 
+                </div>
+            </div>";
+    }
 }

@@ -38,7 +38,7 @@ CREATE TABLE nco.User (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE quality_alert (
+CREATE TABLE Quality_alert (
   quality_alert_num INT NOT NULL AUTO_INCREMENT,
   formID INT NOT NULL,
   operator_signature VARCHAR(64) NULL,
@@ -57,7 +57,7 @@ CREATE TABLE quality_alert (
     ON UPDATE NO ACTION
 );
 
-CREATE TABLE first_part_mto_run (
+CREATE TABLE First_part_mto_run (
   first_part_mto_run_id INT NOT NULL AUTO_INCREMENT,
   formID INT NOT NULL,
   operators_name VARCHAR(64) NULL,
@@ -75,7 +75,7 @@ CREATE TABLE first_part_mto_run (
     ON UPDATE NO ACTION
 );
 
-CREATE TABLE cutter_list (
+CREATE TABLE Cutter_list (
   cutter_list_id INT NOT NULL AUTO_INCREMENT,
   formID INT NOT NULL,
   cutter_list_number INT NULL,
@@ -91,10 +91,10 @@ CREATE TABLE cutter_list (
     ON UPDATE NO ACTION
 );
 
-CREATE TABLE tooling_sequence (
-  tooling_sequence_id INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE nco.Tooling_sequence (
+  tooling_sequence_id INT NOT NULL,
   formID INT NOT NULL,
-  tool_num_1 TINYINT(5) NULL,
+  tool_num_1 TINYINT NULL,
   tool_description_1 VARCHAR(128) NULL,
   tool_num_2 INT NULL,
   tool_description_2 VARCHAR(128) NULL,
@@ -112,4 +112,3 @@ CREATE TABLE tooling_sequence (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
-
