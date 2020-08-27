@@ -1,3 +1,6 @@
+//array keeps all our sequence information
+let arr = [];
+
 //function that adds a new row to the table when the plus button is pushed
 jQuery(document).delegate('a.add-record', 'click', function (e) {
     e.preventDefault();
@@ -152,10 +155,28 @@ $("#addsequence").on("click", function () {
 
 // removes a sequence block field when the remove button is pushed
 $("#removesequence").on("click", function () {
+    let Fid = $(".all-sequences").data("formid");
+    let id = $(".all-sequences .block").last().data('id');
     $.post('../deleteSeq',{
-        value: "",
-        formID: ""
+        value: id,
+        formID: Fid
     });
     let lastSeq = $(".all-sequences .block").last();
     lastSeq.remove();
+});
+
+// save sequence information
+$("body").on("blur", ".block input", function () {
+   let col = $(this).data("column");
+   let formId = $("#vip").data("vip");
+   let seqId = $(this).parents(':eq(2)').data("id");
+   if(typeof arr[seqId] === 'undefined' ){
+       arr[seqId] = [];
+   }
+   if($(this).val().trim() !== ""){
+       arr[seqId][col] =[formId, $(this).val()];
+   }
+
+   console.log(arr);
+
 });

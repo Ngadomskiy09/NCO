@@ -104,11 +104,11 @@ CREATE TABLE nco.Tooling_sequence (
   fr_rpm_100 TINYINT NULL,
   tooling_mto_status VARCHAR(45) NULL,
   file_url VARCHAR(255) NULL,
-  PRIMARY KEY (tooling_sequence_id),
   INDEX fk_tooling_sequence_copy1_formID1_idx (formID ASC),
   CONSTRAINT fk_tooling_sequence_copy1_formID1
     FOREIGN KEY (formID)
     REFERENCES Test (formID)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+    ON UPDATE NO ACTION,
+    PRIMARY KEY (tooling_sequence_id, formID)
 );

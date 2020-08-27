@@ -30,22 +30,24 @@ class Database
     {
         $dataObj = $_SESSION['info'];
 
-        $sql = "INSERT INTO Test VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $sql = "INSERT INTO nco.Test VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $statement = $this->_dbh->prepare($sql);
 
-        $statement->execute([$dataObj->getProgrammer(), $dataObj->getRtime(), $dataObj->getModel(), $dataObj->getFwc(), $dataObj->getMedia(),
+         $statement->execute([$dataObj->getProgrammer(), $dataObj->getRtime(), $dataObj->getModel(), $dataObj->getFwc(), $dataObj->getMedia(),
             $dataObj->getProgram(), $dataObj->getMake(), $dataObj->getDate(), $dataObj->getPtime(), $dataObj->getPtype(), $dataObj->getStatus(),
             $dataObj->getReason(), $dataObj->getGraphic(), $dataObj->getMcd(), $dataObj->getBuyoff(), $dataObj->getInstruction(), $dataObj->getPnotes(),
             $dataObj->getProcess(), $dataObj->getOnotes(), $dataObj->getGeometry(), $dataObj->getSignature(), $dataObj->getSigdate(),
             $dataObj->getLnotes(), $dataObj->getSig2(), $dataObj->getSig2date()]);
 
         $this->setFirstPartMtoRun($this->_dbh->lastInsertId());
+
     }
 
     function getOperators($formID)
     {
-        $sql = "SELECT * FROM Test INNER JOIN first_part_mto_run ON Test.formID = first_part_mto_run.formID";
+        $sql = "SELECT * FROM nco.Test INNER JOIN first_part_mto_run ON Test.formID = first_part_mto_run.formID";
 
         $statement = $this->_dbh->prepare($sql);
 
@@ -72,7 +74,7 @@ class Database
     // this function gets all data from test where the form ID matches the given ID
     function getUpdate($formID)
     {
-        $sql = "SELECT * FROM Test WHERE formID = ?";
+        $sql = "SELECT * FROM nco.Test WHERE formID = ?";
 
         $statement = $this->_dbh->prepare($sql);
 
@@ -85,7 +87,7 @@ class Database
     {
         $dataObj = $_SESSION['info'];
 
-        $sql = "UPDATE Test SET Programmer = ?, Runtime = ?, Model = ?, FWC = ?, Media = ?, 
+        $sql = "UPDATE nco.Test SET Programmer = ?, Runtime = ?, Model = ?, FWC = ?, Media = ?, 
                 Program_number = ?, Used_to_make = ?, Program_Date = ?, Program_Time = ?, 
                 Program_type = ?, Part_Status = ?, Rev_reason = ?, Graphic = ?, MCD_compare = ?, 
                 Prev_buy_off = ?, Programmers_instructions = ?, programmers_notes = ?,
@@ -105,7 +107,7 @@ class Database
     //GET tooling_sequence
     function getToolingSequence($id)
     {
-        $sql = "SELECT * FROM `Tooling_sequence`
+        $sql = "SELECT * FROM nco.Tooling_sequence
                 WHERE `formID` = ?";
 
         $statement = $this->_dbh->prepare($sql);
@@ -136,11 +138,32 @@ class Database
         $statement->execute([$formID, $toolingSeqId]);
     }
 
+    // this function will query already saved sequences
+    function showSequence($formID)
+    {
+        $sql = "SELECT * FROM nco.Tooling_sequence WHERE formID = ?";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute([$formID]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function saveSequence($formID, $seqID, $columnName, $value) {
+        $sql = "UPDATE nco.Tooling_sequence SET " .$columnName. " = ? WHERE formID = ? AND tooling_sequence_id = ?";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        return $statement->execute([$value, $formID, $seqID]);
+
+    }
+
 
     // this function retrieves all the information from the cutter list for the given form id
     function getCutterList($id)
     {
-        $sql = "SELECT * FROM `Cutter_list`
+        $sql = "SELECT * FROM nco.Cutter_list
                 WHERE `formID` = ?";
 
         $statement = $this->_dbh->prepare($sql);
@@ -154,7 +177,7 @@ class Database
     function setCutterList($formID, $cutter_list_number, $tool_id,
                            $tool_description, $tool_num)
     {
-        $sql = "INSERT INTO `Cutter_list`
+        $sql = "INSERT INTO nco.Cutter_list
                 VALUES(DEFAULT, ?, ?, ?, ?, ?)";
 
         $statement = $this->_dbh->prepare($sql);
@@ -167,7 +190,7 @@ class Database
     // this function retrieves all information from the first_part_mto_run table for the given id
     function getFirstPartMtoRun($formID)
     {
-        $sql = "SELECT * FROM First_part_mto_run
+        $sql = "SELECT * FROM nco.First_part_mto_run
                 WHERE formID = ?";
 
         $statement = $this->_dbh->prepare($sql);
@@ -180,7 +203,7 @@ class Database
     function setFirstPartMtoRun ($formID)
     {
         $dataObj = $_SESSION['info'];
-        $sql = "INSERT INTO First_part_mto_run VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO nco.First_part_mto_run VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
 
         $statement = $this->_dbh->prepare($sql);
 
@@ -191,7 +214,7 @@ class Database
     // this function retrieves all information from quality_alert for the given id
     function getQualityAlert($id)
     {
-        $sql = "SELECT * FROM `Quality_alert`
+        $sql = "SELECT * FROM nco.Quality_alert
                 WHERE `formID` = ?";
 
         $statement = $this->_dbh->prepare($sql);
@@ -205,7 +228,7 @@ class Database
     function setQualityAlert($formID, $operators_signature, $work_order, $machine,
                              $date, $part_number, $error_discrepancy, $cause)
     {
-        $sql = "INSERT INTO `Quality_alert`
+        $sql = "INSERT INTO nco.Quality_alert
                 VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $statement = $this->_dbh->prepare($sql);
@@ -225,7 +248,7 @@ class Database
     function login($username, $password)
     {
         // define sql query
-        $sql = "SELECT id, username, password, permission, name FROM User WHERE username = :username";
+        $sql = "SELECT id, username, password, permission, name FROM nco.User WHERE username = :username";
 
         // prepare statement
         $statement = $this->_dbh->prepare($sql);
@@ -257,7 +280,7 @@ class Database
     function checkForUser($username)
     {
         // define sql query
-        $sql = "SELECT id FROM User WHERE username = ?";
+        $sql = "SELECT id FROM nco.User WHERE username = ?";
 
         // prepare statement
         $statement = $this->_dbh->prepare($sql);
@@ -273,7 +296,7 @@ class Database
     function register($username, $password, $permission, $name)
     {
         // prepare sql statement
-        $sql = "INSERT INTO User VALUES (DEFAULT, ?, ?, ?, ?)";
+        $sql = "INSERT INTO nco.User VALUES (DEFAULT, ?, ?, ?, ?)";
 
         // prepare statement
         $statement = $this->_dbh->prepare($sql);
