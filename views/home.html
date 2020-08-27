@@ -306,7 +306,57 @@
 
         <!--Hidden sequence block that appears only when programmer wants to add more sequences-->
         <div class="all-sequences form-group border" data-formid="{{@SESSION.formID}}">
+            <repeat group="{{@sequences}}" value="{{@sequence}}">
+                <div class="block" data-id = "{{@sequence['tooling_sequence_id']}}">
+                    <div>
+                        <h2>Sequence #{{@sequence['tooling_sequence_id']}}</h2>
 
+                        <label class="col-sm-3" for="tool{{@sequence['tooling_sequence_id']}}">Tool#1
+                            <input type="text" class="form-control" data-column="tool_num_1" maxlength="5" id="tool{{@sequence['tooling_sequence_id']}}" name="tool">
+                        </label>
+
+                        <label class="col-sm-8" for="desc{{@sequence['tooling_sequence_id']}}">Description
+                            <input type="text" class="form-control" data-column="tool_description_1" id="desc{{@sequence['tooling_sequence_id']}}" name="desc">
+                        </label>
+
+                        <label class="col-sm-3" for="tool1{{@sequence['tooling_sequence_id']}}">Tool#2
+                            <input type="text" class="form-control"data-column="tool_num_2" maxlength="5"  id="tool1{{@sequence['tooling_sequence_id']}}" name="tool1">
+                        </label>
+
+                        <label class="col-sm-8" for="desc1{{@sequence['tooling_sequence_id']}}">Description
+                            <input type="text" class="form-control" data-column="tool_description_2" id="desc1{{@sequence['tooling_sequence_id']}}" name="desc1">
+                        </label>
+
+                        <label class="col-sm-12" for="pronotes{{@sequence['tooling_sequence_id']}}"><strong>Programmers Notes: </strong>
+                            <textarea id="pronotes{{@sequence['tooling_sequence_id']}}" name="pronotes" data-column="programmers_notes" rows="5" maxlength="3000" class="form-control" placeholder="..."></textarea>
+                        </label>
+                        <br>
+
+                        <label class="col-sm-12" for="opernotes{{@sequence['tooling_sequence_id']}}"><strong>Operator Notes: </strong>
+                            <textarea id="opernotes{{@sequence['tooling_sequence_id']}}" name="opernotes" data-column="operators_notes" rows="5" maxlength="3000" class="form-control" placeholder="..."></textarea>
+                        </label>
+
+                        <label class="col-sm-12" for="mtocomments{{@sequence['tooling_sequence_id']}}"><strong>MTO Comments: </strong>
+                            <textarea id="mtocomments{{@sequence['tooling_sequence_id']}}" name="mtocomments" data-column="mto_comments" rows="3" maxlength="2000" class="form-control" placeholder="..."></textarea>
+                        </label>
+
+                        <label for="rpmran{{@sequence['tooling_sequence_id']}}">F/R and RPM ran @100%
+                            <input type="checkbox" id="rpmran{{@sequence['tooling_sequence_id']}}" data-column="fr_rpm_100" name="rpmran" value="rpmran">
+                        </label>
+
+                        <label><strong>MTO Status: </strong>
+                            <select class="form-control" data-column="tooling_mto_status">
+                                <repeat group="{{@mtostat}}" value="{{@mto}}">
+                                    <option value="{{@mto}}"> {{@mto}} </option>
+                                </repeat>
+                            </select>
+                        </label>
+
+                        <input type="file" id="image" name="image" data-column="file_url">
+                        <hr>
+                    </div>
+                </div>
+            </repeat>
         </div>
 
     <button id="addsequence" type="button" class="btn btn-primary">Add Sequence</button>

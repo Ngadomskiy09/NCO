@@ -46,7 +46,7 @@ class formData
         $this->_media = $media;
         $this->_program = $program;
         $this->_make = $make;
-        $this->_date = $date;
+        $this->_date = !empty($date) ? date('Y-m-d',strtotime($date)) : null;
         $this->_ptime = $ptime;
         $this->_ptype = $ptype;
         $this->_status = $status;
@@ -56,7 +56,7 @@ class formData
         $this->_buyoff = $buyoff;
         $this->_instruction = $instruction;
         $this->_operator = $operator;
-        $this->_date2 = $date2;
+        $this->_date2 = !empty($date2) ? date('Y-m-d',strtotime($date2)) : null;
         $this->_po = $po;
         $this->_machine = $machine;
         $this->_shift = $shift;
@@ -64,9 +64,9 @@ class formData
         $this->_process = $process;
         $this->_geometry = $geometry;
         $this->_signature = $signature;
-        $this->_sigdate = $sigdate;
+        $this->_sigdate = !empty($sigdate) ? date('Y-m-d',strtotime($sigdate)) : null;
         $this->_sig2 = $sig2;
-        $this->_sig2date = $sig2date;
+        $this->_sig2date = !empty($sig2date) ? date('Y-m-d',strtotime($sig2date)) : null;
         $this->_Pnotes = $pnotes;
         $this->_Lnotes = $lnotes;
         $this->_Onotes = $onotes;

@@ -209,53 +209,57 @@ class Routes
         } else {
             $this->_f3->reroute('/home/@id');
             $dataUp = $this->_dbh->getUpdate($id);
-            $this->_dbh->DataUpdate( );
+            $this->_dbh->DataUpdate($id);
         }*/
-        $grab = $this->_dbh->getUpdate($id);
-        $grab = $grab[0];
+        if ($id !== 0) {
 
-        // Add Data to hive
-        $this->_f3->set('programmer', $grab['Programmer']);
-        $this->_f3->set('rtime', $grab['Runtime']);
-        $this->_f3->set('model', $grab['Model']);
-        $this->_f3->set('fwc', $grab['FWC']);
-        $this->_f3->set('media', $grab['Media']);
-        $this->_f3->set('program', $grab['Program_number']);
-        $this->_f3->set('make', $grab['Used_to_make']);
-        $this->_f3->set('date', $grab['Program_Date']);
-        $this->_f3->set('ptime', $grab['Program_Time']);
-        $this->_f3->set('ptype', $grab['Program_type']);
-        $this->_f3->set('stats', $grab['Part_Status']);
-        $this->_f3->set('reason4', $grab['Rev_reason']);
-        $this->_f3->set('graph', $grab['Graphic']);
-        $this->_f3->set('mc', $grab['MCD_compare']);
-        $this->_f3->set('bf', $grab['Prev_buy_off']);
-        $this->_f3->set('instruct', $grab['Programmers_instructions']);
-        $this->_f3->set('Pnotes', $grab['programmers_notes']);
-        $this->_f3->set('operator', $grab['operator']);
-        $this->_f3->set('date2', $grab['date2']);
-        $this->_f3->set('po', $grab['po']);
-        $this->_f3->set('machine', $grab['machine']);
-        $this->_f3->set('shi', $grab['shi']);
-        $this->_f3->set('seq', $grab['seq']);
-        $this->_f3->set('pro', $grab['Milling_proc']);
-        $this->_f3->set('Onotes', $grab['operators_notes']);
-        $this->_f3->set('geo', $grab['Geometry']);
-        $this->_f3->set('signature', $grab['Signature']);
-        $this->_f3->set('sigdate', $grab['Layout_Date']);
-        $this->_f3->set('tool', $grab['tool']);
-        $this->_f3->set('desc', $grab['desc']);
-        $this->_f3->set('tool1', $grab['tool1']);
-        $this->_f3->set('desc1', $grab['desc1']);
-        $this->_f3->set('pronotes', $grab['programmers_notes']);
-        $this->_f3->set('opernotes', $grab['operators_notes']);
-        $this->_f3->set('mtostatus', $grab['mtostatus']);
-        $this->_f3->set('rpmran', $grab['rpmran']);
-        $this->_f3->set('mtocomments', $grab['mtocomments']);
-        $this->_f3->set('Lnotes', $grab['layout_notes']);
-        $this->_f3->set('sig2', $grab['Shop_signature']);
-        $this->_f3->set('sig2date', $grab['Shop_Date']);
-        $this->_f3->set('process', $grab['Milling_proc']);
+            $grab = $this->_dbh->getUpdate($id);
+            $grab = $grab[0];
+
+            // Add Data to hive
+            $this->_f3->set('sequences',$this->_dbh->showSequence($id));
+            $this->_f3->set('programmer', $grab['Programmer']);
+            $this->_f3->set('rtime', $grab['Runtime']);
+            $this->_f3->set('model', $grab['Model']);
+            $this->_f3->set('fwc', $grab['FWC']);
+            $this->_f3->set('media', $grab['Media']);
+            $this->_f3->set('program', $grab['Program_number']);
+            $this->_f3->set('make', $grab['Used_to_make']);
+            $this->_f3->set('date', $grab['Program_Date']);
+            $this->_f3->set('ptime', $grab['Program_Time']);
+            $this->_f3->set('ptype', $grab['Program_type']);
+            $this->_f3->set('stats', $grab['Part_Status']);
+            $this->_f3->set('reason4', $grab['Rev_reason']);
+            $this->_f3->set('graph', $grab['Graphic']);
+            $this->_f3->set('mc', $grab['MCD_compare']);
+            $this->_f3->set('bf', $grab['Prev_buy_off']);
+            $this->_f3->set('instruct', $grab['Programmers_instructions']);
+            $this->_f3->set('Pnotes', $grab['programmers_notes']);
+            $this->_f3->set('operator', $grab['operator']);
+            $this->_f3->set('date2', $grab['date2']);
+            $this->_f3->set('po', $grab['po']);
+            $this->_f3->set('machine', $grab['machine']);
+            $this->_f3->set('shi', $grab['shi']);
+            $this->_f3->set('seq', $grab['seq']);
+            $this->_f3->set('pro', $grab['Milling_proc']);
+            $this->_f3->set('Onotes', $grab['operators_notes']);
+            $this->_f3->set('geo', $grab['Geometry']);
+            $this->_f3->set('signature', $grab['Signature']);
+            $this->_f3->set('sigdate', $grab['Layout_Date']);
+            $this->_f3->set('tool', $grab['tool']);
+            $this->_f3->set('desc', $grab['desc']);
+            $this->_f3->set('tool1', $grab['tool1']);
+            $this->_f3->set('desc1', $grab['desc1']);
+            $this->_f3->set('pronotes', $grab['programmers_notes']);
+            $this->_f3->set('opernotes', $grab['operators_notes']);
+            $this->_f3->set('mtostatus', $grab['mtostatus']);
+            $this->_f3->set('rpmran', $grab['rpmran']);
+            $this->_f3->set('mtocomments', $grab['mtocomments']);
+            $this->_f3->set('Lnotes', $grab['layout_notes']);
+            $this->_f3->set('sig2', $grab['Shop_signature']);
+            $this->_f3->set('sig2date', $grab['Shop_Date']);
+            $this->_f3->set('process', $grab['Milling_proc']);
+        }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Get Data from from
@@ -391,6 +395,8 @@ class Routes
                 $_POST['machine'], $_POST['shift'], $_POST['seq'],$_POST['process'], $_POST['Onotes'], $_POST['geometry'], $_POST['signature'],
                 $_POST['sigdate'], $_POST['Lnotes'], $_POST['sig2'], $_POST['sig2date']);
 
+
+
             if ($id == 0) {
                 $this->_dbh->insertData();
             } else {
@@ -458,42 +464,42 @@ class Routes
                 <div>
                 <h2>Sequence #$value</h2>
 
-                    <label class=\"col-sm-3\" for=\"tool\">Tool#1
-                        <input type=\"tool\" class=\"form-control\"  maxlength=\"5\" id=\"tool\" name=\"tool\">
+                    <label class=\"col-sm-3\" for=\"tool$value\">Tool#1
+                        <input type=\"text\" class=\"form-control\" data-column=\"tool_num_1\" maxlength=\"5\" id=\"tool$value\" name=\"tool\">
                     </label>
 
-                    <label class=\"col-sm-8\" for=\"desc\">Description
-                        <input type=\"desc\" class=\"form-control\" id=\"desc\" name=\"desc\">
+                    <label class=\"col-sm-8\" for=\"desc$value\">Description
+                        <input type=\"text\" class=\"form-control\" data-column=\"tool_description_1\" id=\"desc$value\" name=\"desc\">
                     </label>
 
 
-                    <label class=\"col-sm-3\" for=\"tool\">Tool#2
-                        <input type=\"tool1\" class=\"form-control\" maxlength=\"5\"  id=\"tool1\" name=\"tool1\">
+                    <label class=\"col-sm-3\" for=\"tool1$value\">Tool#2
+                        <input type=\"text\" class=\"form-control\" data-column=\"tool_num_2\" maxlength=\"5\"  id=\"tool1$value\" name=\"tool1\">
                     </label>
 
-                    <label class=\"col-sm-8\" for=\"desc\">Description
-                        <input type=\"desc1\" class=\"form-control\" id=\"desc1\" name=\"desc1\">
+                    <label class=\"col-sm-8\" for=\"desc1$value\">Description
+                        <input type=\"text\" class=\"form-control\" data-column=\"tool_description_2\" id=\"desc1$value\" name=\"desc1\">
                     </label>
 
-                    <label class=\"col-sm-12\" for=\"pronotes\"><strong>Programmers Notes: </strong>
-                        <textarea id=\"pronotes\" name=\"pronotes\" rows=\"5\" maxlength=\"3000\" class=\"form-control\" placeholder=\"...\"></textarea>
+                    <label class=\"col-sm-12\" for=\"pronotes$value\"><strong>Programmers Notes: </strong>
+                        <textarea id=\"pronotes$value\" data-column=\"programers_notes\" name=\"pronotes\" rows=\"5\" maxlength=\"3000\" class=\"form-control\" placeholder=\"...\"></textarea>
                     </label>
                     <br>
 
-                    <label class=\"col-sm-12 for=opernotes\"><strong>Operator Notes: </strong>
-                        <textarea id=\"opernotes\" name=\"opernotes\" rows=\"5\" maxlength=\"3000\" class=\"form-control\" placeholder=\"...\"></textarea>
+                    <label class=\"col-sm-12 for=\"opernotes$value\"><strong>Operator Notes: </strong>
+                        <textarea id=\"opernotes$value\" data-column=\"operators_notes\" name=\"opernotes\" rows=\"5\" maxlength=\"3000\" class=\"form-control\" placeholder=\"...\"></textarea>
                     </label>
 
-                    <label class=\"col-sm-12\" for=\"mtocomments\"><strong>MTO Comments: </strong>
-                        <textarea id=\"mtocomments\" name=\"mtocomments\" rows=\"3\" maxlength=\"2000\" class=\"form-control\" placeholder=\"...\"></textarea>
+                    <label class=\"col-sm-12\" for=\"mtocomments$value\"><strong>MTO Comments: </strong>
+                        <textarea id=\"mtocomments$value\" data-column=\"mto_comments\" name=\"mtocomments\" rows=\"3\" maxlength=\"2000\" class=\"form-control\" placeholder=\"...\"></textarea>
                     </label>
 
-                    <label for=\"rpmran\">F/R and RPM ran @100%
-                        <input type=\"checkbox\" id=\"rpmran\" name=\"rpmran\" value=\"rpmran\">
+                    <label for=\"rpmran$value\">F/R and RPM ran @100%
+                        <input type=\"checkbox\" id=\"rpmran$value\" data-column=\"fr_rpm_100\" name=\"rpmran\" value=\"rpmran\">
                     </label>
 
                     <label><strong>MTO Status: </strong>
-                        <select name=\"mtostatus\" class=\"form-control\">";
+                        <select name=\"mtostatus\" class=\"form-control\" data-column=\"tooling_mto_status\">";
 
                             foreach( $this->_f3->get("mtostat") as $stat)
                                echo "<option value=\"$stat\">$stat</option>";
@@ -501,9 +507,14 @@ class Routes
                         echo "</select>
                     </label>
 
-                    <input type=\"file\" id=\"image\" name=\"image\">
+                    <input type=\"file\" id=\"image\" name=\"image\" data-column=\"file_url\">
                     <hr> 
                 </div>
             </div>";
+    }
+
+    function RemoveSeq() {
+        $value = $_POST['value'];
+        $this->_dbh->removeToolingSequence($_POST['formID'],$value);
     }
 }
