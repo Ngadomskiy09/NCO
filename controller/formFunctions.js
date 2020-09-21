@@ -166,17 +166,31 @@ $("#removesequence").on("click", function () {
 });
 
 // save sequence information
-$("body").on("blur", ".block input", function () {
+$("body").on("blur", ".saveInfo", function () {
    let col = $(this).data("column");
+   let org = $(this).data("input");
    let formId = $("#vip").data("vip");
    let seqId = $(this).parents(':eq(2)').data("id");
-   if(typeof arr[seqId] === 'undefined' ){
-       arr[seqId] = [];
-   }
+
    if($(this).val().trim() !== ""){
-       arr[seqId][col] =[formId, $(this).val()];
+       if(typeof arr[seqId] === 'undefined' ){
+           arr[seqId] = [];
+       }
+       arr[seqId][org] =[formId, seqId, col, $(this).val()];
    }
 
-   console.log(arr);
 
+
+});
+
+
+
+$("#save").on("click",function(){
+    console.log(arr);
+
+    $.ajax({
+        type: "POST",
+        url: "/saveSeq",
+        data: {stuff : arr}
+    });
 });

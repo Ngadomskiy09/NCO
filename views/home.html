@@ -312,32 +312,32 @@
                         <h2>Sequence #{{@sequence['tooling_sequence_id']}}</h2>
 
                         <label class="col-sm-3" for="tool{{@sequence['tooling_sequence_id']}}">Tool#1
-                            <input type="text" class="form-control" data-column="tool_num_1" maxlength="5" id="tool{{@sequence['tooling_sequence_id']}}" name="tool">
+                            <input type="text" data-input="0" class="saveInfo form-control" data-column="tool_num_1" maxlength="5" id="tool{{@sequence['tooling_sequence_id']}}" value="{{@sequence['tool_num_1']}}" name="tool">
                         </label>
 
                         <label class="col-sm-8" for="desc{{@sequence['tooling_sequence_id']}}">Description
-                            <input type="text" class="form-control" data-column="tool_description_1" id="desc{{@sequence['tooling_sequence_id']}}" name="desc">
+                            <input type="text" data-input="1" class="saveInfo form-control" data-column="tool_description_1" id="desc{{@sequence['tooling_sequence_id']}}" value="{{@sequence['tool_description_1']}}" name="desc">
                         </label>
 
                         <label class="col-sm-3" for="tool1{{@sequence['tooling_sequence_id']}}">Tool#2
-                            <input type="text" class="form-control"data-column="tool_num_2" maxlength="5"  id="tool1{{@sequence['tooling_sequence_id']}}" name="tool1">
+                            <input type="text" data-input="2" class="saveInfo form-control"data-column="tool_num_2" maxlength="5"  id="tool1{{@sequence['tooling_sequence_id']}}" value="{{@sequence['tool_num_2']}}" name="tool1">
                         </label>
 
                         <label class="col-sm-8" for="desc1{{@sequence['tooling_sequence_id']}}">Description
-                            <input type="text" class="form-control" data-column="tool_description_2" id="desc1{{@sequence['tooling_sequence_id']}}" name="desc1">
+                            <input type="text" data-input="3" class="saveInfo form-control" data-column="tool_description_2" id="desc1{{@sequence['tooling_sequence_id']}}" value="{{@sequence['tool_description_2']}}" name="desc1">
                         </label>
 
                         <label class="col-sm-12" for="pronotes{{@sequence['tooling_sequence_id']}}"><strong>Programmers Notes: </strong>
-                            <textarea id="pronotes{{@sequence['tooling_sequence_id']}}" name="pronotes" data-column="programmers_notes" rows="5" maxlength="3000" class="form-control" placeholder="..."></textarea>
+                            <textarea  data-input="4" id="pronotes{{@sequence['tooling_sequence_id']}}" name="pronotes" data-column="programmers_notes" rows="5" maxlength="3000" class="saveInfo form-control" placeholder="...">{{@sequence['programmers_notes']}}</textarea>
                         </label>
                         <br>
 
                         <label class="col-sm-12" for="opernotes{{@sequence['tooling_sequence_id']}}"><strong>Operator Notes: </strong>
-                            <textarea id="opernotes{{@sequence['tooling_sequence_id']}}" name="opernotes" data-column="operators_notes" rows="5" maxlength="3000" class="form-control" placeholder="..."></textarea>
+                            <textarea  data-input="5" id="opernotes{{@sequence['tooling_sequence_id']}}" name="opernotes" data-column="operators_notes" rows="5" maxlength="3000" class="saveInfo form-control" placeholder="...">{{@sequence['operators_notes']}}</textarea>
                         </label>
 
                         <label class="col-sm-12" for="mtocomments{{@sequence['tooling_sequence_id']}}"><strong>MTO Comments: </strong>
-                            <textarea id="mtocomments{{@sequence['tooling_sequence_id']}}" name="mtocomments" data-column="mto_comments" rows="3" maxlength="2000" class="form-control" placeholder="..."></textarea>
+                            <textarea  data-input="6" id="mtocomments{{@sequence['tooling_sequence_id']}}" name="mtocomments" data-column="mto_comments" rows="3" maxlength="2000" class="saveInfo form-control" placeholder="...">{{@sequence['mto_comments']}}</textarea>
                         </label>
 
                         <label for="rpmran{{@sequence['tooling_sequence_id']}}">F/R and RPM ran @100%
