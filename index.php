@@ -75,5 +75,9 @@ $f3->route('POST /deleteSeq', function () {
     $GLOBALS['routes']->RemoveSeq();
 });
 
+$f3->route('POST /saveSeq', function () {
+    $GLOBALS['routes']->saveSeq();
+});
+
 //run fat free
 $f3->run();
