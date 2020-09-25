@@ -495,11 +495,11 @@ class Routes
                     </label>
 
                     <label for=\"rpmran$value\">F/R and RPM ran @100%
-                        <input type=\"checkbox\" id=\"rpmran$value\" data-column=\"fr_rpm_100\" name=\"rpmran\" value=\"rpmran\">
+                        <input class=\"saveInfo\" data-input=\"7\" type=\"checkbox\" id=\"rpmran$value\" data-column=\"fr_rpm_100\" name=\"rpmran\" value=\"rpmran\">
                     </label>
 
                     <label><strong>MTO Status: </strong>
-                        <select name=\"mtostatus\" class=\"form-control\" data-column=\"tooling_mto_status\">";
+                        <select  class=\"form-control saveInfo\" data-column=\"tooling_mto_status\" data-input=\"8\">";
 
                             foreach( $this->_f3->get("mtostat") as $stat)
                                echo "<option value=\"$stat\">$stat</option>";
@@ -524,7 +524,7 @@ class Routes
         var_dump($_POST);
         echo "</pre>";
 
-        foreach ($_POST["stuff"] as $column) {
+        foreach ($_POST["toolSeqInfo"] as $column) {
             if(!empty($column)){
                 foreach ($column as $seqInfo) {
                     $this->_dbh->saveSequence($seqInfo[0], $seqInfo[1], $seqInfo[2], $seqInfo[3]);

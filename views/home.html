@@ -341,13 +341,15 @@
                         </label>
 
                         <label for="rpmran{{@sequence['tooling_sequence_id']}}">F/R and RPM ran @100%
-                            <input type="checkbox" id="rpmran{{@sequence['tooling_sequence_id']}}" data-column="fr_rpm_100" name="rpmran" value="rpmran">
+                            <input type="checkbox" data-input="7" id="rpmran{{@sequence['tooling_sequence_id']}}" data-column="fr_rpm_100" name="rpmran" value="checkbox" class="saveInfo"
+                            <check if="{{@sequence['fr_rpm_100'] == 1}}">checked</check>>
                         </label>
 
                         <label><strong>MTO Status: </strong>
-                            <select class="form-control" data-column="tooling_mto_status">
+                            <select class="form-control saveInfo" data-column="tooling_mto_status" data-input="8">
                                 <repeat group="{{@mtostat}}" value="{{@mto}}">
-                                    <option value="{{@mto}}"> {{@mto}} </option>
+                                    <option value="{{@mto}}"
+                                    <check if="{{@sequence['tooling_mto_status'] === @mto}}">selected</check>> {{@mto}} </option>
                                 </repeat>
                             </select>
                         </label>
