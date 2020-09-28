@@ -11,3 +11,17 @@ div {
 #program {
     font-size: 50px;
 }
+
+.disappear {
+    display: none;
+}
+
+img {
+    height: 700px;
+    width: auto;
+}
+
+#program {
+    height: 8rem;
+    font-weight:bold;
+}

@@ -79,5 +79,13 @@ $f3->route('POST /saveSeq', function () {
     $GLOBALS['routes']->saveSeq();
 });
 
+$f3->route('POST /saveSeqPic', function() {
+    $GLOBALS['routes']->saveSeqPic();
+});
+
+$f3->route('POST /removeData', function() {
+    $GLOBALS['routes']->removeData();
+});
+
 //run fat free
 $f3->run();

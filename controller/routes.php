@@ -518,7 +518,8 @@ class Routes
         $this->_dbh->removeToolingSequence($_POST['formID'],$value);
     }
 
-    function saveSeq(){
+    function saveSeq()
+    {
         // index 0: == form id, 1: == the sequence id, 2: == the column where the value goes, 3: == value entered
         echo "<pre>";
         var_dump($_POST);
@@ -531,5 +532,21 @@ class Routes
                 }
             }
         }
+    }
+
+    function saveSeqPic()
+    {
+        $imageName = substr($_FILES['image']['name'], 0, strpos($_FILES['image']['name'], ".")) . ('-').
+            $_POST['seqId'] . ('-') . $_POST['formId'].substr($_FILES['image']['name'], strpos($_FILES['image']['name'],
+                "."));
+        $location = $_SERVER['DOCUMENT_ROOT'] . "/images/" . $imageName;
+        move_uploaded_file($_FILES['image']['tmp_name'], $location);
+        $this->_dbh->saveSequence($_POST['formId'], $_POST['seqId'], 'file_url', $imageName);
+        echo $imageName;
+    }
+
+    function removeData()
+    {
+        $this->_dbh->deleteFullForm($_POST['dataRemoval']);
     }
 }

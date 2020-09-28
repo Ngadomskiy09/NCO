@@ -192,11 +192,7 @@ $("body").on("blur", ".saveInfo", function () {
        arr[seqId][org] =[formId, seqId, col, toolSeqValue];
    }
 
-
-
 });
-
-
 
 $("#save").on("click",function(){
     console.log(arr);
@@ -206,4 +202,37 @@ $("#save").on("click",function(){
         url: "/saveSeq",
         data: {toolSeqInfo : arr}
     });
+});
+
+$("body").on("change","#image", function() {
+    let $seqPicData = new FormData();
+    let $images = $(this)[0].files[0];
+    let $seqId = $(this).data("seqid");
+    let $formId = $(this).data("formid");
+    let $imageTag = $(this).parent().find('img');
+    console.log($imageTag);
+
+
+    $seqPicData.append('image', $images);
+    $seqPicData.append("seqId", $seqId);
+    $seqPicData.append("formId", $formId);
+
+    $.ajax({
+        url: '../saveSeqPic',
+        type: 'post',
+        data: $seqPicData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            $imageTag.removeClass('disappear');
+            $imageTag.attr('src','../images/'+response)
+        }
+    })
+
+});
+
+$("body").on("change", "#delete", function() {
+    $.post("../removeData", {
+        dataRemoval:$(this).data("formID")
+    })
 });

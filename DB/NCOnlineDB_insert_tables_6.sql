@@ -1,4 +1,4 @@
-CREATE TABLE Test
+CREATE TABLE nco.Test
 (
   formID INT NOT NULL AUTO_INCREMENT,
   Programmer VARCHAR(255) NULL,
@@ -38,7 +38,7 @@ CREATE TABLE nco.User (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE Quality_alert (
+CREATE TABLE nco.Quality_alert (
   quality_alert_num INT NOT NULL AUTO_INCREMENT,
   formID INT NOT NULL,
   operator_signature VARCHAR(64) NULL,
@@ -53,11 +53,11 @@ CREATE TABLE Quality_alert (
   CONSTRAINT fk_quality_alert_formID1
     FOREIGN KEY (formID)
     REFERENCES Test (formID)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION
 );
 
-CREATE TABLE First_part_mto_run (
+CREATE TABLE nco.First_part_mto_run (
   first_part_mto_run_id INT NOT NULL AUTO_INCREMENT,
   formID INT NOT NULL,
   operators_name VARCHAR(64) NULL,
@@ -71,11 +71,11 @@ CREATE TABLE First_part_mto_run (
   CONSTRAINT fk_first_mto_run_copy1_formID1
     FOREIGN KEY (formID)
     REFERENCES Test (formID)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION
 );
 
-CREATE TABLE Cutter_list (
+CREATE TABLE nco.Cutter_list (
   cutter_list_id INT NOT NULL AUTO_INCREMENT,
   formID INT NOT NULL,
   cutter_list_number INT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE Cutter_list (
   CONSTRAINT fk_cutter_list_formID1
     FOREIGN KEY (formID)
     REFERENCES Test (formID)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION
 );
 
@@ -108,7 +108,7 @@ CREATE TABLE nco.Tooling_sequence (
   CONSTRAINT fk_tooling_sequence_copy1_formID1
     FOREIGN KEY (formID)
     REFERENCES Test (formID)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
     PRIMARY KEY (tooling_sequence_id, formID)
 );

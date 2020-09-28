@@ -306,4 +306,14 @@ class Database
 
         // nothing to return
     }
+
+    function deleteFullForm($formId)
+    {
+        $sql = "DELETE FROM nco.Test WHERE formID = ?";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute([$formId]);
+
+    }
 }
