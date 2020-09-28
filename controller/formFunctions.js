@@ -171,19 +171,28 @@ $("body").on("blur", ".saveInfo", function () {
    let org = $(this).data("input");
    let formId = $("#vip").data("vip");
    let seqId = $(this).parents(':eq(2)').data("id");
+   let toolSeqValue = $(this).val();
 
    if($(this).val().trim() !== ""){
        if(typeof arr[seqId] === 'undefined' ){
            arr[seqId] = [];
        }
-       arr[seqId][org] =[formId, seqId, col, $(this).val()];
+
+       if($(this).val() === "checkbox"){
+           if($(this).prop("checked") === true){
+               toolSeqValue = 1;
+
+           }
+           else{
+               toolSeqValue = 0;
+
+           }
+       }
+
+       arr[seqId][org] =[formId, seqId, col, toolSeqValue];
    }
 
-
-
 });
-
-
 
 $("#save").on("click",function(){
     console.log(arr);
@@ -191,6 +200,39 @@ $("#save").on("click",function(){
     $.ajax({
         type: "POST",
         url: "/saveSeq",
-        data: {stuff : arr}
+        data: {toolSeqInfo : arr}
     });
+});
+
+$("body").on("change","#image", function() {
+    let $seqPicData = new FormData();
+    let $images = $(this)[0].files[0];
+    let $seqId = $(this).data("seqid");
+    let $formId = $(this).data("formid");
+    let $imageTag = $(this).parent().find('img');
+    console.log($imageTag);
+
+
+    $seqPicData.append('image', $images);
+    $seqPicData.append("seqId", $seqId);
+    $seqPicData.append("formId", $formId);
+
+    $.ajax({
+        url: '../saveSeqPic',
+        type: 'post',
+        data: $seqPicData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            $imageTag.removeClass('disappear');
+            $imageTag.attr('src','../images/'+response)
+        }
+    })
+
+});
+
+$("body").on("change", "#delete", function() {
+    $.post("../removeData", {
+        dataRemoval:$(this).data("formID")
+    })
 });

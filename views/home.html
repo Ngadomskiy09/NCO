@@ -7,8 +7,8 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="../styles/styles.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
@@ -341,18 +341,25 @@
                         </label>
 
                         <label for="rpmran{{@sequence['tooling_sequence_id']}}">F/R and RPM ran @100%
-                            <input type="checkbox" id="rpmran{{@sequence['tooling_sequence_id']}}" data-column="fr_rpm_100" name="rpmran" value="rpmran">
+                            <input type="checkbox" data-input="7" id="rpmran{{@sequence['tooling_sequence_id']}}" data-column="fr_rpm_100" name="rpmran" value="checkbox" class="saveInfo"
+                            <check if="{{@sequence['fr_rpm_100'] == 1}}">checked</check>>
                         </label>
 
                         <label><strong>MTO Status: </strong>
-                            <select class="form-control" data-column="tooling_mto_status">
+                            <select class="form-control saveInfo" data-column="tooling_mto_status" data-input="8">
                                 <repeat group="{{@mtostat}}" value="{{@mto}}">
-                                    <option value="{{@mto}}"> {{@mto}} </option>
+                                    <option value="{{@mto}}"
+                                    <check if="{{@sequence['tooling_mto_status'] === @mto}}">selected</check>> {{@mto}} </option>
                                 </repeat>
                             </select>
                         </label>
 
-                        <input type="file" id="image" name="image" data-column="file_url">
+                        <input type="file" id="image" name="image" data-column="file_url" data-seqid = "{{@sequence['tooling_sequence_id']}}" data-formid="{{@SESSION.formID}}">
+                        <check if = '{{!isset(@sequence["file_url"])}}'>
+                            <true><img src="" alt="random programming image" class="disappear"></true>
+                            <false><img src="../images/{{@sequence['file_url']}}" id='seqImage{{@sequence["tooling_sequence_id"]}}' alt="random programming image">
+                            <i class="glyphicon glyphicon-remove"></i></false>
+                        </check>
                         <hr>
                     </div>
                 </div>

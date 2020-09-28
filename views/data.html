@@ -53,6 +53,7 @@
                     <th>Layout Notes</th>
                     <th>Shop Signature</th>
                     <th>Shop Date</th>
+                    <th>Remove Data</th>
                 </tr>
             </thead>
             <tbody>
@@ -86,6 +87,8 @@
                         <td>{{ @info['layout_notes'] }}</td>
                         <td>{{ @info['Shop_signature'] }}</td>
                         <td>{{ @info['Shop_Date'] }}</td>
+                        <td><button id="delete" data-formId="{{ @info['formID'] }}">Delete</button></td>
+
                     </tr>
                 </repeat>
             </tbody>
