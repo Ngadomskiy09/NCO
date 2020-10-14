@@ -121,7 +121,7 @@ class Database
     function setToolingSequence($formID, $toolingSeqId)
     {
         $sql = 'INSERT INTO nco.Tooling_sequence
-                VALUES(?, ?, default, default, default, default, default, default, default, default, default, default)';
+                VALUES(?, ?, default, default, default, default, default, default, default, default, default, default, default)';
 
         $statement = $this->_dbh->prepare($sql);
 
@@ -157,6 +157,16 @@ class Database
 
         return $statement->execute([$value, $formID, $seqID]);
 
+    }
+
+    function getMtoreport($formID) {
+        $sql = "SELECT seq_num, mto_comments, tooling_mto_status FROM nco.Tooling_sequence WHERE formID = ?";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute([$formID]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
 

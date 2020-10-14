@@ -35,43 +35,28 @@ jQuery(document).delegate('a.delete-record', 'click', function (e) {
 
 
 $('.opData').on('click',function(){
-    $("#opInfo").html('');
-    id = $(this).data('id');
 
-    $.post('/getops',{
-        id: id
-    }).done(function(data){
-        console.log(data);
-        $('#opInfo').append(data);
-        $('#opData').DataTable();
-        $('#opData').removeClass("hidden");
-    });
-});
+    if($(".opData").html() ==="show info"){
+        $("#opInfo").html('');
+        id = $(this).data('id');
 
-//adds an additional operator field when the plus button is pushed
-/*$("#plus").on("click", function () {
-    let $main = $("#ops");
-    if (parseInt($main.children().last().attr("data-count")) < 5) {
-        let $dupes = $main.children().last().clone();
-        let count = parseInt($dupes.attr("data-count")) + 1;
-        $dupes.attr("data-count", count);
-        $dupes.find("#operator").attr("name", "operator"+ count);
-        $dupes.find("#date2").attr("name", "date2"+ count);
-        $dupes.find("#po").attr("name", "po"+ count);
-        $dupes.find("#machine").attr("name", "machine"+ count);
-        $dupes.find("#shift").attr("name", "shift"+ count);
-        $dupes.find("#seq").attr("name", "seq"+ count);
-        $main.last().append($dupes);
+        $.post('/getops',{
+            id: id
+        }).done(function(data){
+            console.log(data);
+            $('#opInfo').append(data);
+            $('#opData').DataTable();
+            $('#opData').removeClass("hidden");
+            $('#opData_wrapper').removeClass("hidden");
+            $(".opData").html("hide info");
+        });
+    }
+    else{
+        $("#opInfo").html('');
+        $('#opData_wrapper').addClass("hidden");
+        $(".opData").html("show info");
     }
 });
-
-// removes an operator field the minus button is pushed
-$("#minus").on("click", function () {
-    let $main = $("#ops");
-    if (parseInt($main.children().last().attr("data-count")) !== 1) {
-        $main.children().last().remove();
-    }
-});*/
 
 // the next four function copy inputs to other fields
 $(function () {
@@ -170,7 +155,7 @@ $("body").on("blur", ".saveInfo", function () {
    let col = $(this).data("column");
    let org = $(this).data("input");
    let formId = $("#vip").data("vip");
-   let seqId = $(this).parents(':eq(2)').data("id");
+   let seqId = $(this).parents(':eq(3)').data("id");
    let toolSeqValue = $(this).val();
 
    if($(this).val().trim() !== ""){

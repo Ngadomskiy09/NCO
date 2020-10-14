@@ -25,3 +25,33 @@ img {
     height: 8rem;
     font-weight:bold;
 }
+
+.shorten{
+    width: 20%;
+}
+
+.mtoProgram {
+    font-size: 50px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.mtoProgramDate {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.mtogroup {
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+textarea {
+    overflow: auto;
+}
+
+#header {
+    text-align: center;
+    padding-bottom: 10px;
+    text-decoration: underline;
+}

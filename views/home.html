@@ -289,7 +289,7 @@
         </label>
 
         <label class="col-sm-auto" for="mtoreport">
-            <button id="mtoreport" type="button" class="form-control btn-secondary" name="mtoreport" value="mtoreport">MTO report</button>
+            <a href="/mtoreport/{{@SESSION.formID}}"><button id="mtoreport" type="button" class="form-control btn-secondary" name="mtoreport" value="mtoreport">MTO report</button></a>
         </label>
 
         <label class="col-sm-auto" for="email">
@@ -305,11 +305,16 @@
         <h4 class="text-lg-center"><strong>Sequence Table</strong></h4>
 
         <!--Hidden sequence block that appears only when programmer wants to add more sequences-->
-        <div class="all-sequences form-group border" data-formid="{{@SESSION.formID}}">
+        <div class="all-sequences form-group border p-3" data-formid="{{@SESSION.formID}}">
             <repeat group="{{@sequences}}" value="{{@sequence}}">
                 <div class="block" data-id = "{{@sequence['tooling_sequence_id']}}">
                     <div>
                         <h2>Sequence #{{@sequence['tooling_sequence_id']}}</h2>
+
+                        <div class="row">
+                            <label class="col-sm-12 " for="seq{{@sequence['tooling_sequence_id']}}">Seq#
+                                <input type="text" data-input="9" class="saveInfo form-control shorten" data-column="seq_num" maxlength="5" id="seq{{@sequence['tooling_sequence_id']}}" value="{{@sequence['seq_num']}}" name="seqNum">
+                            </label>
 
                         <label class="col-sm-3" for="tool{{@sequence['tooling_sequence_id']}}">Tool#1
                             <input type="text" data-input="0" class="saveInfo form-control" data-column="tool_num_1" maxlength="5" id="tool{{@sequence['tooling_sequence_id']}}" value="{{@sequence['tool_num_1']}}" name="tool">
@@ -339,7 +344,9 @@
                         <label class="col-sm-12" for="mtocomments{{@sequence['tooling_sequence_id']}}"><strong>MTO Comments: </strong>
                             <textarea  data-input="6" id="mtocomments{{@sequence['tooling_sequence_id']}}" name="mtocomments" data-column="mto_comments" rows="3" maxlength="2000" class="saveInfo form-control" placeholder="...">{{@sequence['mto_comments']}}</textarea>
                         </label>
+                        </div>
 
+                        <div>
                         <label for="rpmran{{@sequence['tooling_sequence_id']}}">F/R and RPM ran @100%
                             <input type="checkbox" data-input="7" id="rpmran{{@sequence['tooling_sequence_id']}}" data-column="fr_rpm_100" name="rpmran" value="checkbox" class="saveInfo"
                             <check if="{{@sequence['fr_rpm_100'] == 1}}">checked</check>>
@@ -353,6 +360,7 @@
                                 </repeat>
                             </select>
                         </label>
+                        </div>
 
                         <input type="file" id="image" name="image" data-column="file_url" data-seqid = "{{@sequence['tooling_sequence_id']}}" data-formid="{{@SESSION.formID}}">
                         <check if = '{{!isset(@sequence["file_url"])}}'>
