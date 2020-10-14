@@ -427,6 +427,15 @@ class Routes
         echo $views->render("views/summary.html");
     }
 
+    function mtoreport($id)
+    {
+        $value = $this->_dbh->getMtoreport($id);
+        $this->_f3->set("seqnotes", $value);
+        var_dump($value);
+        $views = new Template();
+        echo $views->render("views/mtoreport.html");
+    }
+
     function data()
     {
         // check if user is not logged in
@@ -463,6 +472,13 @@ class Routes
         echo "<div class=\"block\" data-id = \"$value\">
                 <div>
                 <h2>Sequence #$value</h2>
+                
+           
+                    <div class=\"row\">
+                            <label class=\"col-sm-3\" for=\"seq$value\">Seq#
+                                <input type=\"text\" data-input=\"9\" class=\"saveInfo form-control shorten\" data-column=\"seq_num\" maxlength=\"5\" id=\"seq$value\" name=\"seqNum\">
+                            </label>
+                  
 
                     <label class=\"col-sm-3\" for=\"tool$value\">Tool#1
                         <input type=\"text\" data-input=\"0\" class=\"saveInfo form-control\" data-column=\"tool_num_1\" maxlength=\"5\" id=\"tool$value\" name=\"tool\">
@@ -493,6 +509,7 @@ class Routes
                     <label class=\"col-sm-12\" for=\"mtocomments$value\"><strong>MTO Comments: </strong>
                         <textarea id=\"mtocomments$value\" data-input=\"6\" data-column=\"mto_comments\" name=\"mtocomments\" rows=\"3\" maxlength=\"2000\" class=\"saveInfo form-control\" placeholder=\"...\"></textarea>
                     </label>
+                     </div>
 
                     <label for=\"rpmran$value\">F/R and RPM ran @100%
                         <input class=\"saveInfo\" data-input=\"7\" type=\"checkbox\" id=\"rpmran$value\" data-column=\"fr_rpm_100\" name=\"rpmran\" value=\"rpmran\">
@@ -506,6 +523,7 @@ class Routes
 
                         echo "</select>
                     </label>
+                   
 
                     <input type=\"file\" id=\"image\" name=\"image\" data-column=\"file_url\">
                     <hr> 

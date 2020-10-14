@@ -104,6 +104,7 @@ CREATE TABLE nco.Tooling_sequence (
   fr_rpm_100 TINYINT NULL,
   tooling_mto_status VARCHAR(45) NULL,
   file_url VARCHAR(255) NULL,
+  seq_num INT(7),
   INDEX fk_tooling_sequence_copy1_formID1_idx (formID ASC),
   CONSTRAINT fk_tooling_sequence_copy1_formID1
     FOREIGN KEY (formID)
