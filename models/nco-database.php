@@ -326,4 +326,8 @@ class Database
         $statement->execute([$formId]);
 
     }
+
+    function currentUser(){
+
+    }
 }
