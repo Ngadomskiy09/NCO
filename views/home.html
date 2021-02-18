@@ -7,10 +7,16 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 <link rel="stylesheet" href="../styles/styles.css">
+    <link href="https://cdn.quilljs.com/1.1.6/quill.snow.css" rel="stylesheet">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src="https://cdn.quilljs.com/1.1.6/quill.js"></script>
+
 
 <title>Home - NC Document Online</title>
 </head>
@@ -189,7 +195,9 @@
 
         <!--Textarea for user to place notes-->
         <label class="col-sm-12" for="Pnotes" ><strong>Programmers Notes: </strong>
-            <textarea <check if="@SESSION.permission != 'Pro'">readonly</check> id="Pnotes" name="Pnotes" rows="10" maxlength="50000" class="form-control" placeholder="...">{{@pronotes}}</textarea>
+            <div id="editor">
+                <textarea <check if="@SESSION.permission != 'Pro'">readonly</check> id="Pnotes" name="Pnotes" rows="10" maxlength="50000" class="form-control" placeholder="...">{{@pronotes}}</textarea>
+            </div>
         </label>
         <h3 class="text-lg-center"><strong>First Part MTO Run</strong></h3>
 
@@ -260,7 +268,9 @@
 
             <!--Textarea for user to place notes-->
             <label class="col-sm-12" for="Onotes" ><strong>Operator Notes: </strong>
-                <textarea <check if="@SESSION.permission != 'Pro'">readonly</check> id="Onotes" name="Onotes" rows="10" maxlength="50000" class="form-control ope" placeholder="...">{{@opernotes}}</textarea>
+                <div id="editor1">
+                    <textarea <check if="@SESSION.permission != 'Pro'">readonly</check> id="Onotes" name="Onotes" rows="10" maxlength="50000" class="form-control ope" placeholder="...">{{@opernotes}}</textarea>
+                </div>
             </label>
 
             <h3 class="text-lg-center"><strong>Layout First Part Check Report</strong></h3>
@@ -291,7 +301,9 @@
 
             <!--Textarea for user to place notes-->
             <label class="col-sm-12" for="Lnotes" ><strong>LayOut Notes: </strong>
-                <textarea <check if="@SESSION.permission != 'Pro'">readonly</check> id="Lnotes" name="Lnotes" rows="10" maxlength="50000" class="form-control lay" placeholder="...">{{@Lnotes}}</textarea>
+                <div id="editor2">
+                    <textarea <check if="@SESSION.permission != 'Pro'">readonly</check> id="Lnotes" name="Lnotes" rows="10" maxlength="50000" class="form-control lay" placeholder="...">{{@Lnotes}}</textarea>
+                </div>
             </label>
         </div>
 
@@ -361,6 +373,13 @@
                             <input <check if="@SESSION.permission != 'Pro'">readonly</check> type="text" data-input="3" class="saveInfo form-control" data-column="tool_description_2" id="desc1{{@sequence['tooling_sequence_id']}}" value="{{@sequence['tool_description_2']}}" name="desc1">
                         </label>
 
+                            <input <check if="@SESSION.permission != 'Pro'">disabled</check> type="file" id="image" name="image" data-column="file_url" data-seqid = "{{@sequence['tooling_sequence_id']}}" data-formid="{{@SESSION.formID}}">
+                            <check if = '{{!isset(@sequence["file_url"])}}'>
+                                <true><img src="" alt="random programming image" class="disappear"></true>
+                                <false><img src="../images/{{@sequence['file_url']}}" id='seqImage{{@sequence["tooling_sequence_id"]}}' alt="random programming image">
+                                    <i class="glyphicon glyphicon-remove"></i></false>
+                            </check>
+
                         <label class="col-sm-12" for="pronotes{{@sequence['tooling_sequence_id']}}"><strong>Programmers Notes: </strong>
                             <textarea <check if="@SESSION.permission != 'Pro'">readonly</check>  data-input="4" id="pronotes{{@sequence['tooling_sequence_id']}}" name="pronotes" data-column="programmers_notes" rows="5" maxlength="3000" class="saveInfo form-control" placeholder="...">{{@sequence['programmers_notes']}}</textarea>
                         </label>
@@ -393,12 +412,6 @@
                         </label>
                         </div>
 
-                        <input <check if="@SESSION.permission != 'Pro'">disabled</check> type="file" id="image" name="image" data-column="file_url" data-seqid = "{{@sequence['tooling_sequence_id']}}" data-formid="{{@SESSION.formID}}">
-                        <check if = '{{!isset(@sequence["file_url"])}}'>
-                            <true><img src="" alt="random programming image" class="disappear"></true>
-                            <false><img src="../images/{{@sequence['file_url']}}" id='seqImage{{@sequence["tooling_sequence_id"]}}' alt="random programming image">
-                            <i class="glyphicon glyphicon-remove"></i></false>
-                        </check>
                         <hr>
                     </div>
                 </div>

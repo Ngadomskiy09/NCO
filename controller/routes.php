@@ -431,7 +431,7 @@ class Routes
     {
         $value = $this->_dbh->getMtoreport($id);
         $this->_f3->set("seqnotes", $value);
-        var_dump($value);
+        //var_dump($value);
         $views = new Template();
         echo $views->render("views/mtoreport.html");
     }
@@ -540,7 +540,7 @@ class Routes
     {
         // index 0: == form id, 1: == the sequence id, 2: == the column where the value goes, 3: == value entered
         echo "<pre>";
-        var_dump($_POST);
+        //var_dump($_POST);
         echo "</pre>";
 
         foreach ($_POST["toolSeqInfo"] as $column) {
@@ -566,5 +566,11 @@ class Routes
     function removeData()
     {
         $this->_dbh->deleteFullForm($_POST['dataRemoval']);
+    }
+
+    function logout()
+    {
+        $views = new Template();
+        echo $views->render("loginpage.html");
     }
 }

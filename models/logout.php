@@ -5,4 +5,4 @@ session_destroy();
 $_SESSION = array();
 
 //header("location:/355/NC-Document-Online");
-header("location:/NC-Document-Online");
+header("location:/");

@@ -221,3 +221,21 @@ $("body").on("change", "#delete", function() {
         dataRemoval:$(this).data("formID")
     })
 });
+
+$( document ).ready(function() {
+    var quill = new Quill('#editor', {
+        theme: 'snow'
+    });
+});
+
+$( document ).ready(function() {
+    var quill = new Quill('#editor1', {
+        theme: 'snow'
+    });
+});
+
+$( document ).ready(function() {
+    var quill = new Quill('#editor2', {
+        theme: 'snow'
+    });
+});

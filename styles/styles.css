@@ -55,3 +55,11 @@ textarea {
     padding-bottom: 10px;
     text-decoration: underline;
 }
+
+#editor, #editor1, #editor2 {
+    height: 300px;
+}
+
+#make {
+    height: 100px;
+}
